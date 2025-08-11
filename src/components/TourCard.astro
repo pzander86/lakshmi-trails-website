@@ -1,0 +1,363 @@
+---
+const { title, description, dates, price, itineraryUrl, reserveUrl, slug, tourPageUrl } = Astro.props;
+---
+
+<article class="tour-card" role="article">
+  <div class="tour-image" role="img" aria-label={`Tour image for ${title}`}>
+    <div class="image-placeholder">
+      <span>Sacred Journey</span>
+    </div>
+    <div class="tour-price-badge">{price}</div>
+  </div>
+  
+  <div class="tour-content">
+    <h3 class="tour-title">{title}</h3>
+    <p class="tour-description">{description}</p>
+    
+    <div class="tour-details">
+      <div class="tour-dates">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span>{dates}</span>
+      </div>
+    </div>
+    
+    <div class="tour-actions">
+      <a href={itineraryUrl} class="btn-secondary" download aria-label={`Download itinerary for ${title}`}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7,10 12,15 17,10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span>Itinerary</span>
+      </a>
+      <a href={tourPageUrl || `/tours/${slug}/`} class="btn-explore" aria-label={`Explore ${title} journey details and itinerary`}>
+        <span>Explore Journey</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12,5 19,12 12,19"></polyline>
+        </svg>
+      </a>
+      <a href={reserveUrl} class="btn-primary" aria-label={`Reserve your spot for ${title}`}>
+        <span>Reserve</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 6v6l4 2"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .tour-card {
+    background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(51, 51, 51, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+    transform: translateY(30px);
+    position: relative;
+  }
+
+  .tour-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(51, 51, 51, 0.15);
+    border-color: var(--color-gold);
+  }
+
+  .tour-card.intersecting {
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .tour-image {
+    height: 240px;
+    background: linear-gradient(135deg, var(--color-stone) 0%, #444 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .image-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    font-size: 1.1rem;
+    font-family: var(--font-headline);
+    font-weight: 400;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .tour-price-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    font-family: var(--font-body);
+  }
+
+  .tour-content {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tour-title {
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    color: var(--color-dark-gold);
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .tour-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-stone);
+    font-weight: 400;
+    flex-grow: 1;
+    margin: 0;
+  }
+
+  .tour-details {
+    margin: 0.5rem 0;
+  }
+
+  .tour-dates {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-stone);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .tour-dates svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .tour-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-explore {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.7rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-family: var(--font-body);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-white) 0%, rgba(249, 249, 249, 0.9) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-primary:hover::before,
+  .btn-primary:focus::before {
+    opacity: 1;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+    outline: none;
+  }
+
+  .btn-primary span,
+  .btn-primary svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-explore {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--color-dark-gold);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+  }
+
+  .btn-explore::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-explore:hover::before,
+  .btn-explore:focus::before {
+    opacity: 1;
+  }
+
+  .btn-explore:hover,
+  .btn-explore:focus {
+    color: #000;
+    transform: translateY(-2px);
+    outline: none;
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+  }
+
+  .btn-explore span,
+  .btn-explore svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-secondary {
+    background: rgba(249, 249, 249, 0.8);
+    color: var(--color-stone);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+  }
+
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    background: var(--color-mist);
+    border-color: var(--color-gold);
+    transform: translateY(-1px);
+    outline: none;
+    color: var(--color-dark-gold);
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .tour-card {
+      animation: none;
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    
+    .tour-card:hover {
+      transform: none;
+    }
+    
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-secondary:hover,
+    .btn-secondary:focus,
+    .btn-explore:hover,
+    .btn-explore:focus {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .tour-image {
+      height: 200px;
+    }
+
+    .tour-content {
+      padding: 1.5rem;
+    }
+
+    .tour-title {
+      font-size: 1.4rem;
+    }
+
+    .tour-description {
+      font-size: 0.95rem;
+    }
+
+    .tour-actions {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-explore {
+      justify-content: center;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tour-content {
+      padding: 1.25rem;
+    }
+    
+    .tour-price-badge {
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.tour-card');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            // Stagger animation for multiple cards
+            setTimeout(() => {
+              entry.target.classList.add('intersecting');
+            }, index * 150);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    cards.forEach(card => observer.observe(card));
+  });
+</script>

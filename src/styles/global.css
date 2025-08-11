@@ -1,0 +1,56 @@
+/* CSS Reset for consistency across browsers */
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom Properties (consolidated from brand.css) */
+:root {
+  --color-white: #F9F9F9;
+  --color-gold: #D4AF37;
+  --color-dark-gold: #B8941F;
+  --color-coral: #D65A3A; /* Darkened for contrast (was #E67E5B) */
+  --color-stone: #333333;
+  --color-mist: #E8E4E0;
+  --font-headline: 'Playfair Display', serif;
+  --font-body: 'Lato', sans-serif;
+}
+
+/* Base Styles */
+body {
+  font-family: var(--font-body);
+  color: var(--color-stone);
+  line-height: 1.5;
+  background: var(--color-white);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-headline);
+  color: var(--color-gold);
+}
+
+a {
+  color: var(--color-coral);
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+a:hover, a:focus {
+  color: var(--color-gold);
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Ensure focus outline is visible for accessibility */
+a:focus {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}

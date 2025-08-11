@@ -1,0 +1,50 @@
+/* Coral CTA Button (retained in case used elsewhere) */
+.cta-button-coral {
+  background: var(--color-coral);
+  color: var(--color-white);
+  border: none;
+  border-radius: 8px; /* Aligned with hero's cta-button */
+  padding: 0.9em 2.2em;
+  font-size: 1.15em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(230, 126, 91, 0.08);
+  margin: 0.5em 0;
+  display: inline-block;
+  font-family: var(--font-body);
+}
+
+.cta-button-coral:hover,
+.cta-button-coral:focus {
+  background: var(--color-gold);
+  color: var(--color-stone);
+  box-shadow: 0 6px 18px rgba(212, 162, 78, 0.18);
+  transform: translateY(-2px) scale(1.04);
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* Fade-in Animation (retained in case used elsewhere) */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section Styles (retained in case used elsewhere; remove if unused) */
+.section-alt {
+  background: var(--color-mist);
+}
+
+.section-main {
+  background: var(--color-white);
+}

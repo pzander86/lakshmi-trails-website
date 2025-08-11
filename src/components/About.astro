@@ -1,0 +1,252 @@
+---
+import { Image } from 'astro:assets';
+import "../styles/global.css";
+---
+
+<section id="about" role="region" aria-labelledby="about-heading">
+  <Image
+    src="/assets/images/philosophy-bg.webp"
+    alt=""
+    width={1600}
+    height={900}
+    loading="lazy"
+    format="webp"
+    class="background-image"
+    role="presentation"
+  />
+  <div class="philosophy-overlay"></div>
+  <div class="philosophy-content">
+    <h2 id="about-heading">More Than a Trip — A Sacred Passage</h2>
+    <div class="decorative-accent" aria-hidden="true"></div>
+    <p class="philosophy-intro">
+      In a world of rushed itineraries and commodified wellness, Lakshmi Trails invites you deeper.
+    </p>
+    <div class="philosophy-text">
+      <p>
+        We don't just take you to destinations; we <span class="highlight-text">initiate you into South India's living healing traditions</span>. As your trusted cultural bridge, you gain exclusive access to experiences and rituals often closed to ordinary travelers through our deep cross-cultural expertise.
+      </p>
+      <p>
+        Every detail is meticulously curated for a seamless fusion of <span class="highlight-text">authenticity and comfort</span>, so you can surrender completely to your transformation.
+      </p>
+    </div>
+    <p class="heritage-luxury">
+      This is heritage luxury: where the true indulgence is insight, not amenities—where ancient wisdom becomes your path to inner transformation.
+    </p>
+  </div>
+</section>
+
+<style>
+  #about {
+    position: relative;
+    background: var(--color-white);
+    padding: 7rem 2rem;
+    text-align: center;
+    overflow: hidden;
+    scroll-margin-top: 80px;
+  }
+
+  .background-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.04;
+    z-index: 0;
+    filter: blur(0.5px);
+  }
+
+  .philosophy-overlay {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at center, rgba(249, 249, 249, 0.96) 0%, rgba(249, 249, 249, 0.94) 70%, rgba(249, 249, 249, 0.97) 100%),
+      linear-gradient(135deg, rgba(249, 249, 249, 0.95) 0%, rgba(232, 228, 224, 0.92) 50%, rgba(249, 249, 249, 0.95) 100%);
+    z-index: 1;
+  }
+
+  .philosophy-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  .philosophy-content.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+  }
+
+  .philosophy-content h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+    font-weight: 500;
+    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+    letter-spacing: -0.01em;
+  }
+
+  .decorative-accent {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    margin: 2rem auto 3rem auto;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .decorative-accent::before,
+  .decorative-accent::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    top: -3.5px;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .decorative-accent::before {
+    left: -15px;
+  }
+
+  .decorative-accent::after {
+    right: -15px;
+  }
+
+  .philosophy-intro {
+    font-size: clamp(1.2rem, 2.8vw, 1.3rem);
+    line-height: 1.75;
+    color: var(--color-stone);
+    margin-bottom: 3rem;
+    font-weight: 400;
+    font-style: italic;
+    font-family: var(--font-body);
+  }
+
+  .philosophy-text {
+    margin-bottom: 3.5rem;
+  }
+
+  .philosophy-content p {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.8;
+    color: var(--color-stone);
+    margin-bottom: 2.5rem;
+    font-family: var(--font-body);
+    font-weight: 400;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .philosophy-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .highlight-text {
+    color: var(--color-dark-gold);
+    font-weight: 500;
+    font-style: italic;
+    position: relative;
+  }
+
+  .heritage-luxury {
+    font-size: clamp(1.2rem, 2.8vw, 1.35rem);
+    font-weight: 500;
+    color: var(--color-dark-gold);
+    font-family: var(--font-headline);
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .philosophy-content {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .philosophy-overlay {
+      background: rgba(249, 249, 249, 0.98);
+    }
+    
+    .philosophy-content h2,
+    .highlight-text,
+    .heritage-luxury {
+      text-shadow: none;
+    }
+  }
+
+  @media (max-width: 968px) {
+    #about {
+      padding: 5rem 2rem;
+    }
+
+    .decorative-accent {
+      width: 60px;
+      margin: 1.5rem auto 2.5rem auto;
+    }
+
+    .philosophy-intro {
+      margin-bottom: 2.5rem;
+    }
+
+    .philosophy-text {
+      margin-bottom: 2.5rem;
+    }
+
+    .philosophy-content p {
+      margin-bottom: 2rem;
+    }
+
+    .heritage-luxury {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #about {
+      padding: 4rem 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const philosophyContent = document.querySelector('.philosophy-content');
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          philosophyContent.classList.add('intersecting');
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15, rootMargin: '20px' }
+    );
+    
+    if (philosophyContent) {
+      observer.observe(philosophyContent);
+    }
+  });
+</script>

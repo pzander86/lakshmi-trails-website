@@ -1,0 +1,156 @@
+---
+import BookingForm from './BookingForm.astro';
+import "../styles/global.css";
+---
+
+<section id="contact" role="region" aria-labelledby="contact-heading">
+  <div class="contact-header">
+    <h2 id="contact-heading">Ready to Begin Your Journey?</h2>
+    <div class="decorative-accent" aria-hidden="true"></div>
+    <p class="contact-intro" id="contact-description">
+      Our 2025/2026 departures are designed as premium cultural immersions with intimate groups of 12-16 travelers.<br />
+      <span class="highlight-text">Let's explore if this transformational path calls to you.</span>
+    </p>
+  </div>
+  <BookingForm aria-describedby="contact-description" />
+</section>
+
+<style>
+  #contact {
+    background: var(--color-white);
+    padding: 7rem 2rem;
+    text-align: center;
+    scroll-margin-top: 80px;
+  }
+
+  .contact-header {
+    max-width: 750px;
+    margin: 0 auto 4rem auto;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .contact-header.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+  }
+
+  .contact-header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+  }
+
+  .contact-intro {
+    max-width: 650px;
+    margin: 2rem auto 0 auto;
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    font-weight: 400;
+    font-family: var(--font-body);
+  }
+
+  .highlight-text {
+    color: var(--color-dark-gold);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .decorative-accent {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    margin: 2rem auto;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .decorative-accent::before,
+  .decorative-accent::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    top: -3.5px;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .decorative-accent::before {
+    left: -15px;
+  }
+
+  .decorative-accent::after {
+    right: -15px;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .contact-header {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .contact-header h2,
+    .highlight-text {
+      text-shadow: none;
+    }
+  }
+
+  @media (max-width: 968px) {
+    #contact {
+      padding: 5rem 2rem;
+    }
+
+    .contact-header {
+      margin-bottom: 3rem;
+    }
+
+    .decorative-accent {
+      width: 60px;
+      margin: 1.5rem auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #contact {
+      padding: 4rem 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.contact-header');
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('intersecting');
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.15, rootMargin: '20px' }
+    );
+    
+    if (header) {
+      observer.observe(header);
+    }
+  });
+</script>

@@ -1,0 +1,1078 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/layout.astro';
+
+export async function getStaticPaths() {
+  let tours = [];
+  try {
+    tours = (await import('../../data/tours.en.json')).default || [];
+  } catch (error) {
+    console.error('Error loading tours data:', error);
+    tours = [];
+  }
+
+  return tours.map((tour) => ({
+    params: { slug: tour.slug },
+    props: { tour, tours }, // Pass all tours for cross-linking
+  }));
+}
+
+const { tour, tours } = Astro.props;
+
+const structuredData = tour.schema;
+
+// Prepare meta data for your Layout component
+const meta = {
+  title: `${tour.name} | Lakshmi Trails`,
+  description: tour.shortDescription,
+  image: `https://lakshmitrails.com${tour.image}`,
+  url: `https://lakshmitrails.com/tours/${tour.slug}/`
+};
+---
+
+<Layout {meta}>
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://lakshmitrails.com"
+      },
+      {
+        "@type": "ListItem", 
+        "position": 2,
+        "name": "Tours",
+        "item": "https://lakshmitrails.com/#tours"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": tour.title,
+        "item": `https://lakshmitrails.com/tours/${tour.slug}/`
+      }
+    ]
+  })}></script>
+
+  <!-- Hero Section -->
+  <section id="hero" class="tour-hero">
+    <Image
+      src={tour.image}
+      alt={`${tour.title} - ${tour.shortDescription}`}
+      width={1600}
+      height={900}
+      loading="eager"
+      format="webp"
+      class="hero-image"
+    />
+    <div class="hero-overlay"></div>
+    
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#tours">Tours</a></li>
+        <li aria-current="page">{tour.title}</li>
+      </ol>
+    </nav>
+
+    <div class="hero-content">
+      <h1>{tour.title}</h1>
+      <p class="hero-subtitle">{tour.name}</p>
+      <div class="hero-details">
+        <span class="dates">{tour.dates}</span>
+        <span class="price">{tour.price}</span>
+      </div>
+      <a href="#overview" class="cta-button">
+        <span>Explore This Journey</span>
+      </a>
+    </div>
+
+    <div class="scroll-indicator" aria-hidden="true"></div>
+  </section>
+
+  <!-- Tour Overview -->
+  <section id="overview" class="tour-overview">
+    <div class="overview-container">
+      <header class="section-header">
+        <h2>Journey Overview</h2>
+        <div class="decorative-accent" aria-hidden="true"></div>
+      </header>
+      
+      <div class="overview-content">
+        <div class="main-description">
+          <p class="description-intro">{tour.description}</p>
+          
+          <div class="tour-highlights">
+            <h3>Sacred Experiences Await</h3>
+            <ul class="highlights-list">
+              {tour.highlights.map((highlight) => (
+                <li>{highlight}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div class="tour-details-sidebar">
+          <div class="details-card">
+            <h3>Journey Details</h3>
+            <div class="detail-item">
+              <span class="label">Duration</span>
+              <span class="value">15 Days</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Dates</span>
+              <span class="value">{tour.dates}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Group Size</span>
+              <span class="value">12-16 Travelers</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Investment</span>
+              <span class="value price-highlight">{tour.price}</span>
+            </div>
+            {tour.earlyBirdPrice < tour.regularPrice && (
+              <div class="early-bird-note">
+                <span class="early-bird-price">Early Bird: ${tour.earlyBirdPrice}</span>
+                <span class="early-bird-until">Valid until {new Date(tour.earlyBirdValidUntil).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              </div>
+            )}
+          </div>
+
+          <div class="traveler-types">
+            <h4>Perfect For</h4>
+            <div class="types-list">
+              {tour.touristTypes.map((type) => (
+                <span class="type-tag">{type}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Sacred Journeys -->
+  <section id="other-journeys" class="other-journeys-section">
+    <div class="other-journeys-container">
+      <header class="section-header">
+        <h2>Other Sacred Journeys</h2>
+        <div class="decorative-accent" aria-hidden="true"></div>
+        <p class="section-intro">
+          Each path offers its own unique transformation. Explore our other sacred journeys.
+        </p>
+      </header>
+      
+      <div class="other-journeys-grid">
+        {tours.filter(t => t.slug !== tour.slug).map((otherTour) => (
+          <article class="journey-card">
+            <div class="journey-image">
+              <Image
+                src={otherTour.image}
+                alt={`${otherTour.title} - ${otherTour.shortDescription}`}
+                width={400}
+                height={250}
+                loading="lazy"
+                format="webp"
+              />
+            </div>
+            <div class="journey-content">
+              <h3>{otherTour.title}</h3>
+              <p class="journey-dates">{otherTour.dates}</p>
+              <p class="journey-description">{otherTour.shortDescription}</p>
+              <div class="journey-actions">
+                <a href={`/tours/${otherTour.slug}/`} class="journey-link">
+                  <span>Explore Journey</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12,5 19,12 12,19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section id="reserve" class="reserve-section">
+    <div class="reserve-container">
+      <div class="reserve-content">
+        <h2>Reserve Your Sacred Journey</h2>
+        <div class="decorative-accent" aria-hidden="true"></div>
+        <p class="reserve-intro">
+          Every traveler has unique needs and interests. Let's discuss how we can tailor this transformational experience to your personal journey.
+        </p>
+        <div class="reserve-actions">
+          <a href="/contact" class="reserve-button primary">
+            <span>Reserve Your Spot</span>
+          </a>
+          <a href={tour.pdf} target="_blank" class="reserve-button secondary">
+            <span>Download Detailed Itinerary</span>
+          </a>
+        </div>
+        <p class="reserve-note">
+          <strong>Limited to 16 travelers</strong> for intimate, authentic encounters with expert guidance throughout your cultural immersion.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .tour-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    color: var(--color-white);
+  }
+
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+    z-index: 1;
+  }
+
+  /* Breadcrumbs */
+  .breadcrumbs {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 3;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInDown 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+  }
+
+  .breadcrumbs ol {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+  }
+
+  .breadcrumbs li {
+    display: flex;
+    align-items: center;
+  }
+
+  .breadcrumbs li:not(:last-child)::after {
+    content: '›';
+    margin: 0 0.8rem;
+    opacity: 0.6;
+  }
+
+  .breadcrumbs a {
+    color: rgba(249, 249, 249, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--color-gold);
+  }
+
+  .breadcrumbs li[aria-current="page"] {
+    color: var(--color-white);
+    font-weight: 500;
+  }
+
+  /* Hero Content */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    padding: 2rem;
+    animation: fadeInUp 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .hero-content h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    color: rgba(249, 249, 249, 0.9);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    font-family: var(--font-body);
+  }
+
+  .hero-details {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    font-size: clamp(1rem, 2vw, 1.1rem);
+  }
+
+  .hero-details .dates {
+    color: var(--color-gold);
+    font-weight: 500;
+  }
+
+  .hero-details .price {
+    color: var(--color-white);
+    font-weight: 600;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-transform: uppercase;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    font-family: var(--font-body);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-white) 0%, rgba(249, 249, 249, 0.9) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .cta-button:hover::before {
+    opacity: 1;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+  }
+
+  .cta-button span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    opacity: 0.8;
+  }
+
+  .scroll-indicator::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 1px;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent, var(--color-white), transparent);
+    transform: translateX(-50%);
+    animation: scrollLine 2s infinite ease-in-out;
+  }
+
+  .scroll-indicator::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid var(--color-white);
+    border-bottom: 2px solid var(--color-white);
+    transform: rotate(45deg);
+    animation: scrollArrow 2s infinite ease-in-out;
+    display: block;
+  }
+
+  /* Tour Overview Section */
+  .tour-overview {
+    background: var(--color-mist);
+    padding: 7rem 2rem;
+    scroll-margin-top: 80px;
+  }
+
+  .overview-container {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .section-header.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .section-header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+  }
+
+  .decorative-accent {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    margin: 2rem auto 0 auto;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .decorative-accent::before,
+  .decorative-accent::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    top: -3.5px;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .decorative-accent::before {
+    left: -15px;
+  }
+
+  .decorative-accent::after {
+    right: -15px;
+  }
+
+  .overview-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .overview-content.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+  }
+
+  .description-intro {
+    font-size: clamp(1.2rem, 2.8vw, 1.3rem);
+    line-height: 1.75;
+    color: var(--color-stone);
+    margin-bottom: 3rem;
+    font-weight: 400;
+    font-style: italic;
+    font-family: var(--font-body);
+  }
+
+  .tour-highlights h3 {
+    font-family: var(--font-headline);
+    color: var(--color-dark-gold);
+    font-size: clamp(1.5rem, 3vw, 1.8rem);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .highlights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .highlights-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    line-height: 1.6;
+    color: var(--color-stone);
+    font-family: var(--font-body);
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .highlights-list li:before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--color-gold);
+    font-size: 1.2em;
+  }
+
+  .highlights-list li:last-child {
+    border-bottom: none;
+  }
+
+  /* Sidebar */
+  .tour-details-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .details-card {
+    background: rgba(249, 249, 249, 0.95);
+    padding: 2.5rem 2rem;
+    border-radius: 18px;
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    box-shadow: 
+      0 8px 25px rgba(51, 51, 51, 0.08),
+      0 3px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .details-card h3 {
+    font-family: var(--font-headline);
+    color: var(--color-dark-gold);
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  }
+
+  .detail-item:last-child {
+    border-bottom: none;
+  }
+
+  .detail-item .label {
+    color: var(--color-stone);
+    font-weight: 500;
+    font-family: var(--font-body);
+  }
+
+  .detail-item .value {
+    color: var(--color-dark-gold);
+    font-weight: 600;
+    font-family: var(--font-body);
+  }
+
+  .price-highlight {
+    color: var(--color-coral) !important;
+    font-size: 1.1em;
+  }
+
+  .early-bird-note {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.05) 100%);
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .early-bird-price {
+    color: var(--color-dark-gold);
+    font-weight: 700;
+    font-size: 1.1em;
+  }
+
+  .early-bird-until {
+    color: var(--color-stone);
+    font-size: 0.9em;
+  }
+
+  .traveler-types h4 {
+    font-family: var(--font-headline);
+    color: var(--color-dark-gold);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .types-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .type-tag {
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: var(--font-body);
+  }
+
+  /* Other Sacred Journeys Section */
+  .other-journeys-section {
+    background: var(--color-white);
+    padding: 7rem 2rem;
+  }
+
+  .other-journeys-container {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .section-intro {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    margin: 2rem auto 0 auto;
+    font-weight: 400;
+    font-family: var(--font-body);
+    max-width: 600px;
+  }
+
+  .other-journeys-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .other-journeys-grid.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+  }
+
+  .journey-card {
+    background: rgba(249, 249, 249, 0.95);
+    border-radius: 18px;
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+      0 8px 25px rgba(51, 51, 51, 0.08),
+      0 3px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .journey-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 15px 40px rgba(51, 51, 51, 0.12),
+      0 6px 15px rgba(0, 0, 0, 0.08);
+    border-color: rgba(212, 175, 55, 0.25);
+  }
+
+  .journey-image {
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .journey-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .journey-card:hover .journey-image img {
+    transform: scale(1.05);
+  }
+
+  .journey-content {
+    padding: 2rem;
+  }
+
+  .journey-content h3 {
+    font-family: var(--font-headline);
+    color: var(--color-dark-gold);
+    font-size: clamp(1.3rem, 2.5vw, 1.5rem);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .journey-dates {
+    color: var(--color-gold);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+  }
+
+  .journey-description {
+    color: var(--color-stone);
+    font-size: clamp(0.95rem, 2vw, 1rem);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-body);
+  }
+
+  .journey-actions {
+    margin-top: auto;
+  }
+
+  .journey-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+    font-family: var(--font-body);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .journey-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-white) 0%, rgba(249, 249, 249, 0.9) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .journey-link:hover::before {
+    opacity: 1;
+  }
+
+  .journey-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+  }
+
+  .journey-link span,
+  .journey-link svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Reserve Section */
+  .reserve-section {
+    background: var(--color-white);
+    padding: 7rem 2rem;
+    text-align: center;
+  }
+
+  .reserve-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .reserve-content {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .reserve-content.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .reserve-content h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+  }
+
+  .reserve-intro {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    margin: 3rem 0;
+    font-weight: 400;
+    font-family: var(--font-body);
+  }
+
+  .reserve-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+  }
+
+  .reserve-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-transform: uppercase;
+    font-family: var(--font-body);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reserve-button.primary {
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+  }
+
+  .reserve-button.primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-white) 0%, rgba(249, 249, 249, 0.9) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .reserve-button.primary:hover::before {
+    opacity: 1;
+  }
+
+  .reserve-button.secondary {
+    background: transparent;
+    color: var(--color-dark-gold);
+    border: 2px solid var(--color-gold);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+  }
+
+  .reserve-button.secondary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .reserve-button.secondary:hover::before {
+    opacity: 1;
+  }
+
+  .reserve-button.secondary:hover {
+    color: #000;
+  }
+
+  .reserve-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .reserve-button.primary:hover {
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+  }
+
+  .reserve-button.secondary:hover {
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+  }
+
+  .reserve-button span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .reserve-note {
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    color: var(--color-stone);
+    font-family: var(--font-body);
+    margin-top: 2rem;
+  }
+
+  .reserve-note strong {
+    color: var(--color-dark-gold);
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInDown {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scrollLine {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes scrollArrow {
+    0%, 20%, 50%, 80%, 100% {
+      transform: rotate(45deg) translateY(0);
+      opacity: 0.6;
+    }
+    40% {
+      transform: rotate(45deg) translateY(-8px);
+      opacity: 1;
+    }
+    60% {
+      transform: rotate(45deg) translateY(-4px);
+      opacity: 0.8;
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 968px) {
+    .breadcrumbs {
+      top: 1rem;
+      left: 1rem;
+    }
+
+    .hero-details {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .overview-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .reserve-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .reserve-button {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tour-hero {
+      min-height: 90vh;
+    }
+
+    .breadcrumbs {
+      top: 0.5rem;
+      left: 0.5rem;
+    }
+
+    .breadcrumbs ol {
+      font-size: 0.8rem;
+    }
+
+    .tour-overview,
+    .other-journeys-section,
+    .reserve-section {
+      padding: 4rem 1.5rem;
+    }
+
+    .details-card {
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-content,
+    .breadcrumbs,
+    .section-header,
+    .overview-content,
+    .other-journeys-grid,
+    .reserve-content {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    
+    .scroll-indicator::before,
+    .scroll-indicator::after {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Intersection Observer for animations
+    const elements = [
+      '.section-header',
+      '.overview-content',
+      '.other-journeys-grid', 
+      '.reserve-content'
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('intersecting');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '20px' }
+    );
+    
+    elements.forEach(selector => {
+      const element = document.querySelector(selector);
+      if (element) observer.observe(element);
+    });
+
+    // Smooth scroll for anchor links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  });
+</script>

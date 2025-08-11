@@ -1,0 +1,272 @@
+---
+import NewsletterSignup from './NewsletterSignup.astro';
+import "../styles/global.css";
+---
+
+<footer id="footer" role="contentinfo">
+  <div class="footer-container">
+    <div class="footer-newsletter">
+      <NewsletterSignup />
+    </div>
+    
+    <div class="footer-content">
+      <div class="social-links" role="navigation" aria-label="Social media links">
+        <a href="#" aria-label="Follow us on Instagram" class="social-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>Instagram</span>
+        </a>
+        <a href="#" aria-label="Follow us on Facebook" class="social-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+          <span>Facebook</span>
+        </a>
+        <a href="#" aria-label="Follow us on TikTok" class="social-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+          </svg>
+          <span>TikTok</span>
+        </a>
+      </div>
+
+      <div class="footer-legal">
+        <nav class="legal-links" aria-label="Legal information">
+          <a href="#" class="legal-link">Privacy Policy</a>
+          <span class="separator" aria-hidden="true">•</span>
+          <a href="#" class="legal-link">Terms of Service</a>
+        </nav>
+        
+        <div class="copyright">
+          <p>&copy; {new Date().getFullYear()} Lakshmi Trails. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  #footer {
+    background: var(--color-mist);
+    padding: 3rem 1.5rem 2rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    position: relative;
+  }
+
+  #footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-newsletter {
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .footer-newsletter.intersecting {
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .footer-content {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .footer-content.intersecting {
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-stone);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .social-link:hover,
+  .social-link:focus {
+    color: var(--color-gold);
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-2px);
+    outline: none;
+  }
+
+  .social-link:focus {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+
+  .social-link svg {
+    transition: transform 0.3s ease;
+  }
+
+  .social-link:hover svg,
+  .social-link:focus svg {
+    transform: scale(1.1);
+  }
+
+  .footer-legal {
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    padding-top: 1.5rem;
+  }
+
+  .legal-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .legal-link {
+    color: var(--color-stone);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: color 0.3s ease;
+  }
+
+  .legal-link:hover,
+  .legal-link:focus {
+    color: var(--color-gold);
+    text-decoration: underline;
+    outline: none;
+  }
+
+  .legal-link:focus {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+
+  .separator {
+    color: rgba(51, 51, 51, 0.4);
+    font-weight: 300;
+  }
+
+  .copyright {
+    margin-top: 1rem;
+  }
+
+  .copyright p {
+    color: var(--color-stone);
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .footer-newsletter,
+    .footer-content {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #footer {
+      padding: 2.5rem 1rem 1.5rem 1rem;
+    }
+
+    .footer-newsletter {
+      margin-bottom: 2rem;
+    }
+
+    .social-links {
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-link {
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .legal-links {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .separator {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .social-link span {
+      font-size: 0.9rem;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    #footer {
+      border-top: 2px solid var(--color-stone);
+    }
+    
+    .footer-legal {
+      border-top: 1px solid var(--color-stone);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const newsletter = document.querySelector('.footer-newsletter');
+    const content = document.querySelector('.footer-content');
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('intersecting');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '20px' }
+    );
+    
+    if (newsletter) observer.observe(newsletter);
+    if (content) observer.observe(content);
+  });
+</script>

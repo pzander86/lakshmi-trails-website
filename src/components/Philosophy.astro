@@ -1,0 +1,268 @@
+---
+import "../styles/global.css";
+import PrincipleIcon from './PrincipleIcon.astro';
+---
+
+<section id="philosophy" role="region" aria-labelledby="philosophy-heading">
+  <div class="philosophy-header">
+    <h2 id="philosophy-heading">Our Guiding Philosophy</h2>
+    <div class="decorative-accent" aria-hidden="true"></div>
+    <p class="philosophy-intro">
+      We believe travel should be transformational, not transactional. Three core principles guide every journey we craft:
+    </p>
+  </div>
+
+  <div class="principles-container">
+    <article class="principle-card">
+      <PrincipleIcon iconType="authenticity" ariaLabel="Icon representing deep authenticity" />
+      <h3>Deep Authenticity</h3>
+      <p>We build relationships with local wisdom keepers, artists, and families to create experiences that are genuine and respectful. Access exclusive traditions rarely open to outsiders.</p>
+    </article>
+
+    <article class="principle-card">
+      <PrincipleIcon iconType="safety" ariaLabel="Icon representing safety and serenity" />
+      <h3>Safety & Serenity</h3>
+      <p>From vetted transport and comfortable accommodations to providing filtered water and 24/7 support, we handle every logistical concern. Your only job is to be present.</p>
+    </article>
+
+    <article class="principle-card">
+      <PrincipleIcon iconType="presence" ariaLabel="Icon representing pacing for presence" />
+      <h3>Expert-Led Presence</h3>
+      <p>Our itineraries blend profound experiences with restorative time. Led by certified practitioners in yoga (500-RYT), Ayurveda, and Thai massage for authentic guidance.</p>
+    </article>
+  </div>
+</section>
+
+<style>
+  #philosophy {
+    background: var(--color-mist);
+    padding: 7rem 2rem;
+    text-align: center;
+    position: relative;
+    scroll-margin-top: 80px;
+  }
+
+  .philosophy-header {
+    max-width: 800px;
+    margin: 0 auto 4rem auto;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .philosophy-header.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+  }
+
+  .philosophy-header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+    line-height: 1.15;
+  }
+
+  .philosophy-intro {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    font-weight: 400;
+    max-width: 650px;
+    margin: 0 auto;
+    font-family: var(--font-body);
+  }
+
+  .principles-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  .principles-container.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+  }
+
+  .principle-card {
+    background: rgba(249, 249, 249, 0.95);
+    border-radius: 24px;
+    padding: 3.5rem 2.5rem;
+    box-shadow: 
+      0 10px 40px rgba(51, 51, 51, 0.08),
+      0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+  }
+
+  .principle-card:hover,
+  .principle-card:focus-within {
+    transform: translateY(-10px);
+    box-shadow: 
+      0 25px 70px rgba(51, 51, 51, 0.15),
+      0 10px 25px rgba(0, 0, 0, 0.08);
+    border-color: rgba(212, 175, 55, 0.25);
+  }
+
+  .principle-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .principle-card h3 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.6rem, 3vw, 1.9rem);
+    color: var(--color-stone);
+    margin-bottom: 1.8rem;
+    font-weight: 500;
+    margin-top: 1rem;
+  }
+
+  .principle-card p {
+    font-size: clamp(1.05rem, 2.2vw, 1.15rem);
+    line-height: 1.75;
+    color: var(--color-stone);
+    font-weight: 400;
+    font-family: var(--font-body);
+  }
+
+  .decorative-accent {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    margin: 2rem auto;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .decorative-accent::before,
+  .decorative-accent::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    top: -3.5px;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .decorative-accent::before {
+    left: -15px;
+  }
+
+  .decorative-accent::after {
+    right: -15px;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .philosophy-header,
+    .principles-container {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    
+    .principle-card {
+      transition: none;
+    }
+    
+    .principle-card:hover,
+    .principle-card:focus-within {
+      transform: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .principle-card {
+      background: rgba(249, 249, 249, 0.98);
+      border-color: var(--color-stone);
+    }
+    
+    .principle-card::before {
+      box-shadow: none;
+    }
+    
+    .philosophy-header h2 {
+      text-shadow: none;
+    }
+  }
+
+  @media (max-width: 968px) {
+    #philosophy {
+      padding: 5rem 2rem;
+    }
+
+    .philosophy-header {
+      margin-bottom: 3rem;
+    }
+
+    .decorative-accent {
+      width: 60px;
+    }
+
+    .principles-container {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      max-width: 500px;
+    }
+
+    .principle-card {
+      padding: 3rem 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #philosophy {
+      padding: 4rem 1.5rem;
+    }
+
+    .principle-card {
+      padding: 2.5rem 1.8rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.philosophy-header');
+    const container = document.querySelector('.principles-container');
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('intersecting');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '20px' }
+    );
+    
+    if (header) observer.observe(header);
+    if (container) observer.observe(container);
+  });
+</script>

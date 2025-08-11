@@ -1,0 +1,398 @@
+---
+import TourCard from './TourCard.astro';
+
+let tours = [];
+try {
+  tours = (await import('../data/tours.en.json')).default || [];
+} catch (error) {
+  console.error('Error loading tours data:', error);
+  tours = []; // Fallback to empty array if import fails
+}
+
+// Generate JSON-LD structured data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Sacred Journeys - Wellness & Cultural Immersion Tours",
+  "description": "Transformational wellness and cultural immersion journeys in India, featuring Ayurvedic healing, yoga retreats, and authentic cultural experiences.",
+  "numberOfItems": tours.length,
+  "itemListElement": tours.map((tour, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": tour.schema
+  }))
+};
+---
+
+<!-- JSON-LD Structured Data for SEO -->
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+
+<section id="tours" role="region" aria-labelledby="tours-heading">
+  <div class="tours-container">
+    <header class="tours-header">
+      <h2 id="tours-heading">Sacred Journeys Await</h2>
+      <div class="header-accent">
+        <div class="decorative-accent" aria-hidden="true"></div>
+      </div>
+      <p class="tours-intro">
+        Each journey blends meaning, nature, culture, and wellness into transformational experiences. 
+        <strong>Limited to just 12-16 travelers per journey</strong> for intimate, authentic encounters 
+        with thoughtfully selected accommodations, curated meals, and expert guidance throughout 
+        your cultural immersion.
+      </p>
+      <p class="tours-cta">
+        <span class="highlight">Choose the path that calls to your soul.</span>
+      </p>
+    </header>
+
+    <div class="tours-grid" role="list">
+      {tours.map((tour, index) => (
+        <div class="tour-wrapper" role="listitem" data-index={index}>
+          <TourCard 
+            title={tour.title}
+            description={tour.description}
+            dates={tour.dates}
+            price={tour.price}
+            slug={tour.slug}
+            itineraryUrl={tour.pdf}
+            tourPageUrl={`/tours/${tour.slug}/`}
+            reserveUrl={'/contact'}
+          />
+        </div>
+      ))}
+    </div>
+
+    <div class="tours-footer">
+      <div class="contact-note">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        <div>
+          <p><strong>Questions about your journey?</strong></p>
+          <p>Every traveler has unique needs and interests. <a href="#contact">Let's discuss</a> how we can tailor your transformational experience.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #tours {
+    background: var(--color-mist);
+    padding: 7rem 2rem;
+    position: relative;
+    scroll-margin-top: 80px;
+  }
+
+  #tours::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  }
+
+  .tours-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .tours-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem auto;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .tours-header.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .tours-header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+  }
+
+  .header-accent {
+    margin: 2rem 0;
+  }
+
+  .decorative-accent {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    margin: 0 auto;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .decorative-accent::before,
+  .decorative-accent::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    top: -3.5px;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .decorative-accent::before {
+    left: -15px;
+  }
+
+  .decorative-accent::after {
+    right: -15px;
+  }
+
+  .tours-intro {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    font-weight: 400;
+    font-family: var(--font-body);
+    margin-bottom: 1rem;
+  }
+
+  .tours-intro strong {
+    color: var(--color-dark-gold);
+    font-weight: 600;
+  }
+
+  .tours-cta {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    font-weight: 400;
+    font-family: var(--font-body);
+    margin: 0;
+  }
+
+  .tours-cta .highlight {
+    color: var(--color-dark-gold);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .tours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+    margin-bottom: 3rem;
+  }
+
+  .tours-footer {
+    max-width: 60%;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .tours-footer.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+  }
+
+  .contact-note {
+    background: rgba(249, 249, 249, 0.95);
+    padding: 2rem 1.8rem;
+    border-radius: 18px;
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    box-shadow: 
+      0 8px 25px rgba(51, 51, 51, 0.08),
+      0 3px 8px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .contact-note:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 12px 35px rgba(51, 51, 51, 0.12),
+      0 5px 15px rgba(0, 0, 0, 0.08);
+    border-color: rgba(212, 175, 55, 0.25);
+  }
+
+  .contact-note svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+
+  .contact-note p {
+    margin-bottom: 0.5rem;
+    font-size: clamp(0.95rem, 1.8vw, 1rem);
+    line-height: 1.6;
+    color: var(--color-stone);
+    font-family: var(--font-body);
+  }
+
+  .contact-note p:last-child {
+    margin-bottom: 0;
+  }
+
+  .contact-note strong {
+    color: var(--color-dark-gold);
+  }
+
+  .contact-note a {
+    color: var(--color-coral);
+    font-weight: 500;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .contact-note a:hover,
+  .contact-note a:focus {
+    color: var(--color-gold);
+    outline: none;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .tours-header,
+    .tours-footer {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    
+    .contact-note {
+      transition: none;
+    }
+    
+    .contact-note:hover {
+      transform: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .contact-note {
+      background: rgba(249, 249, 249, 0.98);
+      border-color: var(--color-stone);
+    }
+    
+    .tours-header h2 {
+      text-shadow: none;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .tours-grid {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+
+    .tours-footer {
+      max-width: 85%;
+    }
+  }
+
+  @media (max-width: 968px) {
+    #tours {
+      padding: 5rem 2rem;
+    }
+
+    .tours-header {
+      margin-bottom: 3rem;
+    }
+
+    .header-accent {
+      margin: 1.5rem 0;
+    }
+
+    .decorative-accent {
+      width: 60px;
+    }
+
+    .tours-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .tours-footer {
+      max-width: 95%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #tours {
+      padding: 4rem 1.5rem;
+    }
+
+    .tours-footer {
+      max-width: 100%;
+    }
+
+    .contact-note {
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1.5rem;
+    }
+
+    .contact-note svg {
+      margin-top: 0;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Animate sections on scroll
+    const header = document.querySelector('.tours-header');
+    const footer = document.querySelector('.tours-footer');
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('intersecting');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '20px' }
+    );
+    
+    if (header) observer.observe(header);
+    if (footer) observer.observe(footer);
+
+    // Smooth scroll for anchor links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  });
+</script>

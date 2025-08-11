@@ -1,0 +1,236 @@
+---
+const menu = [
+  { label: "Guide", href: "#guide" },
+  { label: "About", href: "#about" },
+  { label: "Philosophy", href: "#philosophy" },
+  { label: "Tours", href: "#tours" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contact", href: "#contact" }
+];
+const languages = [
+  { code: "en", label: "🇬🇧" },
+  { code: "pl", label: "🇵🇱" }
+];
+const current = "en";
+
+const leftMenu = menu.slice(0, 3);
+const rightMenu = menu.slice(3, 6);
+---
+<nav id="main-nav" style="
+  position: fixed;
+  top: 1.5em; 
+  left: 50%; 
+  transform: translateX(-50%);
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2em;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 0.3em 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  min-width: 320px;
+  width: max-content;
+  height: 56px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+">
+  <!-- Left Menu -->
+  <div style="display: flex; gap: 1.5em;">
+    {leftMenu.map(item => (
+      <a href={item.href} class="nav-link" style="
+        color: rgba(255, 255, 255, 0.95); 
+        font-weight: 400; 
+        font-size: 0.88em; 
+        padding: 0.5em 0.8em; 
+        border-radius: 1em; 
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        display: flex; 
+        align-items: center;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      ">
+        {item.label}
+      </a>
+    ))}
+  </div>
+
+  <!-- Logo -->
+  <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin: 0 1.5em;">
+    <img src="/assets/images/logo.svg" alt="Lakshmi Trails Logo" style="
+      height: 64px; 
+      display: block; 
+      position: relative; 
+      z-index: 2;
+      filter: brightness(0) invert(1);
+      transition: filter 0.3s ease;
+    " />
+  </div>
+
+  <!-- Right Menu + Languages -->
+  <div style="display: flex; gap: 1.5em; align-items: center;">
+    {rightMenu.map(item => (
+      <a href={item.href} class="nav-link" style="
+        color: rgba(255, 255, 255, 0.95); 
+        font-weight: 400; 
+        font-size: 0.88em; 
+        padding: 0.5em 0.8em; 
+        border-radius: 1em; 
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        display: flex; 
+        align-items: center;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      ">
+        {item.label}
+      </a>
+    ))}
+    
+    <!-- Language separator -->
+    <div style="width: 1px; height: 20px; background: rgba(255, 255, 255, 0.2); margin: 0 0.5em;"></div>
+    
+    <!-- Languages -->
+    <div style="display: flex; gap: 0.5em;">
+      {languages.map(lang => (
+        <a href="#" class="lang-link" style={`
+          font-size: 1.2em; 
+          opacity: ${lang.code === current ? 1 : 0.6}; 
+          pointer-events: ${lang.code === current ? 'none' : 'auto'}; 
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          filter: ${lang.code === current ? 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))' : 'grayscale(50%) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))'};
+          transform: scale(${lang.code === current ? 1 : 0.9});
+          text-decoration: none;
+        `}>
+          {lang.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Navigation link hover effects */
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 1em;
+  }
+
+  .nav-link:hover::before {
+    opacity: 1;
+  }
+
+  .nav-link:hover {
+    color: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Language link hover effects */
+  .lang-link:hover {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: scale(1.1) !important;
+  }
+
+  /* Logo hover effect */
+  #main-nav:hover img {
+    filter: brightness(0) invert(1) sepia(1) saturate(10) hue-rotate(35deg);
+  }
+
+  /* Enhanced navbar scroll effect for better visibility */
+  #main-nav.scrolled {
+    background: rgba(0, 0, 0, 0.85);
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  #main-nav.scrolled .nav-link {
+    color: rgba(255, 255, 255, 0.98) !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  #main-nav.scrolled .lang-link {
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3)) !important;
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    #main-nav {
+      min-width: 280px !important;
+      padding: 0.2em 1em !important;
+      gap: 0.5em !important;
+    }
+    
+    #main-nav > div:first-child,
+    #main-nav > div:last-child {
+      gap: 1em !important;
+    }
+    
+    .nav-link {
+      font-size: 0.8em !important;
+      padding: 0.4em 0.6em !important;
+    }
+    
+    #main-nav img {
+      height: 50px !important;
+    }
+    
+    .lang-link {
+      font-size: 1.1em !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #main-nav {
+      min-width: 260px !important;
+      gap: 0.3em !important;
+    }
+    
+    #main-nav > div:first-child,
+    #main-nav > div:last-child {
+      gap: 0.7em !important;
+    }
+    
+    .nav-link {
+      font-size: 0.75em !important;
+      padding: 0.3em 0.5em !important;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.getElementById('main-nav');
+    if (!nav) return;
+
+    let ticking = false;
+
+    function updateNavbar() {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    });
+  });
+</script>

@@ -1,0 +1,37 @@
+---
+const { iconType, ariaLabel } = Astro.props;
+---
+
+<div class="principle-icon">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label={ariaLabel}>
+    {iconType === 'authenticity' && (
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+    )}
+    {iconType === 'safety' && (
+      <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11C15.4,11 16,11.4 16,12V16C16,16.6 15.6,17 15,17H9C8.4,17 8,16.6 8,16V12C8,11.4 8.4,11 9,11V10C9,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.2,8.7 10.2,10V11H13.8V10C13.8,8.7 12.8,8.2 12,8.2Z"/>
+    )}
+    {iconType === 'presence' && (
+      <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
+    )}
+  </svg>
+</div>
+
+<style>
+  .principle-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem auto;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+  }
+
+  .principle-icon svg {
+    width: 40px;
+    height: 40px;
+    fill: var(--color-white);
+  }
+</style>

@@ -1,0 +1,213 @@
+[
+  {
+    "slug": "new-year-kerala-journey",
+    "title": "Sacred Waters & New Beginnings",
+    "name": "15-Day New Year Kerala Wellness & Cultural Immersion Journey",
+    "dates": "Dec 30, 2025 – Jan 13, 2026",
+    "price": "From $2,899 + flights",
+    "regularPrice": 2999,
+    "earlyBirdPrice": 2899,
+    "currency": "USD",
+    "earlyBirdValidUntil": "2025-09-30",
+    "description": "Welcome the new year in Kerala's lush, post-monsoon beauty. This journey of renewal is woven around sacred water ceremonies, Ayurvedic healing, and gentle spiritual awakening.",
+    "shortDescription": "Transformational 15-day New Year Kerala journey with sacred waterfalls, backwater cruises, spice plantation walks & comprehensive Ayurvedic healing.",
+    "highlights": [
+      "Sacred New Year's Eve fire ceremony with live Sufi music",
+      "Private backwater houseboat cruise through Kumarakom canals",
+      "Periyar wildlife sanctuary sunrise boat safari in spice hills",
+      "Comprehensive 3-day Ayurvedic healing program by the ocean",
+      "Village homestay experiences with authentic Kerala families",
+      "Fort Kochi colonial heritage walks through ancient spice markets"
+    ],
+    "keywords": [
+      "New Year Kerala retreat",
+      "Kerala backwater yoga cruise",
+      "Ayurveda beach healing",
+      "Spice plantation wellness tour"
+    ],
+    "pdf": "/pdfs/sacred-waters.pdf",
+    "image": "/assets/tours/kerala-backwaters-houseboat.jpg",
+    "touristTypes": [
+      "Wellness Travelers",
+      "Yoga Practitioners",
+      "Spiritual Seekers",
+      "Cultural Enthusiasts",
+      "Solo Female Travelers",
+      "Nature Lovers"
+    ],
+    "startDate": "2025-12-30",
+    "endDate": "2026-01-13",
+    "duration": "P15D",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "15-Day New Year Kerala Wellness & Cultural Immersion Journey",
+      "description": "Transformational 15-day New Year Kerala journey with sacred waterfalls, backwater cruises, spice plantation walks & comprehensive Ayurvedic healing.",
+      "touristType": [
+        "Wellness Travelers",
+        "Yoga Practitioners",
+        "Spiritual Seekers",
+        "Cultural Enthusiasts",
+        "Solo Female Travelers",
+        "Nature Lovers"
+      ],
+      "duration": "P15D",
+      "startDate": "2025-12-30",
+      "endDate": "2026-01-13",
+      "url": "https://lakshmitrails.com/tours/new-year-kerala-journey",
+      "offers": {
+        "@type": "Offer",
+        "price": "2899",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2025-08-01",
+        "priceValidUntil": "2025-09-30"
+      },
+      "provider": {
+        "@type": "TourOperator",
+        "name": "Lakshmi Trails",
+        "url": "https://lakshmitrails.com"
+      }
+    }
+  },
+  {
+    "slug": "north-kerala-cultural-immersion",
+    "title": "The Living Traditions Trail",
+    "name": "15-Day North Kerala Wellness & Cultural Immersion Journey",
+    "dates": "Jan 22 – Feb 5, 2025",
+    "price": "From $2,799 + flights",
+    "regularPrice": 2899,
+    "earlyBirdPrice": 2799,
+    "currency": "USD",
+    "earlyBirdValidUntil": "2024-11-30",
+    "description": "Dive into the vibrant heart of North Kerala's rural culture. A richly textured journey for food lovers and spiritual seekers, connecting you to timeless village rhythms and temple wisdom.",
+    "shortDescription": "15-day mystical North Kerala journey with authentic Theyyam rituals, tribal culture immersion, beach yoga & traditional Ayurvedic treatments.",
+    "highlights": [
+      "Exclusive access to authentic Theyyam temple ceremonies",
+      "Tribal community immersion with Kurichya and Kurumba elders",
+      "Silent bamboo rafting meditation through Wayanad forests",
+      "UNESCO heritage Vadakkunnathan Temple with private priest tours",
+      "Kerala mural painting workshops using traditional techniques",
+      "Coastal Ayurvedic retreat with personalized healing programs"
+    ],
+    "keywords": [
+      "Theyyam ritual experience",
+      "Kerala tribal culture tour",
+      "Wayanad wellness retreat",
+      "North Kerala spiritual journey"
+    ],
+    "pdf": "/pdfs/living-traditions.pdf",
+    "image": "/assets/tours/kerala-theyyam-ritual.jpg",
+    "touristTypes": [
+      "Wellness Travelers",
+      "Yoga Practitioners",
+      "Spiritual Seekers",
+      "Cultural Enthusiasts",
+      "Solo Female Travelers",
+      "Nature Lovers"
+    ],
+    "startDate": "2025-01-22",
+    "endDate": "2025-02-05",
+    "duration": "P15D",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "15-Day North Kerala Wellness & Cultural Immersion Journey",
+      "description": "15-day mystical North Kerala journey with authentic Theyyam rituals, tribal culture immersion, beach yoga & traditional Ayurvedic treatments.",
+      "touristType": [
+        "Wellness Travelers",
+        "Yoga Practitioners",
+        "Spiritual Seekers",
+        "Cultural Enthusiasts",
+        "Solo Female Travelers",
+        "Nature Lovers"
+      ],
+      "duration": "P15D",
+      "startDate": "2025-01-22",
+      "endDate": "2025-02-05",
+      "url": "https://lakshmitrails.com/tours/north-kerala-cultural-immersion",
+      "offers": {
+        "@type": "Offer",
+        "price": "2799",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2024-09-01",
+        "priceValidUntil": "2024-11-30"
+      },
+      "provider": {
+        "@type": "TourOperator",
+        "name": "Lakshmi Trails",
+        "url": "https://lakshmitrails.com"
+      }
+    }
+  },
+  {
+    "slug": "karnataka-wellness-immersion",
+    "title": "The Mysore Mystique",
+    "name": "15-Day South India Wellness & Cultural Immersion Journey",
+    "dates": "Feb 16 – Mar 2, 2025",
+    "price": "From $2,799 + flights",
+    "regularPrice": 2899,
+    "earlyBirdPrice": 2799,
+    "currency": "USD",
+    "earlyBirdValidUntil": "2024-12-31",
+    "description": "Explore the regal soul of Karnataka. This path is defined by slow mornings of Mysore yoga, the sacred silence of ancient temples, and stories etched in stone and silk.",
+    "shortDescription": "15-day transformational South India journey through Karnataka with daily yoga, Ayurvedic therapies, heritage locations & cultural immersion.",
+    "highlights": [
+      "Daily yoga sessions with founder-led spiritual guidance",
+      "Private Mysore Palace tours with heritage experts",
+      "Authentic Ayurvedic healing program in Udupi coastal retreat",
+      "Wildlife safari at Nagarhole National Park (Kabini)",
+      "Jain heritage immersion in peaceful Karkala",
+      "Small group cultural bridge experiences with local families"
+    ],
+    "keywords": [
+      "Mysore Palace yoga retreat",
+      "Karnataka wellness tour",
+      "South India cultural immersion",
+      "Ayurveda Udupi healing"
+    ],
+    "pdf": "/pdfs/mysore-mystique.pdf",
+    "image": "/assets/tours/karnataka-mysore-palace.jpg",
+    "touristTypes": [
+      "Wellness Travelers",
+      "Yoga Practitioners",
+      "Spiritual Seekers",
+      "Cultural Enthusiasts",
+      "Solo Female Travelers"
+    ],
+    "startDate": "2025-02-16",
+    "endDate": "2025-03-02",
+    "duration": "P15D",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "15-Day South India Wellness & Cultural Immersion Journey",
+      "description": "15-day transformational South India journey through Karnataka with daily yoga, Ayurvedic therapies, heritage locations & cultural immersion.",
+      "touristType": [
+        "Wellness Travelers",
+        "Yoga Practitioners",
+        "Spiritual Seekers",
+        "Cultural Enthusiasts",
+        "Solo Female Travelers"
+      ],
+      "duration": "P15D",
+      "startDate": "2025-02-16",
+      "endDate": "2025-03-02",
+      "url": "https://lakshmitrails.com/tours/karnataka-wellness-immersion",
+      "offers": {
+        "@type": "Offer",
+        "price": "2799",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2024-10-01",
+        "priceValidUntil": "2024-12-31"
+      },
+      "provider": {
+        "@type": "TourOperator",
+        "name": "Lakshmi Trails",
+        "url": "https://lakshmitrails.com"
+      }
+    }
+  }
+]

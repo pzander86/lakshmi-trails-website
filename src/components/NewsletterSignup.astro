@@ -1,0 +1,14 @@
+---
+const handleSubmit = (e) => {
+  e.preventDefault();
+  alert('Thank you for signing up! We’ll keep you updated.');
+};
+---
+
+<form on:submit={handleSubmit} style="margin-bottom:1em;">
+  <label>
+    <span style="font-weight:bold;">Subscribe for updates:</span>
+    <input type="email" placeholder="Your email" required style="margin-left:1em; padding:0.5em; border-radius:0.5em; border:1px solid var(--color-mist);" />
+  </label>
+  <button type="submit" class="cta-button" style="margin-left:1em;">Sign Up</button>
+</form>

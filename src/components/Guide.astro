@@ -1,0 +1,406 @@
+---
+import "../styles/global.css";
+---
+
+<section id="guide" role="region" aria-labelledby="guide-heading">
+  <div class="guide-header">
+    <h2 id="guide-heading">Meet Your Guide: A Message from Piotr</h2>
+    <div class="decorative-accent" aria-hidden="true"></div>
+  </div>
+
+  <div class="guide-container">
+    <div class="video-container">
+      <video autoplay muted loop playsinline preload="metadata" aria-label="Introduction video of Piotr, your guide to South India's sacred traditions and transformative wellness journeys">
+        <source src="/assets/videos/piotr-intro.mp4" type="video/mp4" />
+      </video>
+      <div class="video-placeholder">Your 30-40 second<br>introduction video<br>will go here</div>
+    </div>
+
+    <div class="guide-content">
+      <p class="guide-intro">
+        I’m Piotr, and Lakshmi Trails is the culmination of my life’s journey. I’ve walked the path from <span class="highlight-text">skeptical traveler to devoted student</span>. After 20 years in America, India changed everything—not through tourist circuits, but through 1.5 years of deep immersion with masters, families, and traditions rarely accessible to outsiders.
+      </p>
+
+      <div class="credentials">
+        <article class="credential-item">
+          <h4>Cultural Bridge</h4>
+          <p>Polish-born, US-educated, India-transformed. I understand both worlds intimately and create safe passage between them.</p>
+        </article>
+        <article class="credential-item">
+          <h4>Certified Practitioner</h4>
+          <p>500-RYT yoga, Ayurveda, and Thai massage certifications. Trained within authentic lineages for genuine guidance.</p>
+        </article>
+        <article class="credential-item">
+          <h4>Exclusive Access</h4>
+          <p>Deep relationships with local families and sacred communities provide access to experiences closed to ordinary travelers.</p>
+        </article>
+      </div>
+
+      <p class="guide-quote">
+        "I created Lakshmi Trails because I know what it's like to crave authentic transformation while needing safety and clarity. With me, you're not a client—you're a fellow traveler on a sacred path."
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  #guide {
+    background: var(--color-mist);
+    padding: 7rem 2rem;
+    scroll-margin-top: 80px;
+  }
+
+  .guide-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .guide-header.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards;
+  }
+
+  .guide-header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+    font-weight: 500;
+    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+    letter-spacing: -0.01em;
+  }
+
+  .decorative-accent {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    margin: 2rem auto 0 auto;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .decorative-accent::before,
+  .decorative-accent::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    top: -3.5px;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .decorative-accent::before {
+    left: -15px;
+  }
+
+  .decorative-accent::after {
+    right: -15px;
+  }
+
+  .guide-container {
+    max-width: 1300px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: stretch;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .guide-container.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+  }
+
+  .video-container {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 
+      0 20px 60px rgba(51, 51, 51, 0.15),
+      0 8px 25px rgba(0, 0, 0, 0.08);
+    aspect-ratio: 3/4;
+    background: var(--color-stone);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .video-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 30px 80px rgba(51, 51, 51, 0.2),
+      0 12px 35px rgba(0, 0, 0, 0.12);
+  }
+
+  .video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .video-placeholder {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-stone) 0%, #444 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 2rem;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    font-family: var(--font-body);
+  }
+
+  .video-container video[loaded] + .video-placeholder {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .guide-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%;
+  }
+
+  .guide-intro {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.8;
+    color: var(--color-stone);
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+    font-family: var(--font-body);
+  }
+
+  .highlight-text {
+    color: var(--color-dark-gold);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .credentials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    flex-grow: 1;
+  }
+
+  .credential-item {
+    padding: 2rem 1.6rem;
+    background: rgba(249, 249, 249, 0.95);
+    border-radius: 18px;
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .credential-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    border-radius: 18px 18px 0 0;
+  }
+
+  .credential-item:hover,
+  .credential-item:focus-within {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 15px 40px rgba(51, 51, 51, 0.12),
+      0 6px 15px rgba(0, 0, 0, 0.08);
+    border-color: rgba(212, 175, 55, 0.25);
+  }
+
+  .credential-item h4 {
+    font-family: var(--font-headline);
+    color: var(--color-dark-gold);
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+  }
+
+  .credential-item p {
+    color: var(--color-stone);
+    font-size: clamp(0.9rem, 1.8vw, 1rem);
+    line-height: 1.6;
+    font-weight: 400;
+    font-family: var(--font-body);
+  }
+
+  .guide-quote {
+    font-size: clamp(1.2rem, 2.8vw, 1.35rem);
+    font-weight: 500;
+    color: var(--color-dark-gold);
+    font-family: var(--font-headline);
+    margin-top: auto;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .guide-header,
+    .guide-container {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    
+    .video-container,
+    .credential-item {
+      transition: none;
+    }
+    
+    .video-container:hover,
+    .credential-item:hover,
+    .credential-item:focus-within {
+      transform: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .credential-item {
+      background: rgba(249, 249, 249, 0.98);
+      border-color: var(--color-stone);
+    }
+    
+    .guide-header h2,
+    .highlight-text {
+      text-shadow: none;
+    }
+  }
+
+  @media (max-width: 968px) {
+    #guide {
+      padding: 5rem 2rem;
+    }
+
+    .guide-header {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .decorative-accent {
+      width: 60px;
+      margin: 1.5rem auto 0 auto;
+    }
+
+    .guide-container {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      text-align: center;
+    }
+
+    .video-container {
+      max-width: 450px;
+      margin: 0 auto;
+    }
+
+    .guide-content {
+      align-items: center;
+    }
+
+    .credentials {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      max-width: 500px;
+      margin: 2rem auto;
+    }
+
+    .guide-quote {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #guide {
+      padding: 4rem 1.5rem;
+    }
+
+    .credential-item {
+      padding: 1.8rem 1.4rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const video = document.querySelector('#guide video');
+    
+    if (video) {
+      video.addEventListener('loadeddata', () => {
+        video.setAttribute('loaded', '');
+      });
+
+      const videoObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) {
+            video.pause();
+          } else {
+            video.play();
+          }
+        },
+        { threshold: 0.1 }
+      );
+      videoObserver.observe(video);
+    }
+
+    const guideHeader = document.querySelector('.guide-header');
+    const guideContainer = document.querySelector('.guide-container');
+    
+    const headerObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          guideHeader.classList.add('intersecting');
+        }
+      },
+      { threshold: 0.15, rootMargin: '20px' }
+    );
+
+    const containerObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          guideContainer.classList.add('intersecting');
+          containerObserver.disconnect();
+        }
+      },
+      { threshold: 0.15, rootMargin: '20px' }
+    );
+    
+    if (guideHeader) {
+      headerObserver.observe(guideHeader);
+    }
+    
+    if (guideContainer) {
+      containerObserver.observe(guideContainer);
+    }
+  });
+</script>
