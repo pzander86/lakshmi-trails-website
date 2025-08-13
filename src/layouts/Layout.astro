@@ -7,6 +7,11 @@ const { meta } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
+
     <!-- Primary Meta -->
     <title>{meta?.title}</title>
     <meta name="description" content={meta?.description} />
@@ -26,7 +31,7 @@ const { meta } = Astro.props;
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Performance boost script - ONLY ADDITION -->
+    <!-- Performance boost script -->
     <script src="/js/performance-boost.js" defer></script>
   </head>
   <body>

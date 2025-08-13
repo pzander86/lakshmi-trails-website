@@ -70,11 +70,10 @@
         type="tel" 
         id="phone" 
         name="phone" 
-        aria-describedby="phone-help phone-error"
+        aria-describedby="phone-error"
         placeholder="+1 (555) 123-4567"
         autocomplete="tel"
       />
-      <div class="field-help" id="phone-help">For urgent travel updates and personal consultation - WhatsApp preferred</div>
       <div class="field-error" id="phone-error" role="alert"></div>
     </div>
 
@@ -85,9 +84,7 @@
         id="availability" 
         name="availability" 
         placeholder="e.g., Weekday evenings, Saturday mornings"
-        aria-describedby="availability-help"
       />
-      <div class="field-help" id="availability-help">When would be the best time for a personal consultation call?</div>
     </div>
 
     <div class="form-group">
@@ -97,9 +94,7 @@
         name="comments" 
         rows="4" 
         placeholder="Share what calls to you about South India, wellness, spirituality, or personal transformation..."
-        aria-describedby="comments-help"
       ></textarea>
-      <div class="field-help" id="comments-help">Help us understand your intentions so we can create the perfect experience</div>
     </div>
 
     <button type="submit" class="cta-button">
@@ -276,7 +271,7 @@
     justify-content: center;
     width: 100%;
     padding: 1rem;
-    background: #FF6F61;
+    background: var(--color-coral);
     color: var(--color-white);
     border: none;
     border-radius: 8px;
@@ -288,15 +283,16 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     gap: 0.5rem;
+    font-family: var(--font-body);
   }
 
   .cta-button:hover,
   .cta-button:focus {
-    background: #E55A4F;
+    background: #B8462F;
     transform: translateY(-2px);
     outline: 2px solid var(--color-gold);
     outline-offset: 2px;
-    box-shadow: 0 8px 25px rgba(255, 111, 97, 0.3);
+    box-shadow: 0 8px 25px rgba(214, 90, 58, 0.3);
   }
 
   .cta-button:disabled {
@@ -349,3 +345,358 @@
     background: rgba(220, 53, 69, 0.1);
     color: #dc3545;
     border: 1px solid rgba(220, 53, 69, 0.2);
+    display: block;
+  }
+
+  .form-status.loading {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--color-dark-gold);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    display: block;
+  }
+
+  /* Privacy note */
+  .privacy-note {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    font-size: 0.85rem;
+    color: var(--color-stone);
+    opacity: 0.7;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .privacy-note svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .form-container {
+      margin: 1rem;
+    }
+
+    #booking-form {
+      padding: 1.5rem;
+    }
+
+    #booking-form h3 {
+      font-size: 1.6rem;
+    }
+
+    .form-group label {
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-size: 0.95rem;
+    }
+
+    .cta-button {
+      font-size: 1rem;
+    }
+
+    .privacy-note {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+
+  /* Accessibility enhancements */
+  @media (prefers-reduced-motion: reduce) {
+    .form-container {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    
+    .cta-button:hover {
+      transform: none;
+    }
+    
+    .field-error.show,
+    .field-success.show {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const formContainer = document.querySelector('.form-container');
+    const form = document.getElementById('booking-form');
+    const submitButton = form.querySelector('.cta-button');
+    const formStatus = document.getElementById('form-status');
+
+    // Enhanced form validation class
+    class FormValidator {
+      constructor(form) {
+        this.form = form;
+        this.isSubmitting = false;
+        this.init();
+      }
+
+      init() {
+        // Real-time validation
+        this.form.querySelectorAll('input, select, textarea').forEach(field => {
+          field.addEventListener('blur', () => this.validateField(field));
+          field.addEventListener('input', () => this.clearFieldErrors(field));
+        });
+
+        // Enhanced email validation
+        const emailField = this.form.querySelector('#email');
+        if (emailField) {
+          emailField.addEventListener('input', this.validateEmailRealTime.bind(this));
+        }
+
+        // Form submission
+        this.form.addEventListener('submit', this.handleSubmit.bind(this));
+      }
+
+      validateField(field) {
+        const value = field.value.trim();
+        const fieldName = field.name;
+        let isValid = true;
+        let errorMessage = '';
+
+        // Required field validation
+        if (field.required && !value) {
+          isValid = false;
+          errorMessage = this.getFieldLabel(field) + ' is required';
+        }
+
+        // Specific field validations
+        switch (fieldName) {
+          case 'email':
+            if (value) {
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              if (!emailRegex.test(value)) {
+                isValid = false;
+                errorMessage = 'Please enter a valid email address';
+              }
+            }
+            break;
+
+          case 'phone':
+            if (value) {
+              const phoneRegex = /^[\+]?[\d\s\-\(\)]+$/;
+              if (!phoneRegex.test(value) || value.length < 10) {
+                isValid = false;
+                errorMessage = 'Please enter a valid phone number';
+              }
+            }
+            break;
+
+          case 'full-name':
+            if (value && value.length < 2) {
+              isValid = false;
+              errorMessage = 'Name must be at least 2 characters long';
+            }
+            break;
+        }
+
+        this.showFieldStatus(field, isValid, errorMessage);
+        return isValid;
+      }
+
+      validateEmailRealTime(e) {
+        const field = e.target;
+        const value = field.value.trim();
+        
+        if (value && value.includes('@')) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          const isValid = emailRegex.test(value);
+          
+          if (isValid) {
+            this.showFieldSuccess(field, '✓ Valid email address');
+          }
+        }
+      }
+
+      getFieldLabel(field) {
+        const label = this.form.querySelector(`label[for="${field.id}"]`);
+        return label ? label.textContent.replace('*', '').trim() : field.name;
+      }
+
+      showFieldStatus(field, isValid, message) {
+        const errorElement = document.getElementById(`${field.name}-error`);
+        const successElement = document.getElementById(`${field.name}-success`);
+        
+        // Clear previous states
+        field.classList.remove('error', 'success');
+        if (errorElement) errorElement.classList.remove('show');
+        if (successElement) successElement.classList.remove('show');
+
+        if (isValid) {
+          field.classList.add('success');
+        } else {
+          field.classList.add('error');
+          if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+          }
+        }
+      }
+
+      showFieldSuccess(field, message) {
+        const successElement = document.getElementById(`${field.name}-success`);
+        if (successElement) {
+          successElement.textContent = message;
+          successElement.classList.add('show');
+        }
+      }
+
+      clearFieldErrors(field) {
+        field.classList.remove('error');
+        const errorElement = document.getElementById(`${field.name}-error`);
+        if (errorElement) {
+          errorElement.classList.remove('show');
+        }
+      }
+
+      async handleSubmit(e) {
+        e.preventDefault();
+        
+        if (this.isSubmitting) return;
+
+        // Validate all fields
+        let isFormValid = true;
+        this.form.querySelectorAll('input[required], select[required], textarea[required]').forEach(field => {
+          if (!this.validateField(field)) {
+            isFormValid = false;
+          }
+        });
+
+        if (!isFormValid) {
+          this.scrollToFirstError();
+          this.showFormStatus('Please correct the errors above', 'error');
+          return;
+        }
+
+        // Show loading state
+        this.setLoadingState(true);
+        this.showFormStatus('Sending your sacred inquiry...', 'loading');
+
+        try {
+          await this.submitForm();
+          this.showSuccess();
+        } catch (error) {
+          this.showFormStatus(error.message || 'Something went wrong. Please try again or contact us directly at peter@lakshmitrails.com', 'error');
+          console.error('Form submission error:', error);
+        } finally {
+          this.setLoadingState(false);
+        }
+      }
+
+      async submitForm() {
+        const formData = new FormData(this.form);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Add metadata
+        data.timestamp = new Date().toISOString();
+        data.source = 'website_booking_form';
+        data.page_url = window.location.href;
+
+        // Send to your API endpoint
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.error || `Server error: ${response.status}`);
+        }
+
+        return await response.json();
+      }
+
+      setLoadingState(loading) {
+        this.isSubmitting = loading;
+        submitButton.disabled = loading;
+        submitButton.classList.toggle('loading', loading);
+        
+        const buttonText = submitButton.querySelector('.button-text');
+        if (loading) {
+          buttonText.textContent = 'Sending Your Inquiry...';
+        } else {
+          buttonText.textContent = 'Send My Sacred Inquiry';
+        }
+      }
+
+      showSuccess() {
+        formStatus.className = 'form-status success';
+        formStatus.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22,4 12,14.01 9,11.01"></polyline>
+            </svg>
+            <strong>Thank you for your sacred inquiry!</strong>
+          </div>
+          <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">
+            We've received your message and will respond within 24 hours with personalized information about your transformational journey.
+          </p>
+        `;
+
+        // Reset form after delay
+        setTimeout(() => {
+          this.form.reset();
+          this.form.querySelectorAll('.success, .error').forEach(el => {
+            el.classList.remove('success', 'error');
+          });
+          this.form.querySelectorAll('.show').forEach(el => {
+            el.classList.remove('show');
+          });
+          formStatus.style.display = 'none';
+        }, 5000);
+      }
+
+      showFormStatus(message, type) {
+        formStatus.className = `form-status ${type}`;
+        formStatus.textContent = message;
+      }
+
+      scrollToFirstError() {
+        const firstError = this.form.querySelector('.error');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstError.focus();
+        }
+      }
+    }
+
+    // Initialize form validation
+    const formValidator = new FormValidator(form);
+
+    // Initialize intersection observer for form animation
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('intersecting');
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(formContainer);
+  });
+</script>
