@@ -1,0 +1,1008 @@
+---
+// Blog Index Page - src/pages/blog/index.astro
+import Layout from '../../layouts/Layout.astro';
+
+const meta = {
+  title: "Sacred Stories & Insights | Lakshmi Trails Blog",
+  description: "Authentic insights on South India's cultural heart, wellness wisdom, and transformational travel from Piotr, your guide to sacred journeys.",
+  image: "https://lakshmitrails.com/assets/images/blog-hero.webp",
+  url: "https://lakshmitrails.com/blog/"
+};
+
+// Mock blog posts data - in reality this would come from your CMS/markdown files
+const featuredPost = {
+  slug: "finding-peace-in-chaos-kerala-temples",
+  title: "Finding Peace in Chaos: Why Kerala's Temples Changed Everything for Me",
+  excerpt: "As someone who spent 20 years in America's fast-paced culture, stepping into a Kerala temple at dawn wasn't just culture shock—it was soul surgery. Here's what really happens when you let go of control.",
+  category: "Founder Voice",
+  pillar: "founder-voice",
+  readTime: "8 min read",
+  publishDate: "2025-01-15",
+  image: "/assets/blog/kerala-temple-dawn.webp"
+};
+
+const recentPosts = [
+  {
+    slug: "ayurveda-burnout-recovery-women",
+    title: "Why Ayurveda Succeeds Where Western Medicine Fails for Burnout Recovery",
+    excerpt: "After watching countless women struggle with burnout, I've seen how Ayurveda's approach to exhaustion differs fundamentally from Western quick fixes.",
+    category: "Wellness Wisdom",
+    pillar: "wellness-wisdom",
+    readTime: "12 min read",
+    publishDate: "2025-01-12"
+  },
+  {
+    slug: "myth-busting-solo-female-travel-india",
+    title: "The Truth About Solo Female Travel in South India (From 50+ Women Who've Done It)",
+    excerpt: "Let's address the elephant in the room. Is South India safe for solo women? I've guided over 50 solo female travelers. Here's what actually happens.",
+    category: "India Unveiled",
+    pillar: "india-unveiled", 
+    readTime: "10 min read",
+    publishDate: "2025-01-10"
+  },
+  {
+    slug: "traditional-kerala-cooking-beyond-curry",
+    title: "Beyond Curry: The Sacred Art of Kerala Cooking I Learned from Village Grandmothers",
+    excerpt: "Forget everything you think you know about Indian food. Real Kerala cuisine is about ritual, seasonality, and stories passed down through generations.",
+    category: "Cultural Immersion",
+    pillar: "cultural-immersion",
+    readTime: "9 min read", 
+    publishDate: "2025-01-08"
+  },
+  {
+    slug: "small-group-travel-transformation",
+    title: "Why 12-16 People Is the Magic Number for Life-Changing Travel",
+    excerpt: "After leading hundreds of travelers, I've discovered the exact group size that creates deep connection without losing intimacy. Here's the psychology behind it.",
+    category: "Trip Invitation",
+    pillar: "trip-invitation",
+    readTime: "7 min read",
+    publishDate: "2025-01-05"
+  },
+  {
+    slug: "dual-identity-polish-american-india",
+    title: "The Gift of Being Polish-American in India: How Dual Identity Became My Superpower",
+    excerpt: "Growing up between cultures prepared me for something I never expected: becoming a bridge between East and West in the most profound way possible.",
+    category: "Founder Voice", 
+    pillar: "founder-voice",
+    readTime: "11 min read",
+    publishDate: "2025-01-03"
+  },
+  {
+    slug: "theyyam-ritual-authentic-access",
+    title: "Witnessing Theyyam: How to Experience Sacred Rituals Without Becoming a Tourist",
+    excerpt: "Theyyam isn't a performance—it's a living tradition. After years building relationships with local communities, here's how to witness these sacred transformations respectfully.",
+    category: "Cultural Immersion",
+    pillar: "cultural-immersion", 
+    readTime: "13 min read",
+    publishDate: "2025-01-01"
+  }
+];
+
+const categories = [
+  { name: "All Stories", slug: "all", count: 24 },
+  { name: "Founder Voice", slug: "founder-voice", count: 8 },
+  { name: "India Unveiled", slug: "india-unveiled", count: 6 },
+  { name: "Wellness Wisdom", slug: "wellness-wisdom", count: 5 },
+  { name: "Cultural Immersion", slug: "cultural-immersion", count: 3 },
+  { name: "Trip Invitation", slug: "trip-invitation", count: 2 }
+];
+---
+
+<Layout {meta}>
+  <!-- Hero Section -->
+  <section id="blog-hero" class="blog-hero">
+    <div class="hero-overlay"></div>
+    
+    <!-- Simple Navigation -->
+    <nav class="hero-nav" aria-label="Main navigation">
+      <a href="/" class="nav-home">← Back to Home</a>
+      <a href="/#tours" class="nav-tours">Sacred Journeys</a>
+    </nav>
+
+    <div class="hero-content">
+      <h1>
+        <span class="highlight">Sacred Stories</span>
+        <br><span class="subtitle">& Cultural Insights</span>
+      </h1>
+      <p class="tagline">
+        Authentic perspectives on South India's spiritual heart, wellness wisdom, and the transformational journey from skeptical traveler to devoted guide.
+      </p>
+    </div>
+
+    <div class="scroll-indicator" aria-hidden="true" role="presentation"></div>
+  </section>
+
+  <!-- Featured Article -->
+  <section id="featured" class="featured-section">
+    <div class="featured-container">
+      <header class="section-header">
+        <h2>Featured Story</h2>
+        <div class="decorative-accent" aria-hidden="true"></div>
+      </header>
+
+      <article class="featured-article">
+        <div class="featured-image">
+          <img 
+            src={featuredPost.image} 
+            alt={featuredPost.title}
+            loading="eager"
+          />
+          <div class="category-badge">{featuredPost.category}</div>
+        </div>
+        <div class="featured-content">
+          <div class="article-meta">
+            <span class="read-time">{featuredPost.readTime}</span>
+            <span class="publish-date">{new Date(featuredPost.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          </div>
+          <h3>{featuredPost.title}</h3>
+          <p class="excerpt">{featuredPost.excerpt}</p>
+          <a href={`/blog/${featuredPost.slug}/`} class="read-more">
+            <span>Read Full Story</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12,5 19,12 12,19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Categories Filter -->
+  <section id="categories" class="categories-section">
+    <div class="categories-container">
+      <h2>Explore by Category</h2>
+      <div class="categories-grid">
+        {categories.map((category) => (
+          <a href={category.slug === 'all' ? '/blog/' : `/blog/category/${category.slug}/`} class="category-card">
+            <h3>{category.name}</h3>
+            <span class="post-count">{category.count} stories</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Articles -->
+  <section id="recent" class="recent-section">
+    <div class="recent-container">
+      <header class="section-header">
+        <h2>Recent Stories</h2>
+        <div class="decorative-accent" aria-hidden="true"></div>
+        <p class="section-intro">
+          Insights from the journey of cultural bridge-building and spiritual discovery.
+        </p>
+      </header>
+
+      <div class="articles-grid">
+        {recentPosts.map((post) => (
+          <article class="article-card">
+            <div class="article-header">
+              <div class="category-badge">{post.category}</div>
+              <div class="article-meta">
+                <span class="read-time">{post.readTime}</span>
+                <span class="publish-date">{new Date(post.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+              </div>
+            </div>
+            <h3>{post.title}</h3>
+            <p class="excerpt">{post.excerpt}</p>
+            <a href={`/blog/${post.slug}/`} class="read-more">
+              <span>Read Story</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12,5 19,12 12,19"></polyline>
+              </svg>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Signup -->
+  <section id="newsletter" class="newsletter-section">
+    <div class="newsletter-container">
+      <div class="newsletter-content">
+        <h2>Join the Sacred Stories Community</h2>
+        <div class="decorative-accent" aria-hidden="true"></div>
+        <p class="newsletter-intro">
+          Receive new stories and insights directly from Piotr, plus exclusive updates about upcoming journeys and cultural discoveries.
+        </p>
+        <form class="newsletter-form">
+          <input 
+            type="email" 
+            placeholder="Enter your email address"
+            aria-label="Email address"
+            required
+          />
+          <button type="submit" class="newsletter-button">
+            <span>Subscribe</span>
+          </button>
+        </form>
+        <p class="newsletter-note">
+          <small>No spam, ever. Unsubscribe anytime. Stories shared 2-3 times per month.</small>
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .blog-hero {
+    position: relative;
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    color: var(--color-white);
+    background: linear-gradient(135deg, var(--color-stone) 0%, #2a2a2a 100%);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%);
+    z-index: 1;
+  }
+
+  /* Hero Navigation */
+  .hero-nav {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 3;
+    display: flex;
+    gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInDown 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+  }
+
+  .hero-nav a {
+    color: rgba(249, 249, 249, 0.9);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .hero-nav a:hover,
+  .hero-nav a:focus {
+    color: var(--color-white);
+    background: rgba(212, 175, 55, 0.2);
+    border-color: rgba(212, 175, 55, 0.3);
+    transform: translateY(-1px);
+    outline: none;
+  }
+
+  /* Hero Content */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    animation: fadeInUp 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2.2rem, 4.5vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 2rem;
+    line-height: 1.3;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    font-family: var(--font-headline);
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-content h1 .highlight {
+    color: var(--color-gold);
+    font-style: italic;
+  }
+
+  .hero-content h1 .subtitle {
+    font-size: 0.75em;
+    opacity: 0.95;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  .hero-content .tagline {
+    color: rgba(249, 249, 249, 0.9);
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    font-weight: 400;
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0 auto;
+    letter-spacing: 0.3px;
+    font-family: var(--font-body);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    opacity: 0.8;
+  }
+
+  .scroll-indicator::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid var(--color-white);
+    border-bottom: 2px solid var(--color-white);
+    transform: rotate(45deg);
+    animation: scrollArrow 2s infinite ease-in-out;
+    display: block;
+  }
+
+  /* Featured Section */
+  .featured-section {
+    background: var(--color-mist);
+    padding: 7rem 2rem;
+    scroll-margin-top: 80px;
+  }
+
+  .featured-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .section-header.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards;
+  }
+
+  .section-header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+    font-weight: 500;
+    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+    letter-spacing: -0.01em;
+  }
+
+  .decorative-accent {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    margin: 2rem auto 0 auto;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .decorative-accent::before,
+  .decorative-accent::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    top: -3.5px;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .decorative-accent::before {
+    left: -15px;
+  }
+
+  .decorative-accent::after {
+    right: -15px;
+  }
+
+  .featured-article {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    background: rgba(249, 249, 249, 0.95);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 
+      0 20px 60px rgba(51, 51, 51, 0.15),
+      0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .featured-article.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+  }
+
+  .featured-article:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 30px 80px rgba(51, 51, 51, 0.2),
+      0 12px 35px rgba(0, 0, 0, 0.12);
+  }
+
+  .featured-image {
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+  }
+
+  .featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .category-badge {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    padding: 0.4rem 1rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    font-family: var(--font-body);
+  }
+
+  .featured-content {
+    padding: 3rem;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-stone);
+    font-family: var(--font-body);
+  }
+
+  .read-time, .publish-date {
+    opacity: 0.8;
+  }
+
+  .featured-content h3 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .excerpt {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-stone);
+    margin-bottom: 2rem;
+    font-family: var(--font-body);
+    font-weight: 400;
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-dark-gold);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
+  }
+
+  .read-more:hover,
+  .read-more:focus {
+    color: var(--color-gold);
+    transform: translateX(3px);
+    outline: none;
+  }
+
+  .read-more svg {
+    transition: transform 0.3s ease;
+  }
+
+  .read-more:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* Categories Section */
+  .categories-section {
+    background: var(--color-white);
+    padding: 6rem 2rem;
+  }
+
+  .categories-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .categories-container h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 3.5vw, 2.4rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 3rem;
+    font-weight: 500;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .category-card {
+    background: rgba(232, 228, 224, 0.5);
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+  }
+
+  .category-card:hover {
+    background: var(--color-mist);
+    border-color: rgba(212, 175, 55, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(51, 51, 51, 0.08);
+  }
+
+  .category-card h3 {
+    font-family: var(--font-headline);
+    color: var(--color-dark-gold);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .post-count {
+    color: var(--color-stone);
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    opacity: 0.8;
+  }
+
+  /* Recent Articles */
+  .recent-section {
+    background: var(--color-mist);
+    padding: 7rem 2rem;
+  }
+
+  .recent-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-intro {
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    line-height: 1.6;
+    color: var(--color-stone);
+    margin: 2rem auto 0 auto;
+    font-weight: 400;
+    font-family: var(--font-body);
+    max-width: 600px;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .article-card {
+    background: rgba(249, 249, 249, 0.95);
+    padding: 2.5rem 2rem;
+    border-radius: 18px;
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    box-shadow: 
+      0 8px 25px rgba(51, 51, 51, 0.08),
+      0 3px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+  }
+
+  .article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 15px 40px rgba(51, 51, 51, 0.12),
+      0 6px 15px rgba(0, 0, 0, 0.08);
+    border-color: rgba(212, 175, 55, 0.25);
+  }
+
+  .article-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-header .category-badge {
+    position: static;
+    margin: 0;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .article-header .article-meta {
+    text-align: right;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  .article-card h3 {
+    font-family: var(--font-headline);
+    color: var(--color-dark-gold);
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .article-card .excerpt {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-stone);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-body);
+  }
+
+  .article-card .read-more {
+    font-size: 0.9rem;
+  }
+
+  /* Newsletter Section */
+  .newsletter-section {
+    background: var(--color-white);
+    padding: 7rem 2rem;
+    text-align: center;
+  }
+
+  .newsletter-container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .newsletter-content h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+  }
+
+  .newsletter-intro {
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    line-height: 1.6;
+    color: var(--color-stone);
+    margin: 3rem auto;
+    font-weight: 400;
+    font-family: var(--font-body);
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 1rem;
+    max-width: 500px;
+    margin: 2.5rem auto;
+  }
+
+  .newsletter-form input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    background: var(--color-white);
+    color: var(--color-stone);
+    transition: border-color 0.3s ease;
+  }
+
+  .newsletter-form input:focus {
+    outline: none;
+    border-color: var(--color-gold);
+  }
+
+  .newsletter-button {
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+  }
+
+  .newsletter-button:hover,
+  .newsletter-button:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+    outline: none;
+  }
+
+  .newsletter-note {
+    margin-top: 1.5rem;
+    color: var(--color-stone);
+    opacity: 0.8;
+    font-family: var(--font-body);
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInDown {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scrollArrow {
+    0%, 20%, 50%, 80%, 100% {
+      transform: rotate(45deg) translateY(0);
+      opacity: 0.6;
+    }
+    40% {
+      transform: rotate(45deg) translateY(-8px);
+      opacity: 1;
+    }
+    60% {
+      transform: rotate(45deg) translateY(-4px);
+      opacity: 0.8;
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 968px) {
+    .hero-nav {
+      top: 1rem;
+      left: 1rem;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .hero-nav a {
+      font-size: 0.85rem;
+      padding: 0.4rem 0.8rem;
+    }
+
+    .featured-article {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .featured-image {
+      height: 250px;
+    }
+
+    .featured-content {
+      padding: 2rem;
+    }
+
+    .categories-grid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .category-card {
+      padding: 1.5rem 1rem;
+    }
+
+    .articles-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .newsletter-form {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .newsletter-button {
+      width: 100%;
+    }
+
+    .featured-section,
+    .recent-section,
+    .newsletter-section {
+      padding: 5rem 2rem;
+    }
+
+    .categories-section {
+      padding: 4rem 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .blog-hero {
+      min-height: 70vh;
+      padding: 1rem;
+    }
+
+    .hero-nav {
+      top: 0.5rem;
+      left: 0.5rem;
+    }
+
+    .hero-nav a {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
+    }
+
+    .featured-section,
+    .recent-section,
+    .newsletter-section {
+      padding: 4rem 1.5rem;
+    }
+
+    .categories-section {
+      padding: 3rem 1.5rem;
+    }
+
+    .featured-content,
+    .article-card {
+      padding: 1.5rem;
+    }
+
+    .categories-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-content,
+    .hero-nav,
+    .section-header,
+    .featured-article {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    
+    .scroll-indicator::after {
+      animation: none;
+    }
+    
+    .featured-article,
+    .article-card,
+    .category-card,
+    .read-more,
+    .newsletter-button {
+      transition: none;
+    }
+    
+    .featured-article:hover,
+    .article-card:hover,
+    .category-card:hover,
+    .read-more:hover,
+    .newsletter-button:hover {
+      transform: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .featured-article,
+    .article-card {
+      background: rgba(249, 249, 249, 0.98);
+      border-color: var(--color-stone);
+    }
+    
+    .section-header h2,
+    .newsletter-content h2 {
+      text-shadow: none;
+    }
+
+    .hero-nav a {
+      background: rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Intersection Observer for animations
+    const elements = [
+      '.section-header',
+      '.featured-article'
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('intersecting');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '20px' }
+    );
+    
+    elements.forEach(selector => {
+      const element = document.querySelector(selector);
+      if (element) observer.observe(element);
+    });
+
+    // Newsletter form submission
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = e.target.querySelector('input[type="email"]').value;
+        
+        // Add your newsletter signup logic here
+        console.log('Newsletter signup:', email);
+        
+        // Show success message (you can customize this)
+        const button = e.target.querySelector('.newsletter-button');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<span>Subscribed!</span>';
+        button.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+        
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.style.background = 'linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%)';
+        }, 2000);
+      });
+    }
+
+    // Smooth scroll for anchor links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  });
+</script>

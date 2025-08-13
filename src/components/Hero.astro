@@ -2,24 +2,48 @@
 import "../styles/global.css";
 ---
 
-<section id="hero">
+<!-- Preload critical resources in head -->
+<link rel="preload" as="image" href="/assets/images/hero-placeholder.webp">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/headline-font.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/body-font.woff2" crossorigin>
+
+<section id="hero" class="scroll-section">
   <a href="#main-content" class="skip-link">Skip to content</a>
   
-  <video autoplay muted loop playsinline preload="metadata" poster="/assets/images/hero-placeholder.webp" aria-label="Background video of a South Indian temple" class="hero-video">
-    <source src="/assets/videos/lakshmi-trails-hero.webv" type="video/webm" />
-    <source src="/assets/videos/lakshmi-trails-hero.mp4" type="video/mp4" />
+  <!-- Enhanced video with better fallback strategy -->
+  <video 
+    data-src="/assets/videos/lakshmi-trails-hero.webm"
+    autoplay 
+    muted 
+    loop 
+    playsinline 
+    preload="metadata" 
+    poster="/assets/images/hero-placeholder.webp" 
+    aria-label="Background video of a South Indian temple" 
+    class="hero-video"
+  >
+    <source data-src="/assets/videos/lakshmi-trails-hero-720p.webm" type="video/webm" media="(max-width: 768px)">
+    <source data-src="/assets/videos/lakshmi-trails-hero.webm" type="video/webm">
+    <source data-src="/assets/videos/lakshmi-trails-hero-720p.mp4" type="video/mp4" media="(max-width: 768px)">
+    <source data-src="/assets/videos/lakshmi-trails-hero.mp4" type="video/mp4">
   </video>
   
-  <!-- Fallback for reduced motion users and video errors -->
-  <div class="hero-image-fallback" role="img" aria-label="South Indian temple"></div>
+  <!-- Enhanced fallback for reduced motion users and video errors -->
+  <div class="hero-image-fallback" role="img" aria-label="South Indian temple">
+    <picture>
+      <source media="(max-width: 768px)" srcset="/assets/images/hero-mobile-800.webp">
+      <source media="(min-width: 769px)" srcset="/assets/images/hero-desktop-1920.webp">
+      <img src="/assets/images/hero-placeholder.webp" alt="Sacred temple in South India" loading="eager" fetchpriority="high">
+    </picture>
+  </div>
 
-  <div class="hero-content">
+  <div class="hero-content fade-in-up">
     <h1>
       Intimate <span class="highlight">cultural journeys</span> into
       <br><span class="subtitle">South India's sacred heart</span>
     </h1>
     <p class="tagline">Guided with care, crafted for transformation. For discerning travelers seeking authentic connection with India's spiritual essence.</p>
-    <a href="#tours" class="cta-button">
+    <a href="#tours" class="cta-button" data-test="hero_cta">
       <span>Discover Upcoming Journeys</span>
     </a>
   </div>
@@ -28,7 +52,7 @@ import "../styles/global.css";
 </section>
 
 <style>
-  /* Hero Section */
+  /* Hero Section - Optimized */
   #hero {
     position: relative;
     min-height: 100vh;
@@ -40,6 +64,7 @@ import "../styles/global.css";
     text-align: center;
     padding: 2rem;
     color: var(--color-white);
+    contain: layout style paint; /* Performance optimization */
   }
 
   .hero-video {
@@ -49,15 +74,31 @@ import "../styles/global.css";
     height: 100%;
     object-fit: cover;
     z-index: 0;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .hero-video.error {
+    opacity: 0;
   }
 
   .hero-image-fallback {
     position: absolute;
     inset: 0;
-    background: url('/assets/images/hero-placeholder.webp') center/cover no-repeat;
-    opacity: 0;
     z-index: 0;
+    opacity: 0;
     transition: opacity 0.3s ease;
+  }
+
+  .hero-image-fallback.show,
+  .hero-video.error + .hero-image-fallback {
+    opacity: 1;
+  }
+
+  .hero-image-fallback img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   /* Show fallback for users who prefer reduced motion */
@@ -82,9 +123,6 @@ import "../styles/global.css";
     position: relative;
     z-index: 2;
     max-width: 900px;
-    animation: fadeInUp 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    opacity: 0;
-    transform: translateY(30px);
   }
 
   .hero-content h1 {
@@ -137,6 +175,7 @@ import "../styles/global.css";
     font-family: var(--font-body);
     position: relative;
     overflow: hidden;
+    will-change: transform; /* Performance hint */
   }
 
   .cta-button::before {
@@ -172,10 +211,14 @@ import "../styles/global.css";
     background: var(--color-gold);
     color: #000;
     z-index: 1000;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
   }
 
   .skip-link:focus {
-    top: 0;
+    top: 1rem;
+    left: 1rem;
   }
 
   .scroll-indicator {
@@ -208,14 +251,6 @@ import "../styles/global.css";
     transform: rotate(45deg);
     animation: scrollArrow 2s infinite ease-in-out;
     display: block;
-  }
-
-  /* Animations */
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 
   @keyframes scrollLine {
@@ -269,47 +304,86 @@ import "../styles/global.css";
       padding: 1rem;
     }
   }
-
-  /* Reduced motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-content {
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
-    
-    .scroll-indicator::before,
-    .scroll-indicator::after {
-      animation: none;
-    }
-  }
 </style>
 
 <script>
+  // Enhanced video loading with performance optimization
   document.addEventListener('DOMContentLoaded', () => {
     const video = document.querySelector('.hero-video');
     const fallbackImage = document.querySelector('.hero-image-fallback');
     
-    // Enhanced video performance with error handling
+    if (!video) return;
+
+    // Determine connection quality and device capabilities
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+    const prefersReducedData = connection?.saveData;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Show fallback immediately for slow connections or reduced motion
+    if (isSlowConnection || prefersReducedData || prefersReducedMotion) {
+      showFallback();
+      return;
+    }
+
+    // Progressive video loading
+    const loadVideo = () => {
+      const dataSrc = video.dataset.src;
+      const sources = video.querySelectorAll('source[data-src]');
+      
+      if (dataSrc) {
+        // Load appropriate quality based on screen size
+        const screenWidth = window.innerWidth;
+        const useHighQuality = screenWidth > 768 && !isSlowConnection;
+        
+        sources.forEach(source => {
+          const srcToUse = useHighQuality ? 
+            source.dataset.src : 
+            source.dataset.src.replace('.webm', '-720p.webm').replace('.mp4', '-720p.mp4');
+          source.src = srcToUse;
+        });
+        
+        video.load();
+      }
+    };
+
+    // Enhanced intersection observer
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) {
-          video?.pause();
+        if (entry.isIntersecting) {
+          if (video.readyState >= 2) {
+            playVideo();
+          } else {
+            loadVideo();
+            video.addEventListener('canplay', playVideo, { once: true });
+          }
         } else {
-          video?.play().catch(() => {
-            // Fallback to image if video fails
-            if (fallbackImage) {
-              fallbackImage.style.opacity = '1';
-              video.style.opacity = '0';
-            }
-          });
+          video.pause();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.25, rootMargin: '50px' }
     );
-    
-    if (video) observer.observe(video);
 
+    const playVideo = () => {
+      video.play().catch(() => {
+        console.warn('Video autoplay failed, showing fallback');
+        showFallback();
+      });
+    };
+
+    const showFallback = () => {
+      video.classList.add('error');
+      fallbackImage.classList.add('show');
+    };
+
+    // Error handling
+    video.addEventListener('error', showFallback);
+    video.addEventListener('stalled', showFallback);
+
+    // Start observing
+    observer.observe(video);
+
+    // CTA button smooth scroll
     const ctaButton = document.querySelector('.cta-button');
     if (ctaButton) {
       ctaButton.addEventListener('click', (e) => {
@@ -317,23 +391,27 @@ import "../styles/global.css";
         const targetId = ctaButton.getAttribute('href');
         const target = document.querySelector(targetId);
         if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
+          const headerOffset = 80;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
         }
       });
     }
 
-    // Lightweight preload for next section (runs after 2s to not impact hero load)
+    // Preload next section assets after hero loads
     setTimeout(() => {
-      const nextSection = document.querySelector('section:nth-of-type(2)');
-      if (nextSection) {
-        const images = nextSection.querySelectorAll('img[data-src]');
-        images.forEach(img => {
-          if (img.dataset.src) {
-            const preloadImg = new Image();
-            preloadImg.src = img.dataset.src;
-          }
-        });
-      }
+      const nextSectionImages = document.querySelectorAll('#guide img[data-src], #about img[data-src]');
+      nextSectionImages.forEach(img => {
+        if (img.dataset.src) {
+          const preloadImg = new Image();
+          preloadImg.src = img.dataset.src;
+        }
+      });
     }, 2000);
   });
 </script>

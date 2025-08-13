@@ -1,85 +1,122 @@
 ---
-const handleSubmit = (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const successMessage = form.querySelector('.success-message');
-  const inputs = form.querySelectorAll('input, select, textarea');
-  let isValid = true;
-
-  inputs.forEach(input => {
-    if (input.hasAttribute('required') && !input.value.trim()) {
-      input.classList.add('invalid');
-      isValid = false;
-    } else {
-      input.classList.remove('invalid');
-    }
-  });
-
-  if (isValid) {
-    // TODO: Connect to Vercel serverless function for email confirmation
-    successMessage.style.display = 'block';
-    successMessage.classList.add('visible');
-    form.reset();
-    setTimeout(() => {
-      successMessage.classList.remove('visible');
-      setTimeout(() => {
-        successMessage.style.display = 'none';
-      }, 500);
-    }, 3000);
-  }
-};
+// No changes to frontmatter - keeping it simple
 ---
 
 <div class="form-container">
-  <form id="booking-form" on:submit={handleSubmit}>
+  <form id="booking-form">
     <h3>Reserve Your Spot</h3>
+    
     <div class="form-group">
       <label for="commitment-level">Commitment Level<span class="required">*</span></label>
       <div class="select-wrapper">
-        <select id="commitment-level" required aria-required="true">
-          <option value="">Select</option>
-          <option value="committed">100% committed</option>
-          <option value="interested">Just interested</option>
+        <select id="commitment-level" name="commitment-level" required aria-required="true" aria-describedby="commitment-level-error">
+          <option value="">Select your level of interest</option>
+          <option value="committed">100% committed - ready to book</option>
+          <option value="interested">Very interested - want more details</option>
+          <option value="exploring">Just exploring - early research</option>
         </select>
       </div>
+      <div class="field-error" id="commitment-level-error" role="alert"></div>
     </div>
+
     <div class="form-group">
       <label for="trip-selection">Trip Selection<span class="required">*</span></label>
       <div class="select-wrapper">
-        <select id="trip-selection" required aria-required="true">
-          <option value="">Select a trip</option>
-          <option value="sacred-waters">Sacred Waters & New Beginnings</option>
-          <option value="living-traditions">The Living Traditions Trail</option>
-          <option value="mysore-mystique">The Mysore Mystique</option>
+        <select id="trip-selection" name="trip-selection" required aria-required="true" aria-describedby="trip-selection-error">
+          <option value="">Select a journey that calls to you</option>
+          <option value="living-traditions">The Living Traditions Trail (Jan 22 – Feb 5, 2025)</option>
+          <option value="mysore-mystique">The Mysore Mystique (Feb 16 – Mar 2, 2025)</option>
+          <option value="sacred-waters">Sacred Waters & New Beginnings (Dec 30, 2025 – Jan 13, 2026)</option>
+          <option value="custom">Custom Journey - Let's create something unique</option>
         </select>
       </div>
+      <div class="field-error" id="trip-selection-error" role="alert"></div>
     </div>
-    <div class="form-group">
-      <label for="preferred-dates">Preferred Dates<span class="required">*</span></label>
-      <input type="date" id="preferred-dates" required aria-required="true" />
-    </div>
+
     <div class="form-group">
       <label for="full-name">Full Name<span class="required">*</span></label>
-      <input type="text" id="full-name" required aria-required="true" />
+      <input 
+        type="text" 
+        id="full-name" 
+        name="full-name" 
+        required 
+        aria-required="true" 
+        aria-describedby="full-name-error"
+        placeholder="Your full name"
+        autocomplete="name"
+      />
+      <div class="field-error" id="full-name-error" role="alert"></div>
     </div>
+
     <div class="form-group">
-      <label for="email">Email<span class="required">*</span></label>
-      <input type="email" id="email" required aria-required="true" />
+      <label for="email">Email Address<span class="required">*</span></label>
+      <input 
+        type="email" 
+        id="email" 
+        name="email" 
+        required 
+        aria-required="true" 
+        aria-describedby="email-error email-success"
+        placeholder="your@email.com"
+        autocomplete="email"
+      />
+      <div class="field-success" id="email-success">✓ Valid email address</div>
+      <div class="field-error" id="email-error" role="alert"></div>
     </div>
+
     <div class="form-group">
-      <label for="phone">Phone</label>
-      <input type="tel" id="phone" />
+      <label for="phone">Phone/WhatsApp Number <span class="recommended">(Recommended)</span></label>
+      <input 
+        type="tel" 
+        id="phone" 
+        name="phone" 
+        aria-describedby="phone-help phone-error"
+        placeholder="+1 (555) 123-4567"
+        autocomplete="tel"
+      />
+      <div class="field-help" id="phone-help">For urgent travel updates and personal consultation - WhatsApp preferred</div>
+      <div class="field-error" id="phone-error" role="alert"></div>
     </div>
+
     <div class="form-group">
-      <label for="availability">Availability (optional)</label>
-      <input type="text" id="availability" placeholder="Suggest a time for a call" />
+      <label for="availability">Best Time to Contact You</label>
+      <input 
+        type="text" 
+        id="availability" 
+        name="availability" 
+        placeholder="e.g., Weekday evenings, Saturday mornings"
+        aria-describedby="availability-help"
+      />
+      <div class="field-help" id="availability-help">When would be the best time for a personal consultation call?</div>
     </div>
+
     <div class="form-group">
-      <label for="comments">Questions/Comments (optional)</label>
-      <textarea id="comments" rows="3"></textarea>
+      <label for="comments">What draws you to this journey?</label>
+      <textarea 
+        id="comments" 
+        name="comments" 
+        rows="4" 
+        placeholder="Share what calls to you about South India, wellness, spirituality, or personal transformation..."
+        aria-describedby="comments-help"
+      ></textarea>
+      <div class="field-help" id="comments-help">Help us understand your intentions so we can create the perfect experience</div>
     </div>
-    <button type="submit" class="cta-button">Submit</button>
-    <div class="success-message" role="alert">Thank you! Your booking request has been received.</div>
+
+    <button type="submit" class="cta-button">
+      <span class="button-spinner" aria-hidden="true"></span>
+      <span class="button-text">Send My Sacred Inquiry</span>
+    </button>
+
+    <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+
+    <div class="privacy-note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <circle cx="12" cy="16" r="1"></circle>
+        <path d="m7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      Your information is sacred to us. We'll never share your details and you can unsubscribe anytime.
+    </div>
   </form>
 </div>
 
@@ -114,6 +151,7 @@ const handleSubmit = (e) => {
 
   .form-group {
     margin-bottom: 1.5rem;
+    position: relative;
   }
 
   .form-group label {
@@ -121,7 +159,8 @@ const handleSubmit = (e) => {
     font-size: 1rem;
     color: var(--color-stone);
     margin-bottom: 0.5rem;
-    font-weight: 400;
+    font-weight: 500;
+    font-family: var(--font-body);
   }
 
   .required {
@@ -129,46 +168,112 @@ const handleSubmit = (e) => {
     margin-left: 0.25rem;
   }
 
+  .recommended {
+    color: var(--color-dark-gold);
+    margin-left: 0.25rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
   .form-group input,
   .form-group select,
   .form-group textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid var(--color-mist);
+    border: 2px solid rgba(212, 175, 55, 0.15);
     border-radius: 8px;
     font-size: 1rem;
     color: var(--color-stone);
     background: var(--color-white);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    box-sizing: border-box;
   }
 
   .form-group select {
     appearance: none;
     background: var(--color-white) url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" fill="%23B8941F"/></svg>') no-repeat right 0.75rem center;
     background-size: 16px;
+    cursor: pointer;
   }
 
   .form-group input:focus,
   .form-group select:focus,
   .form-group textarea:focus {
     border-color: var(--color-gold);
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
     outline: none;
   }
 
-  .form-group input.invalid,
-  .form-group select.invalid {
-    border-color: #ff4d4d;
-    box-shadow: 0 0 8px rgba(255, 77, 77, 0.3);
+  /* Enhanced validation states */
+  .form-group input.error,
+  .form-group select.error {
+    border-color: #dc3545;
+    background: rgba(220, 53, 69, 0.05);
+  }
+
+  .form-group input.success {
+    border-color: #28a745;
+    background: rgba(40, 167, 69, 0.05);
   }
 
   .form-group textarea {
     resize: vertical;
-    min-height: 80px;
+    min-height: 100px;
+    line-height: 1.5;
   }
 
-  .cta-button {
+  /* Field help and error messages */
+  .field-help {
+    font-size: 0.85rem;
+    color: var(--color-stone);
+    opacity: 0.7;
+    margin-top: 0.25rem;
+    line-height: 1.3;
+  }
+
+  .field-error {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: none;
+    font-weight: 500;
+  }
+
+  .field-error.show {
     display: block;
+    animation: slideIn 0.3s ease;
+  }
+
+  .field-success {
+    color: #28a745;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: none;
+    font-weight: 500;
+  }
+
+  .field-success.show {
+    display: block;
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Enhanced button */
+  .cta-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     padding: 1rem;
     background: #FF6F61;
@@ -176,9 +281,13 @@ const handleSubmit = (e) => {
     border: none;
     border-radius: 8px;
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    gap: 0.5rem;
   }
 
   .cta-button:hover,
@@ -187,23 +296,81 @@ const handleSubmit = (e) => {
     transform: translateY(-2px);
     outline: 2px solid var(--color-gold);
     outline-offset: 2px;
+    box-shadow: 0 8px 25px rgba(255, 111, 97, 0.3);
   }
 
-  .success-message {
+  .cta-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .button-spinner {
     display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .cta-button.loading .button-spinner {
+    display: block;
+  }
+
+  .cta-button.loading .button-text {
+    opacity: 0.8;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Form status messages */
+  .form-status {
     margin-top: 1rem;
     padding: 1rem;
-    background: var(--color-white);
-    border: 1px solid var(--color-gold);
     border-radius: 8px;
-    color: var(--color-stone);
+    display: none;
     text-align: center;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    font-weight: 500;
   }
 
-  .success-message.visible {
-    opacity: 1;
+  .form-status.success {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+    display: block;
+  }
+
+  .form-status.error {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+    display: block;
+  }
+
+  /* Privacy note */
+  .privacy-note {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    font-size: 0.85rem;
+    color: var(--color-stone);
+    opacity: 0.7;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .privacy-note svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
   }
 
   @keyframes fadeInUp {
@@ -213,6 +380,7 @@ const handleSubmit = (e) => {
     }
   }
 
+  /* Responsive design */
   @media (max-width: 768px) {
     #booking-form {
       padding: 1.5rem;
@@ -235,12 +403,348 @@ const handleSubmit = (e) => {
     .cta-button {
       font-size: 1rem;
     }
+
+    .privacy-note {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+
+  /* Accessibility enhancements */
+  @media (prefers-reduced-motion: reduce) {
+    .form-container {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    
+    .cta-button:hover {
+      transform: none;
+    }
+    
+    .field-error.show,
+    .field-success.show {
+      animation: none;
+    }
   }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const formContainer = document.querySelector('.form-container');
+    const form = document.getElementById('booking-form');
+    const submitButton = form.querySelector('.cta-button');
+    const formStatus = document.getElementById('form-status');
+
+    // Enhanced form validation class
+    class FormValidator {
+      constructor(form) {
+        this.form = form;
+        this.isSubmitting = false;
+        this.init();
+      }
+
+      init() {
+        // Real-time validation
+        this.form.querySelectorAll('input, select, textarea').forEach(field => {
+          field.addEventListener('blur', () => this.validateField(field));
+          field.addEventListener('input', () => this.clearFieldErrors(field));
+        });
+
+        // Enhanced email validation
+        const emailField = this.form.querySelector('#email');
+        if (emailField) {
+          emailField.addEventListener('input', this.validateEmailRealTime.bind(this));
+        }
+
+        // Form submission
+        this.form.addEventListener('submit', this.handleSubmit.bind(this));
+
+        // Auto-save form data
+        this.setupAutoSave();
+        this.restoreFormData();
+      }
+
+      validateField(field) {
+        const value = field.value.trim();
+        const fieldName = field.name;
+        let isValid = true;
+        let errorMessage = '';
+
+        // Required field validation
+        if (field.required && !value) {
+          isValid = false;
+          errorMessage = this.getFieldLabel(field) + ' is required';
+        }
+
+        // Specific field validations
+        switch (fieldName) {
+          case 'email':
+            if (value) {
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              if (!emailRegex.test(value)) {
+                isValid = false;
+                errorMessage = 'Please enter a valid email address';
+              }
+            }
+            break;
+
+          case 'phone':
+            if (value) {
+              const phoneRegex = /^[\+]?[\d\s\-\(\)]+$/;
+              if (!phoneRegex.test(value) || value.length < 10) {
+                isValid = false;
+                errorMessage = 'Please enter a valid phone number';
+              }
+            }
+            break;
+
+          case 'full-name':
+            if (value && value.length < 2) {
+              isValid = false;
+              errorMessage = 'Name must be at least 2 characters long';
+            }
+            break;
+        }
+
+        this.showFieldStatus(field, isValid, errorMessage);
+        return isValid;
+      }
+
+      validateEmailRealTime(e) {
+        const field = e.target;
+        const value = field.value.trim();
+        
+        if (value && value.includes('@')) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          const isValid = emailRegex.test(value);
+          
+          if (isValid) {
+            this.showFieldSuccess(field, '✓ Valid email address');
+          }
+        }
+      }
+
+      getFieldLabel(field) {
+        const label = this.form.querySelector(`label[for="${field.id}"]`);
+        return label ? label.textContent.replace('*', '').trim() : field.name;
+      }
+
+      showFieldStatus(field, isValid, message) {
+        const errorElement = document.getElementById(`${field.name}-error`);
+        const successElement = document.getElementById(`${field.name}-success`);
+        
+        // Clear previous states
+        field.classList.remove('error', 'success');
+        if (errorElement) errorElement.classList.remove('show');
+        if (successElement) successElement.classList.remove('show');
+
+        if (isValid) {
+          field.classList.add('success');
+        } else {
+          field.classList.add('error');
+          if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+          }
+        }
+      }
+
+      showFieldSuccess(field, message) {
+        const successElement = document.getElementById(`${field.name}-success`);
+        if (successElement) {
+          successElement.textContent = message;
+          successElement.classList.add('show');
+        }
+      }
+
+      clearFieldErrors(field) {
+        field.classList.remove('error');
+        const errorElement = document.getElementById(`${field.name}-error`);
+        if (errorElement) {
+          errorElement.classList.remove('show');
+        }
+      }
+
+      async handleSubmit(e) {
+        e.preventDefault();
+        
+        if (this.isSubmitting) return;
+
+        // Validate all fields
+        let isFormValid = true;
+        this.form.querySelectorAll('input[required], select[required], textarea[required]').forEach(field => {
+          if (!this.validateField(field)) {
+            isFormValid = false;
+          }
+        });
+
+        if (!isFormValid) {
+          this.scrollToFirstError();
+          this.showFormStatus('Please correct the errors above', 'error');
+          return;
+        }
+
+        // Show loading state
+        this.setLoadingState(true);
+        this.showFormStatus('Sending your sacred inquiry...', 'loading');
+
+        try {
+          await this.submitForm();
+          this.showSuccess();
+          this.clearAutoSavedData();
+        } catch (error) {
+          this.showFormStatus(error.message || 'Something went wrong. Please try again or contact us directly at peter@lakshmitrails.com', 'error');
+          console.error('Form submission error:', error);
+        } finally {
+          this.setLoadingState(false);
+        }
+      }
+
+      async submitForm() {
+        const formData = new FormData(this.form);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Add metadata
+        data.timestamp = new Date().toISOString();
+        data.source = 'website_booking_form';
+        data.page_url = window.location.href;
+
+        // Send to Vercel API
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to send message');
+        }
+
+        const result = await response.json();
+        return result;
+      }
+
+      setLoadingState(loading) {
+        this.isSubmitting = loading;
+        submitButton.disabled = loading;
+        submitButton.classList.toggle('loading', loading);
+        
+        const buttonText = submitButton.querySelector('.button-text');
+        if (loading) {
+          buttonText.textContent = 'Sending Your Inquiry...';
+        } else {
+          buttonText.textContent = 'Send My Sacred Inquiry';
+        }
+      }
+
+      showSuccess() {
+        formStatus.className = 'form-status success';
+        formStatus.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22,4 12,14.01 9,11.01"></polyline>
+            </svg>
+            <strong>Thank you for your sacred inquiry!</strong>
+          </div>
+          <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">
+            We've received your message and will respond within 24 hours with personalized information about your transformational journey.
+          </p>
+        `;
+
+        // Track successful submission
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'form_submit', {
+            'event_category': 'Booking',
+            'event_label': 'Sacred Inquiry',
+            'value': 1
+          });
+        }
+
+        // Reset form after delay
+        setTimeout(() => {
+          this.form.reset();
+          this.form.querySelectorAll('.success, .error').forEach(el => {
+            el.classList.remove('success', 'error');
+          });
+          this.form.querySelectorAll('.show').forEach(el => {
+            el.classList.remove('show');
+          });
+        }, 3000);
+      }
+
+      showFormStatus(message, type) {
+        formStatus.className = `form-status ${type}`;
+        formStatus.textContent = message;
+      }
+
+      scrollToFirstError() {
+        const firstError = this.form.querySelector('.error');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstError.focus();
+        }
+      }
+
+      // Auto-save functionality
+      setupAutoSave() {
+        let saveTimeout;
+        this.form.addEventListener('input', () => {
+          clearTimeout(saveTimeout);
+          saveTimeout = setTimeout(() => {
+            this.saveFormData();
+          }, 1000);
+        });
+      }
+
+      saveFormData() {
+        try {
+          const formData = new FormData(this.form);
+          const data = Object.fromEntries(formData.entries());
+          
+          // Only save if there's meaningful content
+          if (data['full-name'] || data['email']) {
+            localStorage.setItem('lakshmi_trails_booking_draft', JSON.stringify(data));
+          }
+        } catch (e) {
+          // Handle localStorage errors silently
+        }
+      }
+
+      restoreFormData() {
+        try {
+          const savedData = localStorage.getItem('lakshmi_trails_booking_draft');
+          if (savedData) {
+            const data = JSON.parse(savedData);
+            Object.entries(data).forEach(([key, value]) => {
+              const field = this.form.querySelector(`[name="${key}"]`);
+              if (field && value) {
+                field.value = value;
+              }
+            });
+          }
+        } catch (e) {
+          // Handle errors silently
+        }
+      }
+
+      clearAutoSavedData() {
+        try {
+          localStorage.removeItem('lakshmi_trails_booking_draft');
+        } catch (e) {
+          // Handle errors silently
+        }
+      }
+    }
+
+    // Initialize form validation
+    const formValidator = new FormValidator(form);
+
+    // Initialize intersection observer for form animation
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

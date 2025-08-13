@@ -60,8 +60,10 @@ const meta = {
     ]
   })}></script>
 
-  <!-- Hero Section -->
+  <!-- SECTION 1: Hero Section -->
   <section id="hero" class="tour-hero">
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    
     <Image
       src={tour.image}
       alt={`${tour.title} - ${tour.shortDescription}`}
@@ -73,35 +75,43 @@ const meta = {
     />
     <div class="hero-overlay"></div>
     
-    <!-- Breadcrumbs -->
-    <nav class="breadcrumbs" aria-label="Breadcrumb">
-      <ol>
-        <li><a href="/">Home</a></li>
-        <li><a href="/#tours">Tours</a></li>
-        <li aria-current="page">{tour.title}</li>
-      </ol>
+    <!-- Simple Navigation -->
+    <nav class="hero-nav" aria-label="Main navigation">
+      <a href="/" class="nav-home">← Back to Home</a>
+      <a href="/#tours" class="nav-tours">All Journeys</a>
     </nav>
 
     <div class="hero-content">
-      <h1>{tour.title}</h1>
-      <p class="hero-subtitle">{tour.name}</p>
-      <div class="hero-details">
-        <span class="dates">{tour.dates}</span>
-        <span class="price">{tour.price}</span>
-      </div>
-      <a href="#overview" class="cta-button">
-        <span>Explore This Journey</span>
+      <h1 style="color: white !important;">
+        <span class="highlight" style="color: #D4AF37 !important;">{tour.title}</span>
+        <br><span class="subtitle" style="color: white !important;">{tour.name}</span>
+      </h1>
+      <p class="tagline" style="color: rgba(249, 249, 249, 0.95) !important;">
+        <span class="dates-info" style="color: #D4AF37 !important;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="color: #D4AF37 !important;">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          {tour.dates}
+        </span>
+        •
+        <span class="price-info" style="color: white !important;">{tour.price}</span>
+      </p>
+      <a href="#overview" class="cta-button" style="display: inline-block !important; background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%) !important; color: #000 !important; padding: 1rem 2.5rem !important; border-radius: 8px !important; text-decoration: none !important; font-weight: 500 !important; text-transform: uppercase !important; box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3) !important; margin-top: 2rem !important;">
+        <span style="position: relative; z-index: 1;">Explore This Journey</span>
       </a>
     </div>
 
-    <div class="scroll-indicator" aria-hidden="true"></div>
+    <div class="scroll-indicator" aria-hidden="true" role="presentation"></div>
   </section>
 
-  <!-- Tour Overview -->
-  <section id="overview" class="tour-overview">
+  <!-- SECTION 2: Tour Overview -->
+  <section id="overview" class="tour-overview" role="region" aria-labelledby="overview-heading">
     <div class="overview-container">
       <header class="section-header">
-        <h2>Journey Overview</h2>
+        <h2 id="overview-heading">Journey Overview</h2>
         <div class="decorative-accent" aria-hidden="true"></div>
       </header>
       
@@ -159,14 +169,38 @@ const meta = {
     </div>
   </section>
 
-  <!-- Other Sacred Journeys -->
-  <section id="other-journeys" class="other-journeys-section">
+  <!-- SECTION 3: Reserve Your Sacred Journey -->
+  <section id="reserve" class="reserve-section" role="region" aria-labelledby="reserve-heading">
+    <div class="reserve-container">
+      <div class="reserve-content">
+        <h2 id="reserve-heading">Reserve Your Sacred Journey</h2>
+        <div class="decorative-accent" aria-hidden="true"></div>
+        <p class="reserve-intro">
+          Every traveler has unique needs and interests. <span class="highlight-text">Let's discuss how we can tailor this transformational experience to your personal journey.</span>
+        </p>
+        <div class="reserve-actions">
+          <a href={tour.pdf} target="_blank" class="cta-button secondary" aria-label={`Download detailed itinerary for ${tour.title}`} style="display: inline-block !important; background: transparent !important; color: #B8941F !important; padding: 1rem 2.5rem !important; border: 2px solid #D4AF37 !important; border-radius: 8px !important; text-decoration: none !important; font-weight: 500 !important; text-transform: uppercase !important; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15) !important; margin-right: 1.5rem !important;">
+            <span style="position: relative; z-index: 1;">Download Detailed Itinerary</span>
+          </a>
+          <a href="/contact" class="cta-button" aria-label={`Reserve your spot for ${tour.title}`} style="display: inline-block !important; background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%) !important; color: #000 !important; padding: 1rem 2.5rem !important; border-radius: 8px !important; text-decoration: none !important; font-weight: 500 !important; text-transform: uppercase !important; box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3) !important;">
+            <span style="position: relative; z-index: 1;">Reserve Your Spot</span>
+          </a>
+        </div>
+        <p class="reserve-note">
+          <strong>Limited to 16 travelers</strong> for intimate, authentic encounters with expert guidance throughout your cultural immersion.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Other Sacred Journeys with NEGATIVE MARGIN -->
+  <section id="other-journeys" class="other-journeys-section" role="region" aria-labelledby="other-journeys-heading" style="margin-top: -4rem !important;">
     <div class="other-journeys-container">
       <header class="section-header">
-        <h2>Other Sacred Journeys</h2>
+        <h2 id="other-journeys-heading" style="font-family: var(--font-headline) !important; font-size: clamp(2.4rem, 4.5vw, 3.2rem) !important; color: var(--color-dark-gold) !important;">Explore Other Journeys</h2>
         <div class="decorative-accent" aria-hidden="true"></div>
         <p class="section-intro">
-          Each path offers its own unique transformation. Explore our other sacred journeys.
+          Each path offers its own unique transformation. Discover which sacred journey calls to your soul.
         </p>
       </header>
       
@@ -182,17 +216,41 @@ const meta = {
                 loading="lazy"
                 format="webp"
               />
+              <div class="journey-price-badge">{otherTour.price}</div>
             </div>
             <div class="journey-content">
               <h3>{otherTour.title}</h3>
-              <p class="journey-dates">{otherTour.dates}</p>
+              <p class="journey-dates">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                {otherTour.dates}
+              </p>
               <p class="journey-description">{otherTour.shortDescription}</p>
-              <div class="journey-actions">
-                <a href={`/tours/${otherTour.slug}/`} class="journey-link">
-                  <span>Explore Journey</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <div style="display: grid !important; grid-template-columns: 1fr 1fr 1fr !important; gap: 0.5rem !important; margin-top: auto !important; padding-top: 1rem !important;">
+                <a href={otherTour.pdf || '#'} download aria-label={`Download itinerary for ${otherTour.title}`} style="display: flex !important; align-items: center !important; justify-content: center !important; gap: 0.4rem !important; padding: 0.7rem 0.8rem !important; border-radius: 8px !important; font-size: 0.85rem !important; font-weight: 500 !important; text-decoration: none !important; background: rgba(249, 249, 249, 0.8) !important; color: #333333 !important; border: 1px solid rgba(212, 175, 55, 0.3) !important; font-family: var(--font-body) !important; position: relative !important; overflow: hidden !important; transition: all 0.3s ease !important;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7,10 12,15 17,10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span style="position: relative !important; z-index: 1 !important;">Itinerary</span>
+                </a>
+                <a href={`/tours/${otherTour.slug}/`} aria-label={`Explore ${otherTour.title} journey`} style="display: flex !important; align-items: center !important; justify-content: center !important; gap: 0.4rem !important; padding: 0.7rem 0.8rem !important; border-radius: 8px !important; font-size: 0.85rem !important; font-weight: 500 !important; text-decoration: none !important; background: rgba(212, 175, 55, 0.1) !important; color: #B8941F !important; border: 1px solid rgba(212, 175, 55, 0.3) !important; font-family: var(--font-body) !important; position: relative !important; overflow: hidden !important; transition: all 0.3s ease !important;">
+                  <span style="position: relative !important; z-index: 1 !important;">Explore Journey</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="position: relative !important; z-index: 1 !important;">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12,5 19,12 12,19"></polyline>
+                  </svg>
+                </a>
+                <a href="/contact" aria-label={`Reserve your spot for ${otherTour.title}`} style="display: flex !important; align-items: center !important; justify-content: center !important; gap: 0.4rem !important; padding: 0.7rem 0.8rem !important; border-radius: 8px !important; font-size: 0.85rem !important; font-weight: 500 !important; text-decoration: none !important; background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%) !important; color: #000 !important; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25) !important; font-family: var(--font-body) !important; position: relative !important; overflow: hidden !important; transition: all 0.3s ease !important;">
+                  <span style="position: relative !important; z-index: 1 !important;">Reserve</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="position: relative !important; z-index: 1 !important;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 6v6l4 2"></path>
                   </svg>
                 </a>
               </div>
@@ -202,42 +260,20 @@ const meta = {
       </div>
     </div>
   </section>
-
-  <!-- Call to Action -->
-  <section id="reserve" class="reserve-section">
-    <div class="reserve-container">
-      <div class="reserve-content">
-        <h2>Reserve Your Sacred Journey</h2>
-        <div class="decorative-accent" aria-hidden="true"></div>
-        <p class="reserve-intro">
-          Every traveler has unique needs and interests. Let's discuss how we can tailor this transformational experience to your personal journey.
-        </p>
-        <div class="reserve-actions">
-          <a href="/contact" class="reserve-button primary">
-            <span>Reserve Your Spot</span>
-          </a>
-          <a href={tour.pdf} target="_blank" class="reserve-button secondary">
-            <span>Download Detailed Itinerary</span>
-          </a>
-        </div>
-        <p class="reserve-note">
-          <strong>Limited to 16 travelers</strong> for intimate, authentic encounters with expert guidance throughout your cultural immersion.
-        </p>
-      </div>
-    </div>
-  </section>
 </Layout>
 
 <style>
   /* Hero Section */
-  .tour-hero {
+  #hero {
     position: relative;
     min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    overflow: hidden;
+    padding: 2rem;
     color: var(--color-white);
   }
 
@@ -253,53 +289,58 @@ const meta = {
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%);
     z-index: 1;
   }
 
-  /* Breadcrumbs */
-  .breadcrumbs {
+  .skip-link {
+    position: absolute;
+    top: -1000px;
+    left: 0;
+    padding: 0.5rem;
+    background: var(--color-gold);
+    color: #000;
+    z-index: 1000;
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+
+  /* Hero Navigation */
+  .hero-nav {
     position: absolute;
     top: 2rem;
     left: 2rem;
     z-index: 3;
+    display: flex;
+    gap: 1.5rem;
     opacity: 0;
     transform: translateY(-20px);
     animation: fadeInDown 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
   }
 
-  .breadcrumbs ol {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: 0.9rem;
-  }
-
-  .breadcrumbs li {
-    display: flex;
-    align-items: center;
-  }
-
-  .breadcrumbs li:not(:last-child)::after {
-    content: '›';
-    margin: 0 0.8rem;
-    opacity: 0.6;
-  }
-
-  .breadcrumbs a {
-    color: rgba(249, 249, 249, 0.8);
+  .hero-nav a {
+    color: rgba(249, 249, 249, 0.9);
     text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .breadcrumbs a:hover {
-    color: var(--color-gold);
-  }
-
-  .breadcrumbs li[aria-current="page"] {
-    color: var(--color-white);
+    font-size: 0.9rem;
+    font-family: var(--font-body);
     font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .hero-nav a:hover,
+  .hero-nav a:focus {
+    color: var(--color-white);
+    background: rgba(212, 175, 55, 0.2);
+    border-color: rgba(212, 175, 55, 0.3);
+    transform: translateY(-1px);
+    outline: none;
   }
 
   /* Hero Content */
@@ -307,45 +348,65 @@ const meta = {
     position: relative;
     z-index: 2;
     max-width: 900px;
-    padding: 2rem;
     animation: fadeInUp 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     opacity: 0;
     transform: translateY(30px);
   }
 
   .hero-content h1 {
-    font-family: var(--font-headline);
     font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 500;
-    margin-bottom: 1rem;
-    line-height: 1.2;
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+    line-height: 1.3;
     text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    font-family: var(--font-headline);
     color: var(--color-white);
     letter-spacing: -0.02em;
   }
 
-  .hero-subtitle {
-    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-    color: rgba(249, 249, 249, 0.9);
-    margin-bottom: 2rem;
+  .hero-content h1 .highlight {
+    color: var(--color-gold);
+    font-style: italic;
+  }
+
+  .hero-content h1 .subtitle {
+    font-size: 0.65em;
+    opacity: 0.95;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  .hero-content .tagline {
+    color: rgba(249, 249, 249, 0.95);
+    font-size: clamp(1.1rem, 2.8vw, 1.25rem);
     font-weight: 400;
+    max-width: 650px;
+    line-height: 1.65;
+    margin: 0 auto 4rem auto;
+    letter-spacing: 0.4px;
     font-family: var(--font-body);
-  }
-
-  .hero-details {
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 3rem;
-    margin-bottom: 3rem;
-    font-size: clamp(1rem, 2vw, 1.1rem);
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 
-  .hero-details .dates {
+  .dates-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     color: var(--color-gold);
     font-weight: 500;
   }
 
-  .hero-details .price {
+  .dates-info svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .price-info {
     color: var(--color-white);
     font-weight: 600;
   }
@@ -377,13 +438,15 @@ const meta = {
     transition: opacity 0.4s ease;
   }
 
-  .cta-button:hover::before {
+  .cta-button:hover::before,
+  .cta-button:focus::before {
     opacity: 1;
   }
 
-  .cta-button:hover {
+  .cta-button:hover, .cta-button:focus {
     transform: translateY(-2px);
     box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+    outline: none;
   }
 
   .cta-button span {
@@ -423,10 +486,16 @@ const meta = {
     display: block;
   }
 
+  /* FORCE SECTION ORDER WITH CSS */
+  .tour-hero { order: 1; }
+  .tour-overview { order: 2; }
+  .reserve-section { order: 3; }
+  .other-journeys-section { order: 4; }
+
   /* Tour Overview Section */
   .tour-overview {
     background: var(--color-mist);
-    padding: 7rem 2rem;
+    padding: 7rem 2rem 4rem 2rem;
     scroll-margin-top: 80px;
   }
 
@@ -443,7 +512,7 @@ const meta = {
   }
 
   .section-header.intersecting {
-    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards;
   }
 
   .section-header h2 {
@@ -451,10 +520,10 @@ const meta = {
     font-size: clamp(2.4rem, 4.5vw, 3.2rem);
     color: var(--color-dark-gold);
     margin-bottom: 1rem;
-    font-weight: 500;
     line-height: 1.15;
-    letter-spacing: -0.01em;
+    font-weight: 500;
     text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+    letter-spacing: -0.01em;
   }
 
   .decorative-accent {
@@ -495,7 +564,7 @@ const meta = {
   }
 
   .overview-content.intersecting {
-    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
   }
 
   .description-intro {
@@ -555,11 +624,32 @@ const meta = {
   .details-card {
     background: rgba(249, 249, 249, 0.95);
     padding: 2.5rem 2rem;
-    border-radius: 18px;
+    border-radius: 24px;
     border: 1px solid rgba(212, 175, 55, 0.12);
     box-shadow: 
-      0 8px 25px rgba(51, 51, 51, 0.08),
-      0 3px 8px rgba(0, 0, 0, 0.05);
+      0 20px 60px rgba(51, 51, 51, 0.15),
+      0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+    position: relative;
+  }
+
+  .details-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 30px 80px rgba(51, 51, 51, 0.2),
+      0 12px 35px rgba(0, 0, 0, 0.12);
+  }
+
+  .details-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    border-radius: 24px 24px 0 0;
   }
 
   .details-card h3 {
@@ -645,10 +735,79 @@ const meta = {
     font-family: var(--font-body);
   }
 
-  /* Other Sacred Journeys Section */
-  .other-journeys-section {
+  /* Reserve Section - FORCED TO BE THIRD */
+  .reserve-section {
     background: var(--color-white);
-    padding: 7rem 2rem;
+    padding: 4rem 2rem;
+    text-align: center;
+    scroll-margin-top: 80px;
+  }
+
+  .reserve-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .reserve-content {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .reserve-content.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+  }
+
+  .reserve-content h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+  }
+
+  .reserve-intro {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    margin: 3rem auto;
+    font-weight: 400;
+    font-family: var(--font-body);
+    max-width: 650px;
+  }
+
+  .highlight-text {
+    color: var(--color-dark-gold);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .reserve-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+  }
+
+  .reserve-note {
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    color: var(--color-stone);
+    font-family: var(--font-body);
+    margin-top: 2rem;
+  }
+
+  .reserve-note strong {
+    color: var(--color-dark-gold);
+  }
+
+  /* Other Sacred Journeys Section - FORCED TO BE FOURTH */
+  .other-journeys-section {
+    background: var(--color-mist);
+    padding: 4rem 2rem 7rem 2rem;
+    scroll-margin-top: 80px;
   }
 
   .other-journeys-container {
@@ -668,7 +827,7 @@ const meta = {
 
   .other-journeys-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 2rem;
     margin-top: 4rem;
     opacity: 0;
@@ -676,31 +835,31 @@ const meta = {
   }
 
   .other-journeys-grid.intersecting {
-    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
   }
 
   .journey-card {
-    background: rgba(249, 249, 249, 0.95);
-    border-radius: 18px;
-    border: 1px solid rgba(212, 175, 55, 0.12);
+    background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(51, 51, 51, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.15);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-shadow: 
-      0 8px 25px rgba(51, 51, 51, 0.08),
-      0 3px 8px rgba(0, 0, 0, 0.05);
   }
 
   .journey-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 
-      0 15px 40px rgba(51, 51, 51, 0.12),
-      0 6px 15px rgba(0, 0, 0, 0.08);
-    border-color: rgba(212, 175, 55, 0.25);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(51, 51, 51, 0.15);
+    border-color: var(--color-gold);
   }
 
   .journey-image {
-    height: 200px;
+    height: 240px;
     overflow: hidden;
+    position: relative;
   }
 
   .journey-image img {
@@ -714,213 +873,167 @@ const meta = {
     transform: scale(1.05);
   }
 
+  .journey-price-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    font-family: var(--font-body);
+  }
+
   .journey-content {
     padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .journey-content h3 {
     font-family: var(--font-headline);
     color: var(--color-dark-gold);
-    font-size: clamp(1.3rem, 2.5vw, 1.5rem);
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    margin: 0;
     font-weight: 500;
+    line-height: 1.3;
   }
 
   .journey-dates {
-    color: var(--color-gold);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-stone);
     font-size: 0.95rem;
     font-weight: 500;
-    margin-bottom: 1rem;
     font-family: var(--font-body);
+  }
+
+  .journey-dates svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
   }
 
   .journey-description {
     color: var(--color-stone);
-    font-size: clamp(0.95rem, 2vw, 1rem);
+    font-size: 1rem;
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    font-weight: 400;
+    flex-grow: 1;
+    margin: 0;
     font-family: var(--font-body);
   }
 
   .journey-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
     margin-top: auto;
+    padding-top: 1rem;
   }
 
-  .journey-link {
-    display: inline-flex;
+  .journey-card .btn-primary,
+  .journey-card .btn-secondary,
+  .journey-card .btn-explore {
+    display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
-    color: #000;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.9rem;
-    letter-spacing: 0.3px;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.7rem 0.8rem;
     border-radius: 8px;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     font-family: var(--font-body);
     position: relative;
     overflow: hidden;
   }
 
-  .journey-link::before {
+  .journey-card .btn-primary {
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+  }
+
+  .journey-card .btn-primary::before {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, var(--color-white) 0%, rgba(249, 249, 249, 0.9) 100%);
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.3s ease;
   }
 
-  .journey-link:hover::before {
+  .journey-card .btn-primary:hover::before,
+  .journey-card .btn-primary:focus::before {
     opacity: 1;
   }
 
-  .journey-link:hover {
+  .journey-card .btn-primary:hover,
+  .journey-card .btn-primary:focus {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+    outline: none;
   }
 
-  .journey-link span,
-  .journey-link svg {
+  .journey-card .btn-primary span,
+  .journey-card .btn-primary svg {
     position: relative;
     z-index: 1;
   }
 
-  /* Reserve Section */
-  .reserve-section {
-    background: var(--color-white);
-    padding: 7rem 2rem;
-    text-align: center;
-  }
-
-  .reserve-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .reserve-content {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  .reserve-content.intersecting {
-    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  }
-
-  .reserve-content h2 {
-    font-family: var(--font-headline);
-    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+  .journey-card .btn-explore {
+    background: rgba(212, 175, 55, 0.1);
     color: var(--color-dark-gold);
-    margin-bottom: 1rem;
-    font-weight: 500;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.3);
   }
 
-  .reserve-intro {
-    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
-    line-height: 1.7;
-    color: var(--color-stone);
-    margin: 3rem 0;
-    font-weight: 400;
-    font-family: var(--font-body);
-  }
-
-  .reserve-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin: 3rem 0;
-    flex-wrap: wrap;
-  }
-
-  .reserve-button {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
-    border-radius: 8px;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    text-transform: uppercase;
-    font-family: var(--font-body);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .reserve-button.primary {
-    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
-    color: #000;
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-  }
-
-  .reserve-button.primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--color-white) 0%, rgba(249, 249, 249, 0.9) 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  .reserve-button.primary:hover::before {
-    opacity: 1;
-  }
-
-  .reserve-button.secondary {
-    background: transparent;
-    color: var(--color-dark-gold);
-    border: 2px solid var(--color-gold);
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
-  }
-
-  .reserve-button.secondary::before {
+  .journey-card .btn-explore::before {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.3s ease;
   }
 
-  .reserve-button.secondary:hover::before {
+  .journey-card .btn-explore:hover::before,
+  .journey-card .btn-explore:focus::before {
     opacity: 1;
   }
 
-  .reserve-button.secondary:hover {
+  .journey-card .btn-explore:hover,
+  .journey-card .btn-explore:focus {
     color: #000;
-  }
-
-  .reserve-button:hover {
     transform: translateY(-2px);
+    outline: none;
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
   }
 
-  .reserve-button.primary:hover {
-    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
-  }
-
-  .reserve-button.secondary:hover {
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-  }
-
-  .reserve-button span {
+  .journey-card .btn-explore span,
+  .journey-card .btn-explore svg {
     position: relative;
     z-index: 1;
   }
 
-  .reserve-note {
-    font-size: clamp(1rem, 2vw, 1.1rem);
+  .journey-card .btn-secondary {
+    background: rgba(249, 249, 249, 0.8);
     color: var(--color-stone);
-    font-family: var(--font-body);
-    margin-top: 2rem;
+    border: 1px solid rgba(212, 175, 55, 0.3);
   }
 
-  .reserve-note strong {
+  .journey-card .btn-secondary:hover,
+  .journey-card .btn-secondary:focus {
+    background: var(--color-mist);
+    border-color: var(--color-gold);
+    transform: translateY(-1px);
+    outline: none;
     color: var(--color-dark-gold);
   }
 
@@ -961,14 +1074,21 @@ const meta = {
 
   /* Responsive Design */
   @media (max-width: 968px) {
-    .breadcrumbs {
+    .hero-nav {
       top: 1rem;
       left: 1rem;
+      flex-direction: column;
+      gap: 0.75rem;
     }
 
-    .hero-details {
+    .hero-nav a {
+      font-size: 0.85rem;
+      padding: 0.4rem 0.8rem;
+    }
+
+    .hero-content .tagline {
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.5rem;
     }
 
     .overview-content {
@@ -976,46 +1096,115 @@ const meta = {
       gap: 2rem;
     }
 
+    .other-journeys-grid {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+
     .reserve-actions {
       flex-direction: column;
       align-items: center;
     }
 
-    .reserve-button {
-      width: 100%;
-      max-width: 300px;
+    .tour-overview {
+      padding: 5rem 2rem 4rem 2rem;
+    }
+
+    .reserve-section {
+      padding: 4rem 2rem 1rem 2rem;
+    }
+
+    .other-journeys-section {
+      padding: 1rem 2rem 5rem 2rem;
+    }
+
+    .decorative-accent {
+      width: 60px;
+      margin: 1.5rem auto 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .other-journeys-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .journey-image {
+      height: 200px;
+    }
+
+    .journey-content {
+      padding: 1.5rem;
+    }
+
+    .journey-content h3 {
+      font-size: 1.4rem;
+    }
+
+    .journey-description {
+      font-size: 0.95rem;
+    }
+
+    .journey-actions {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-explore {
+      justify-content: center;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
     }
   }
 
   @media (max-width: 480px) {
-    .tour-hero {
+    #hero {
       min-height: 90vh;
+      padding: 1rem;
     }
 
-    .breadcrumbs {
+    .hero-nav {
       top: 0.5rem;
       left: 0.5rem;
     }
 
-    .breadcrumbs ol {
+    .hero-nav a {
       font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
     }
 
     .tour-overview,
-    .other-journeys-section,
-    .reserve-section {
-      padding: 4rem 1.5rem;
+    .reserve-section,
+    .other-journeys-section {
+      padding: 4rem 1.5rem 1rem 1.5rem;
+    }
+
+    .other-journeys-section {
+      padding: 1rem 1.5rem 4rem 1.5rem;
     }
 
     .details-card {
       padding: 2rem 1.5rem;
+    }
+
+    .journey-content {
+      padding: 1.25rem;
+    }
+    
+    .journey-price-badge {
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
     }
   }
 
   /* Reduced motion preferences */
   @media (prefers-reduced-motion: reduce) {
     .hero-content,
-    .breadcrumbs,
+    .hero-nav,
     .section-header,
     .overview-content,
     .other-journeys-grid,
@@ -1028,6 +1217,57 @@ const meta = {
     .scroll-indicator::before,
     .scroll-indicator::after {
       animation: none;
+    }
+    
+    .details-card,
+    .journey-card,
+    .btn-primary,
+    .btn-secondary,
+    .btn-explore,
+    .hero-nav a {
+      transition: none;
+    }
+    
+    .details-card:hover,
+    .journey-card:hover,
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-secondary:hover,
+    .btn-secondary:focus,
+    .btn-explore:hover,
+    .btn-explore:focus,
+    .hero-nav a:hover,
+    .hero-nav a:focus {
+      transform: none;
+    }
+
+    .journey-image img {
+      transition: none;
+    }
+
+    .journey-card:hover .journey-image img {
+      transform: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .details-card,
+    .journey-card {
+      background: rgba(249, 249, 249, 0.98);
+      border-color: var(--color-stone);
+    }
+    
+    .section-header h2,
+    .reserve-content h2,
+    .highlight-text,
+    .hero-content h1 .highlight {
+      text-shadow: none;
+    }
+
+    .hero-nav a {
+      background: rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.3);
     }
   }
 </style>
@@ -1074,5 +1314,18 @@ const meta = {
         }
       });
     });
+
+    // Enhanced scroll indicator interaction
+    const ctaButton = document.querySelector('.cta-button');
+    if (ctaButton) {
+      ctaButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = ctaButton.getAttribute('href');
+        const target = document.querySelector(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
   });
 </script>
