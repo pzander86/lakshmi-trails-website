@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTAButton from '../components/CTAButton.astro';
+
+const meta = {
+  title: '500 - Server Error | Lakshmi Trails',
+  description: 'Something went wrong on our end. We are working to resolve the issue.',
+  image: '/assets/og-image-PLACEHOLDER.jpg',
+  url: 'https://lakshmitrails.com/500'
+};
+---
+
+<Layout meta={meta}>
+  <main class="error-page">
+    <div class="error-container">
+      <div class="error-content">
+        <h1 class="error-code">500</h1>
+        <h2 class="error-title">Sacred Systems Disrupted</h2>
+        <p class="error-message">
+          Our digital temple is experiencing temporary turbulence. 
+          The cosmic servers are realigning—please try again shortly.
+        </p>
+        
+        <div class="error-actions">
+          <CTAButton 
+            href="/"
+            text="Return Home"
+            variant="primary"
+            size="large"
+          />
+          <CTAButton 
+            href="mailto:peter@lakshmitrails.com"
+            text="Contact Support"
+            variant="outline"
+            size="large"
+          />
+        </div>
+
+        <div class="error-info">
+          <p>If this issue persists, please contact us directly at <strong>peter@lakshmitrails.com</strong></p>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, var(--color-white) 100%);
+    padding: 2rem;
+  }
+
+  .error-container {
+    max-width: 600px;
+    text-align: center;
+    background: var(--color-white);
+    padding: 4rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(51, 51, 51, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+  }
+
+  .error-code {
+    font-family: var(--font-headline);
+    font-size: clamp(4rem, 8vw, 6rem);
+    color: var(--color-coral);
+    margin-bottom: 1rem;
+    line-height: 1;
+    text-shadow: 0 4px 20px rgba(214, 90, 58, 0.2);
+  }
+
+  .error-title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .error-message {
+    font-size: 1.1rem;
+    color: var(--color-stone);
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .error-info {
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    padding-top: 2rem;
+    margin-top: 2rem;
+  }
+
+  .error-info p {
+    color: var(--color-stone);
+    font-size: 0.95rem;
+    opacity: 0.8;
+  }
+
+  .error-info strong {
+    color: var(--color-dark-gold);
+  }
+
+  @media (max-width: 768px) {
+    .error-container {
+      padding: 3rem 2rem;
+    }
+
+    .error-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .error-actions .cta-button {
+      width: 100%;
+      max-width: 280px;
+    }
+  }
+</style>

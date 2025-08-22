@@ -1,4 +1,5 @@
 ---
+
 const menu = [
   { label: "Guide", href: "#guide" },
   { label: "About", href: "#about" },
@@ -35,7 +36,7 @@ const rightMenu = menu.slice(3, 6);
   gap: 1em;
   min-width: 320px;
   width: max-content;
-  height: 56px;
+  height: 70px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 ">
   <!-- Left Menu -->
@@ -62,14 +63,19 @@ const rightMenu = menu.slice(3, 6);
 
   <!-- Logo -->
   <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin: 0 1.5em;">
-    <img src="/assets/images/logo.svg" alt="Lakshmi Trails Logo" style="
-      height: 64px; 
-      display: block; 
-      position: relative; 
-      z-index: 2;
-      filter: brightness(0) invert(1);
-      transition: filter 0.3s ease;
-    " />
+    <a href="#top" aria-label="Lakshmi Trails - Go to top of page" style="
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      text-decoration: none;
+      cursor: pointer;
+    ">
+      <img 
+        src="/assets/images/logo.svg" 
+        alt="Lakshmi Trails Logo" 
+        style="display: block; position: relative; z-index: 2; filter: brightness(0) invert(1); transition: filter 0.3s ease; height: 70px; width: auto;" 
+      />
+    </a>
   </div>
 
   <!-- Right Menu + Languages -->
@@ -98,19 +104,15 @@ const rightMenu = menu.slice(3, 6);
     
     <!-- Languages -->
     <div style="display: flex; gap: 0.5em;">
-      {languages.map(lang => (
-        <a href="#" class="lang-link" style={`
-          font-size: 1.2em; 
-          opacity: ${lang.code === current ? 1 : 0.6}; 
-          pointer-events: ${lang.code === current ? 'none' : 'auto'}; 
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          filter: ${lang.code === current ? 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))' : 'grayscale(50%) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))'};
-          transform: scale(${lang.code === current ? 1 : 0.9});
-          text-decoration: none;
-        `}>
-          {lang.label}
-        </a>
-      ))}
+      {languages.map(lang => {
+        const isActive = lang.code === current;
+        const className = isActive ? 'lang-link lang-active' : 'lang-link';
+        return (
+          <a href="#" class={className}>
+            {lang.label}
+          </a>
+        );
+      })}
     </div>
   </div>
 </nav>
@@ -137,6 +139,24 @@ const rightMenu = menu.slice(3, 6);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
+  /* Language link styles */
+  .lang-link {
+    font-size: 1.2em;
+    opacity: 0.6;
+    pointer-events: auto;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: grayscale(50%) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    transform: scale(0.9);
+    text-decoration: none;
+  }
+
+  .lang-link.lang-active {
+    opacity: 1;
+    pointer-events: none;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    transform: scale(1);
+  }
+
   /* Language link hover effects */
   .lang-link:hover {
     opacity: 1 !important;
@@ -144,9 +164,19 @@ const rightMenu = menu.slice(3, 6);
     transform: scale(1.1) !important;
   }
 
-  /* Logo hover effect */
-  #main-nav:hover img {
+  /* Logo hover effect - works with both img and Astro Image component */
+  #main-nav a[href="#top"]:hover img,
+  #main-nav a[href="#top"]:hover [data-astro-source-file] {
     filter: brightness(0) invert(1) sepia(1) saturate(10) hue-rotate(35deg);
+    transform: scale(1.05);
+  }
+  
+  #main-nav a[href="#top"] {
+    transition: transform 0.3s ease;
+  }
+  
+  #main-nav a[href="#top"]:hover {
+    transform: translateY(-1px);
   }
 
   /* Enhanced navbar scroll effect for better visibility */

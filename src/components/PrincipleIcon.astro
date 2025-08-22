@@ -1,5 +1,10 @@
 ---
-const { iconType, ariaLabel } = Astro.props;
+interface Props {
+  iconType: 'authenticity' | 'safety' | 'presence';
+  ariaLabel: string;
+}
+
+const { iconType, ariaLabel } = Astro.props as Props;
 ---
 
 <div class="principle-icon">

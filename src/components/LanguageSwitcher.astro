@@ -7,7 +7,7 @@ const current = 'en'; // For now, only English
 ---
 <div style="position:fixed;top:1em;right:1em;z-index:10;">
   {languages.map(lang => (
-    <a href="#" style={`margin-left:0.5em; font-size:1.5em; opacity:${lang.code === current ? 1 : 0.5}; pointer-events:${lang.code === current ? 'none' : 'auto'};`}>
+    <a href="#" style={`margin-left:0.5em; font-size:1.5em; opacity:${lang.code === current ? 1 : 0.5}; pointer-events:${lang.code === current ? "none" : "auto"};`}>
       {lang.label}
     </a>
   ))}

@@ -1,6 +1,5 @@
 ---
 import BookingForm from './BookingForm.astro';
-import "../styles/global.css";
 ---
 
 <section id="contact" role="region" aria-labelledby="contact-heading">
@@ -136,21 +135,4 @@ import "../styles/global.css";
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const header = document.querySelector('.contact-header');
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('intersecting');
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.15, rootMargin: '20px' }
-    );
-    
-    if (header) {
-      observer.observe(header);
-    }
-  });
-</script>
+<!-- No script tag needed - performance-boost.js handles everything! -->

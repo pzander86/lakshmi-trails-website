@@ -1,6 +1,12 @@
 ---
-const { href } = Astro.props;
+interface Props {
+  href: string;
+  variant?: "primary" | "secondary";
+  text?: string;
+}
+
+const { href, variant = "primary", text = "Download Itinerary (PDF)" } = Astro.props as Props;
 ---
-<a href={href} class="cta-button" style="background:var(--color-gold); color:var(--color-stone); margin-top:1em;" download>
-  Download Itinerary (PDF)
+<a href={href} class={`cta-button ${variant === 'secondary' ? 'cta-button--secondary' : ''}`} style="margin-top:1em;" download>
+  {text}
 </a>

@@ -1,4 +1,168 @@
 ---
-const { href, text, style = "" } = Astro.props;
+interface Props {
+  href: string;
+  text: string;
+  variant?: "primary" | "secondary" | "outline" | "coral";
+  size?: "small" | "medium" | "large";
+  icon?: string | null;
+  iconPosition?: "left" | "right";
+  disabled?: boolean;
+  external?: boolean;
+  download?: boolean;
+  ariaLabel?: string | null;
+  testId?: string | null;
+  class?: string;
+  style?: string;
+}
+
+const { 
+  href, 
+  text, 
+  variant = "primary",
+  size = "medium",
+  icon = null,
+  iconPosition = "right",
+  disabled = false,
+  external = false,
+  download = false,
+  ariaLabel = null,
+  testId = null,
+  class: className = "",
+  style = ""
+} = Astro.props as Props;
+
+const isExternal = external || (href && href.startsWith('http'));
+const rel = isExternal ? "noopener noreferrer" : undefined;
+const target = isExternal ? "_blank" : undefined;
 ---
-<a href={href} class="cta-button" style={style}>{text}</a>
+
+<a 
+  href={href}
+  class={`cta-button cta-button--${variant} cta-button--${size} ${className}`}
+  style={style}
+  rel={rel}
+  target={target}
+  download={download ? true : undefined}
+  aria-label={ariaLabel || (isExternal ? `${text} (opens in new tab)` : undefined)}
+  data-testid={testId}
+  aria-disabled={disabled ? "true" : undefined}
+  tabindex={disabled ? "-1" : undefined}
+>
+  {icon && iconPosition === "left" && (
+    <span class="cta-button__icon cta-button__icon--left" aria-hidden="true">
+      {icon === "arrow-right" && (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12,5 19,12 12,19"></polyline>
+        </svg>
+      )}
+      {icon === "download" && (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7,10 12,15 17,10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+      )}
+      {icon === "external" && (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15,3 21,3 21,9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      )}
+    </span>
+  )}
+  
+  <span class="cta-button__text">{text}</span>
+  
+  {icon && iconPosition === "right" && (
+    <span class="cta-button__icon cta-button__icon--right" aria-hidden="true">
+      {icon === "arrow-right" && (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12,5 19,12 12,19"></polyline>
+        </svg>
+      )}
+      {icon === "download" && (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7,10 12,15 17,10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+      )}
+      {icon === "external" && (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15,3 21,3 21,9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      )}
+    </span>
+  )}
+  
+  {isExternal && !icon && (
+    <span class="cta-button__icon cta-button__icon--external" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+        <polyline points="15,3 21,3 21,9"></polyline>
+        <line x1="10" y1="14" x2="21" y2="3"></line>
+      </svg>
+    </span>
+  )}
+</a>
+
+<style>
+  /* CTA Button Component - Using centralized styles from Layout.astro */
+  
+  /* Component-specific icon styles */
+  .cta-button__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .cta-button__icon svg {
+    transition: transform 0.3s ease;
+  }
+
+  .cta-button:hover .cta-button__icon--right svg {
+    transform: translateX(2px);
+  }
+
+  .cta-button:hover .cta-button__icon--left svg {
+    transform: translateX(-2px);
+  }
+
+  .cta-button__icon--external {
+    opacity: 0.7;
+    margin-left: 0.25rem;
+  }
+
+  /* Size-specific icon adjustments */
+  .cta-button--small .cta-button__icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .cta-button--large .cta-button__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Icon animation overrides for disabled state */
+  .cta-button[aria-disabled="true"] .cta-button__icon svg {
+    transform: none !important;
+  }
+
+  /* Reduced Motion - Icon specific */
+  @media (prefers-reduced-motion: reduce) {
+    .cta-button__icon svg {
+      transition: none;
+    }
+
+    .cta-button:hover .cta-button__icon svg {
+      transform: none;
+    }
+  }
+</style>

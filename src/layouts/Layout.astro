@@ -7,10 +7,13 @@ const { meta } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts with optimized loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
+    </noscript>
 
     <!-- Primary Meta -->
     <title>{meta?.title}</title>
@@ -33,17 +36,311 @@ const { meta } = Astro.props;
 
     <!-- Performance boost script -->
     <script src="/js/performance-boost.js" defer></script>
+    
+    <!-- Error monitoring for production - temporarily disabled for dev -->
+    <!-- <script type="module">
+      import { setupGlobalErrorHandling } from '../utils/errorMonitoring.js';
+      
+      // Set up global error handling when page loads
+      document.addEventListener('DOMContentLoaded', () => {
+        setupGlobalErrorHandling();
+      });
+    </script> -->
   </head>
   <body>
     <slot />
   </body>
 </html>
 
-<style>
-  html,
-  body {
+<style is:global>
+  /* CSS Reset for consistency across browsers */
+  html {
+    box-sizing: border-box;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  body, h1, h2, h3, h4, h5, h6, p, ul, ol {
     margin: 0;
+    padding: 0;
+  }
+
+  /* Custom Properties (consolidated from brand.css) */
+  :root {
+    --color-white: #F9F9F9;
+    --color-gold: #D4AF37;
+    --color-dark-gold: #B8941F;
+    --color-coral: #D65A3A; /* Darkened for contrast (was #E67E5B) */
+    --color-stone: #333333;
+    --color-mist: #E8E4E0; /* Keeping your original color */
+    --font-headline: 'Playfair Display', Georgia, serif;
+    --font-body: 'Lato', system-ui, -apple-system, sans-serif;
+  }
+  
+  /* Font loading optimization */
+  @font-face {
+    font-family: 'Playfair Display';
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Lato';
+    font-display: swap;
+  }
+
+  /* Base Styles */
+  body {
+    font-family: var(--font-body);
+    color: var(--color-stone);
+    line-height: 1.5;
+    background: var(--color-white);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-headline);
+    color: var(--color-gold);
+  }
+
+  a {
+    color: var(--color-coral);
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+  }
+
+  a:hover, a:focus {
+    color: var(--color-gold);
+    text-decoration: underline;
+    outline: none;
+  }
+
+  /* Ensure focus outline is visible for accessibility */
+  a:focus {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+
+  /* ============================================
+     CENTRALIZED CTA BUTTON STYLES 
+     ============================================ */
+  
+  /* Base CTA Button - Primary Gold Style */
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-transform: uppercase;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    font-family: var(--font-body);
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+  }
+
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-white) 0%, rgba(249, 249, 249, 0.9) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .cta-button:hover::before,
+  .cta-button:focus::before {
+    opacity: 1;
+  }
+
+  .cta-button:hover, 
+  .cta-button:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+    outline: none;
+    color: #000 !important;
+  }
+
+  .cta-button:hover *,
+  .cta-button:focus * {
+    color: #000 !important;
+  }
+
+  .cta-button:focus {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  /* Ensure child elements and text content are above the overlay */
+  .cta-button > *,
+  .cta-button span,
+  .cta-button .cta-button__text,
+  .cta-button .cta-button__icon {
+    position: relative;
+    z-index: 3 !important;
+  }
+
+  /* Force text visibility on all button states */
+  .cta-button:hover > *,
+  .cta-button:focus > *,
+  .cta-button:hover span,
+  .cta-button:focus span {
+    z-index: 3 !important;
+  }
+
+  /* Fix for direct text content in buttons - ensure text is above overlay */
+  .cta-button {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-button:hover,
+  .cta-button:focus {
+    z-index: 2;
+  }
+
+  /* CTA Button Variants */
+  .cta-button--coral {
+    background: var(--color-coral);
+    color: var(--color-white);
+    box-shadow: 0 8px 25px rgba(214, 90, 58, 0.3);
+    font-weight: 600;
+  }
+
+  .cta-button--coral::before {
+    background: linear-gradient(135deg, rgba(184, 70, 47, 1) 0%, rgba(164, 63, 42, 1) 100%);
+  }
+
+  .cta-button--coral:hover,
+  .cta-button--coral:focus {
+    box-shadow: 0 12px 35px rgba(214, 90, 58, 0.4);
+  }
+
+  .cta-button--secondary {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--color-dark-gold);
+    border: 2px solid var(--color-gold);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+  }
+
+  .cta-button--secondary::before {
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+  }
+
+  .cta-button--secondary:hover,
+  .cta-button--secondary:focus {
+    color: #000 !important;
+    border-color: var(--color-dark-gold);
+  }
+
+  .cta-button--secondary:hover *,
+  .cta-button--secondary:focus * {
+    color: #000 !important;
+  }
+
+  .cta-button--outline {
+    background: transparent;
+    color: var(--color-dark-gold);
+    border: 2px solid var(--color-gold);
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+  }
+
+  .cta-button--outline::before {
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+  }
+
+  .cta-button--outline:hover,
+  .cta-button--outline:focus {
+    color: #000 !important;
+    border-color: var(--color-dark-gold);
+  }
+
+  .cta-button--outline:hover *,
+  .cta-button--outline:focus * {
+    color: #000 !important;
+  }
+
+  /* CTA Button Sizes */
+  .cta-button--small {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.85rem;
+    gap: 0.375rem;
+  }
+
+  .cta-button--large {
+    padding: 1.25rem 3rem;
+    font-size: 1.1rem;
+    gap: 0.75rem;
+  }
+
+  .cta-button--full-width {
     width: 100%;
-    height: 100%;
+  }
+
+  /* Disabled State */
+  .cta-button:disabled,
+  .cta-button[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15) !important;
+  }
+
+  .cta-button:disabled::before,
+  .cta-button[aria-disabled="true"]::before {
+    opacity: 0 !important;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .cta-button {
+      padding: 0.9rem 2rem;
+      font-size: 0.9rem;
+    }
+
+    .cta-button--small {
+      padding: 0.7rem 1.25rem;
+      font-size: 0.8rem;
+    }
+
+    .cta-button--large {
+      padding: 1rem 2.25rem;
+      font-size: 1rem;
+    }
+  }
+
+  /* Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .cta-button {
+      transition: none;
+      will-change: auto;
+    }
+
+    .cta-button:hover {
+      transform: none;
+    }
+  }
+
+  /* High Contrast Mode */
+  @media (prefers-contrast: high) {
+    .cta-button {
+      border: 2px solid;
+    }
+
+    .cta-button--outline,
+    .cta-button--secondary {
+      border-width: 3px;
+    }
   }
 </style>

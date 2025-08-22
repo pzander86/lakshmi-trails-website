@@ -1,6 +1,5 @@
 ---
 import faqs from '../data/faqs.en.json';
-import "../styles/global.css";
 ---
 
 <section id="faq" role="region" aria-labelledby="faq-heading">
@@ -137,14 +136,6 @@ import "../styles/global.css";
     font-family: var(--font-body);
   }
 
-  /* Removed hover/focus highlight as requested */
-  /* summary:hover,
-  summary:focus {
-    color: var(--color-dark-gold);
-    outline: 2px solid var(--color-gold);
-    outline-offset: 2px;
-  } */
-
   .faq-question {
     flex: 1;
   }
@@ -202,40 +193,4 @@ import "../styles/global.css";
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const header = document.querySelector('.faq-header');
-    const faqItems = document.querySelectorAll('.faq-item');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('intersecting');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(header);
-    faqItems.forEach((item, index) => {
-      observer.observe(item);
-    });
-
-    // Close other details when one is opened
-    const detailsElements = document.querySelectorAll('details');
-    detailsElements.forEach((details) => {
-      details.addEventListener('toggle', (e) => {
-        if (details.open) {
-          detailsElements.forEach((otherDetails) => {
-            if (otherDetails !== details) {
-              otherDetails.removeAttribute('open');
-            }
-          });
-        }
-      });
-    });
-  });
-</script>
+<!-- No script tag needed - performance-boost.js handles everything! -->

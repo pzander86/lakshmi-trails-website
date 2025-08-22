@@ -1,11 +1,11 @@
 ---
 import { Image } from 'astro:assets';
-import "../styles/global.css";
+import philosophyBg from '../assets/images/philosophy-bg.webp';
 ---
 
 <section id="about" role="region" aria-labelledby="about-heading">
   <Image
-    src="/assets/images/philosophy-bg.webp"
+    src={philosophyBg}
     alt=""
     width={1600}
     height={900}
@@ -231,22 +231,4 @@ import "../styles/global.css";
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const philosophyContent = document.querySelector('.philosophy-content');
-    
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          philosophyContent.classList.add('intersecting');
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15, rootMargin: '20px' }
-    );
-    
-    if (philosophyContent) {
-      observer.observe(philosophyContent);
-    }
-  });
-</script>
+<!-- No script tag needed - performance-boost.js handles everything! -->

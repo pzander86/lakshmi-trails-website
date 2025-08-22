@@ -1,10 +1,4 @@
 // src/pages/api/contact.js
-console.log('Environment check:', {
-    hasKey: !!import.meta.env.RESEND_API_KEY,
-    keyLength: import.meta.env.RESEND_API_KEY?.length,
-    nodeEnv: import.meta.env.NODE_ENV,
-    mode: import.meta.env.MODE
-  });
 import { Resend } from 'resend';
 
 // In Astro, use import.meta.env for environment variables
@@ -66,7 +60,6 @@ export async function POST({ request }) {
 
     // Check if API key exists
     if (!import.meta.env.RESEND_API_KEY) {
-      console.error('RESEND_API_KEY is not configured');
       return new Response(
         JSON.stringify({ error: 'Email service not configured' }), 
         {
@@ -193,7 +186,6 @@ export async function POST({ request }) {
       });
 
       if (resendError) {
-        console.error('Resend API error:', resendError);
         return new Response(
           JSON.stringify({ 
             error: 'Failed to send email',
@@ -220,7 +212,6 @@ export async function POST({ request }) {
       );
 
     } catch (resendError) {
-      console.error('Resend send error:', resendError);
       return new Response(
         JSON.stringify({ 
           error: 'Email service error',
@@ -234,7 +225,6 @@ export async function POST({ request }) {
     }
 
   } catch (error) {
-    console.error('API endpoint error:', error);
     return new Response(
       JSON.stringify({ 
         error: 'Internal server error',

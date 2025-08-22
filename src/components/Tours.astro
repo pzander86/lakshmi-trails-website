@@ -5,7 +5,11 @@ let tours = [];
 try {
   tours = (await import('../data/tours.en.json')).default || [];
 } catch (error) {
-  console.error('Error loading tours data:', error);
+  // Log error for development
+  if (import.meta.env.DEV) {
+    console.error('Error loading tours data:', error);
+  }
+  // TODO: In production, send to error monitoring service
   tours = []; // Fallback to empty array if import fails
 }
 
@@ -358,41 +362,4 @@ const structuredData = {
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Animate sections on scroll
-    const header = document.querySelector('.tours-header');
-    const footer = document.querySelector('.tours-footer');
-    
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('intersecting');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '20px' }
-    );
-    
-    if (header) observer.observe(header);
-    if (footer) observer.observe(footer);
-
-    // Smooth scroll for anchor links
-    const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    anchorLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href').substring(1);
-        const target = document.getElementById(targetId);
-        if (target) {
-          target.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  });
-</script>
+<!-- No script tag needed - performance-boost.js handles everything! -->

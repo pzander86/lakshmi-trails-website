@@ -1,14 +1,96 @@
 ---
-const handleSubmit = (e) => {
-  e.preventDefault();
-  alert('Thank you for signing up! We’ll keep you updated.');
-};
+// Newsletter signup functionality - no server-side logic needed in frontmatter
 ---
 
-<form on:submit={handleSubmit} style="margin-bottom:1em;">
+<form class="newsletter-form" style="margin-bottom:1em;">
   <label>
     <span style="font-weight:bold;">Subscribe for updates:</span>
-    <input type="email" placeholder="Your email" required style="margin-left:1em; padding:0.5em; border-radius:0.5em; border:1px solid var(--color-mist);" />
+    <input type="email" name="email" placeholder="Your email" required style="margin-left:1em; padding:0.5em; border-radius:0.5em; border:1px solid var(--color-mist);" />
   </label>
-  <button type="submit" class="cta-button" style="margin-left:1em;">Sign Up</button>
+  <button type="submit" class="cta-button cta-button--outline cta-button--small newsletter-button" style="margin-left:1em;">
+    <span>Sign Up</span>
+  </button>
+  <div class="newsletter-status" role="status" aria-live="polite" style="margin-top:0.5em; display:none;"></div>
 </form>
+
+<style>
+  /* Force newsletter button text to be black on hover with higher specificity */
+  .cta-button.cta-button--outline.cta-button--small.newsletter-button:hover,
+  .cta-button.cta-button--outline.cta-button--small.newsletter-button:focus {
+    color: #000 !important;
+    background-color: var(--color-gold) !important;
+  }
+  
+  .cta-button.cta-button--outline.cta-button--small.newsletter-button:hover *,
+  .cta-button.cta-button--outline.cta-button--small.newsletter-button:focus * {
+    color: #000 !important;
+    z-index: 10 !important;
+  }
+  
+  .cta-button.cta-button--outline.cta-button--small.newsletter-button:hover span,
+  .cta-button.cta-button--outline.cta-button--small.newsletter-button:focus span {
+    color: #000 !important;
+    z-index: 10 !important;
+  }
+
+  /* Newsletter status styling */
+  .newsletter-status.success {
+    color: var(--color-dark-gold);
+    font-size: 0.9rem;
+    display: flex !important;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .newsletter-status.error {
+    color: var(--color-coral);
+    font-size: 0.9rem;
+    display: flex !important;
+    align-items: center;
+    gap: 0.5rem;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.newsletter-form');
+    const statusDiv = document.querySelector('.newsletter-status');
+    
+    if (form && statusDiv) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = form.querySelector('input[name="email"]').value;
+        
+        // Basic email validation
+        if (!email || !email.includes('@')) {
+          showStatus('error', 'Please enter a valid email address.');
+          return;
+        }
+        
+        // Show success message (in production, this would integrate with your email service)
+        showStatus('success', 'Thank you for signing up! We\'ll keep you updated.');
+        form.reset();
+      });
+    }
+    
+    function showStatus(type, message) {
+      statusDiv.className = `newsletter-status ${type}`;
+      statusDiv.innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          ${type === 'success' 
+            ? '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="9,11 12,14 22,4"></polyline>'
+            : '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>'
+          }
+        </svg>
+        ${message}
+      `;
+      statusDiv.style.display = 'flex';
+      
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        statusDiv.style.display = 'none';
+      }, 5000);
+    }
+  });
+</script>

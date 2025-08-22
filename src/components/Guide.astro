@@ -1,5 +1,4 @@
 ---
-import "../styles/global.css";
 ---
 
 <section id="guide" role="region" aria-labelledby="guide-heading">
@@ -18,7 +17,7 @@ import "../styles/global.css";
 
     <div class="guide-content">
       <p class="guide-intro">
-        I’m Piotr, and Lakshmi Trails is the culmination of my life’s journey. I’ve walked the path from <span class="highlight-text">skeptical traveler to devoted student</span>. After 20 years in America, India changed everything—not through tourist circuits, but through 1.5 years of deep immersion with masters, families, and traditions rarely accessible to outsiders.
+        I'm Piotr, and Lakshmi Trails is the culmination of my life's journey. I've walked the path from <span class="highlight-text">skeptical traveler to devoted student</span>. After 20 years in America, India changed everything—not through tourist circuits, but through 1.5 years of deep immersion with masters, families, and traditions rarely accessible to outsiders.
       </p>
 
       <div class="credentials">
@@ -351,56 +350,4 @@ import "../styles/global.css";
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const video = document.querySelector('#guide video');
-    
-    if (video) {
-      video.addEventListener('loadeddata', () => {
-        video.setAttribute('loaded', '');
-      });
-
-      const videoObserver = new IntersectionObserver(
-        ([entry]) => {
-          if (!entry.isIntersecting) {
-            video.pause();
-          } else {
-            video.play();
-          }
-        },
-        { threshold: 0.1 }
-      );
-      videoObserver.observe(video);
-    }
-
-    const guideHeader = document.querySelector('.guide-header');
-    const guideContainer = document.querySelector('.guide-container');
-    
-    const headerObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          guideHeader.classList.add('intersecting');
-        }
-      },
-      { threshold: 0.15, rootMargin: '20px' }
-    );
-
-    const containerObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          guideContainer.classList.add('intersecting');
-          containerObserver.disconnect();
-        }
-      },
-      { threshold: 0.15, rootMargin: '20px' }
-    );
-    
-    if (guideHeader) {
-      headerObserver.observe(guideHeader);
-    }
-    
-    if (guideContainer) {
-      containerObserver.observe(guideContainer);
-    }
-  });
-</script>
+<!-- No script tag needed - performance-boost.js handles everything! -->

@@ -1,5 +1,4 @@
 ---
-import "../styles/global.css";
 import PrincipleIcon from './PrincipleIcon.astro';
 ---
 
@@ -245,24 +244,4 @@ import PrincipleIcon from './PrincipleIcon.astro';
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const header = document.querySelector('.philosophy-header');
-    const container = document.querySelector('.principles-container');
-    
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('intersecting');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '20px' }
-    );
-    
-    if (header) observer.observe(header);
-    if (container) observer.observe(container);
-  });
-</script>
+<!-- No script tag needed - performance-boost.js handles everything! -->

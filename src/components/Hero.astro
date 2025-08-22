@@ -1,16 +1,17 @@
 ---
-import "../styles/global.css";
+import { Image } from 'astro:assets';
+import heroPlaceholder from '../assets/images/hero-placeholder.webp';
 ---
 
 <!-- Preload critical resources in head -->
-<link rel="preload" as="image" href="/assets/images/hero-placeholder.webp">
-<link rel="preload" as="font" type="font/woff2" href="/fonts/headline-font.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="/fonts/body-font.woff2" crossorigin>
+<link rel="preload" as="font" type="font/ttf" href="/fonts/Lato,Playfair_Display/Playfair_Display/static/PlayfairDisplay-Regular.ttf" crossorigin>
+<link rel="preload" as="font" type="font/ttf" href="/fonts/Lato,Playfair_Display/Lato/Lato-Regular.ttf" crossorigin>
 
 <section id="hero" class="scroll-section">
   <a href="#main-content" class="skip-link">Skip to content</a>
   
   <!-- Enhanced video with better fallback strategy -->
+  <!-- IMPORTANT: Keep data-src for lazy loading -->
   <video 
     data-src="/assets/videos/lakshmi-trails-hero.webm"
     autoplay 
@@ -18,7 +19,7 @@ import "../styles/global.css";
     loop 
     playsinline 
     preload="metadata" 
-    poster="/assets/images/hero-placeholder.webp" 
+    poster={heroPlaceholder.src} 
     aria-label="Background video of a South Indian temple" 
     class="hero-video"
   >
@@ -159,49 +160,7 @@ import "../styles/global.css";
     text-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
 
-  .cta-button {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
-    color: #000;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
-    border-radius: 8px;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    text-transform: uppercase;
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-    font-family: var(--font-body);
-    position: relative;
-    overflow: hidden;
-    will-change: transform; /* Performance hint */
-  }
-
-  .cta-button::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--color-white) 0%, rgba(249, 249, 249, 0.9) 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  .cta-button:hover::before,
-  .cta-button:focus::before {
-    opacity: 1;
-  }
-
-  .cta-button:hover, .cta-button:focus {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
-    outline: none;
-  }
-
-  .cta-button span {
-    position: relative;
-    z-index: 1;
-  }
+  /* CTA Button styles now centralized in Layout.astro */
 
   .skip-link {
     position: absolute;
@@ -306,112 +265,4 @@ import "../styles/global.css";
   }
 </style>
 
-<script>
-  // Enhanced video loading with performance optimization
-  document.addEventListener('DOMContentLoaded', () => {
-    const video = document.querySelector('.hero-video');
-    const fallbackImage = document.querySelector('.hero-image-fallback');
-    
-    if (!video) return;
-
-    // Determine connection quality and device capabilities
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
-    const prefersReducedData = connection?.saveData;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Show fallback immediately for slow connections or reduced motion
-    if (isSlowConnection || prefersReducedData || prefersReducedMotion) {
-      showFallback();
-      return;
-    }
-
-    // Progressive video loading
-    const loadVideo = () => {
-      const dataSrc = video.dataset.src;
-      const sources = video.querySelectorAll('source[data-src]');
-      
-      if (dataSrc) {
-        // Load appropriate quality based on screen size
-        const screenWidth = window.innerWidth;
-        const useHighQuality = screenWidth > 768 && !isSlowConnection;
-        
-        sources.forEach(source => {
-          const srcToUse = useHighQuality ? 
-            source.dataset.src : 
-            source.dataset.src.replace('.webm', '-720p.webm').replace('.mp4', '-720p.mp4');
-          source.src = srcToUse;
-        });
-        
-        video.load();
-      }
-    };
-
-    // Enhanced intersection observer
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (video.readyState >= 2) {
-            playVideo();
-          } else {
-            loadVideo();
-            video.addEventListener('canplay', playVideo, { once: true });
-          }
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.25, rootMargin: '50px' }
-    );
-
-    const playVideo = () => {
-      video.play().catch(() => {
-        console.warn('Video autoplay failed, showing fallback');
-        showFallback();
-      });
-    };
-
-    const showFallback = () => {
-      video.classList.add('error');
-      fallbackImage.classList.add('show');
-    };
-
-    // Error handling
-    video.addEventListener('error', showFallback);
-    video.addEventListener('stalled', showFallback);
-
-    // Start observing
-    observer.observe(video);
-
-    // CTA button smooth scroll
-    const ctaButton = document.querySelector('.cta-button');
-    if (ctaButton) {
-      ctaButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = ctaButton.getAttribute('href');
-        const target = document.querySelector(targetId);
-        if (target) {
-          const headerOffset = 80;
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      });
-    }
-
-    // Preload next section assets after hero loads
-    setTimeout(() => {
-      const nextSectionImages = document.querySelectorAll('#guide img[data-src], #about img[data-src]');
-      nextSectionImages.forEach(img => {
-        if (img.dataset.src) {
-          const preloadImg = new Image();
-          preloadImg.src = img.dataset.src;
-        }
-      });
-    }, 2000);
-  });
-</script>
+<!-- No script tag needed - performance-boost.js handles everything! -->

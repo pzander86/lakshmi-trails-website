@@ -10,17 +10,17 @@ import FAQ from '../components/FAQ.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import toursData from '../data/tours.en.json';
-import '../styles/global.css';
 
 const meta = {
   title: 'Lakshmi Trails | South India Retreats for Inner Transformation',
   description: 'Boutique wellness journeys blending yoga, Ayurveda, and living traditions. Curated access to South India\'s healing heritage, with modern safety and trusted care.',
-  image: '/assets/og-image.jpg',
-  url: 'https://lakshmitrails.com',
+  image: '/assets/og-image-PLACEHOLDER.jpg',
+  url: 'https://lakshmitrails.com'
 };
 ---
 
-<Layout {meta}>
+<Layout meta={meta}>
+  <div id="top"></div>
   <NavBar />
   <Hero />
   <main id="main-content">

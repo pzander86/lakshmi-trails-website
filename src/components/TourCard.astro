@@ -1,5 +1,16 @@
 ---
-const { title, description, dates, price, itineraryUrl, reserveUrl, slug, tourPageUrl } = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+  dates: string;
+  price: string;
+  itineraryUrl: string;
+  reserveUrl: string;
+  slug: string;
+  tourPageUrl?: string;
+}
+
+const { title, description, dates, price, itineraryUrl, reserveUrl, slug, tourPageUrl } = Astro.props as Props;
 ---
 
 <article class="tour-card" role="article">
@@ -27,24 +38,24 @@ const { title, description, dates, price, itineraryUrl, reserveUrl, slug, tourPa
     </div>
     
     <div class="tour-actions">
-      <a href={itineraryUrl} class="btn-secondary" download aria-label={`Download itinerary for ${title}`}>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <a href={itineraryUrl} class="cta-button cta-button--outline cta-button--small" download aria-label={`Download itinerary for ${title}`}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
           <polyline points="7,10 12,15 17,10"></polyline>
           <line x1="12" y1="15" x2="12" y2="3"></line>
         </svg>
-        <span>Itinerary</span>
+        <span>PDF</span>
       </a>
-      <a href={tourPageUrl || `/tours/${slug}/`} class="btn-explore" aria-label={`Explore ${title} journey details and itinerary`}>
-        <span>Explore Journey</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <a href={tourPageUrl || `/tours/${slug}/`} class="cta-button cta-button--secondary cta-button--small" aria-label={`Explore ${title} journey details and itinerary`}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12,5 19,12 12,19"></polyline>
         </svg>
+        <span>Explore</span>
       </a>
-      <a href={reserveUrl} class="btn-primary" aria-label={`Reserve your spot for ${title}`}>
+      <a href={reserveUrl} class="cta-button cta-button--small" aria-label={`Reserve your spot for ${title}`}>
         <span>Reserve</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <circle cx="12" cy="12" r="10"></circle>
           <path d="M12 6v6l4 2"></path>
         </svg>
@@ -165,104 +176,16 @@ const { title, description, dates, price, itineraryUrl, reserveUrl, slug, tourPa
     padding-top: 1rem;
   }
 
-  .btn-primary,
-  .btn-secondary,
-  .btn-explore {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    padding: 0.7rem 0.8rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    font-family: var(--font-body);
-    position: relative;
-    overflow: hidden;
+  /* Tour card buttons use centralized CTA button styles */
+  /* Fix tour card button text visibility */
+  .tour-actions .cta-button:hover,
+  .tour-actions .cta-button:focus {
+    color: #000 !important;
   }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
-    color: #000;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
-  }
-
-  .btn-primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--color-white) 0%, rgba(249, 249, 249, 0.9) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .btn-primary:hover::before,
-  .btn-primary:focus::before {
-    opacity: 1;
-  }
-
-  .btn-primary:hover,
-  .btn-primary:focus {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
-    outline: none;
-  }
-
-  .btn-primary span,
-  .btn-primary svg {
-    position: relative;
-    z-index: 1;
-  }
-
-  .btn-explore {
-    background: rgba(212, 175, 55, 0.1);
-    color: var(--color-dark-gold);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-  }
-
-  .btn-explore::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .btn-explore:hover::before,
-  .btn-explore:focus::before {
-    opacity: 1;
-  }
-
-  .btn-explore:hover,
-  .btn-explore:focus {
-    color: #000;
-    transform: translateY(-2px);
-    outline: none;
-    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
-  }
-
-  .btn-explore span,
-  .btn-explore svg {
-    position: relative;
-    z-index: 1;
-  }
-
-  .btn-secondary {
-    background: rgba(249, 249, 249, 0.8);
-    color: var(--color-stone);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-  }
-
-  .btn-secondary:hover,
-  .btn-secondary:focus {
-    background: var(--color-mist);
-    border-color: var(--color-gold);
-    transform: translateY(-1px);
-    outline: none;
-    color: var(--color-dark-gold);
+  
+  .tour-actions .cta-button:hover *,
+  .tour-actions .cta-button:focus * {
+    color: #000 !important;
   }
 
   @keyframes fadeInUp {
@@ -285,12 +208,8 @@ const { title, description, dates, price, itineraryUrl, reserveUrl, slug, tourPa
       transform: none;
     }
     
-    .btn-primary:hover,
-    .btn-primary:focus,
-    .btn-secondary:hover,
-    .btn-secondary:focus,
-    .btn-explore:hover,
-    .btn-explore:focus {
+    .tour-actions .cta-button:hover,
+    .tour-actions .cta-button:focus {
       transform: none;
     }
   }
@@ -317,12 +236,8 @@ const { title, description, dates, price, itineraryUrl, reserveUrl, slug, tourPa
       gap: 0.75rem;
     }
 
-    .btn-primary,
-    .btn-secondary,
-    .btn-explore {
+    .tour-actions .cta-button {
       justify-content: center;
-      padding: 0.75rem 1rem;
-      font-size: 0.9rem;
     }
   }
 
