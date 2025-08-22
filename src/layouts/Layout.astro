@@ -18,34 +18,72 @@ const { meta } = Astro.props;
     <!-- Primary Meta -->
     <title>{meta?.title}</title>
     <meta name="description" content={meta?.description} />
-
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href={meta?.url} />
+    
+    <!-- Additional SEO Meta -->
+    <meta name="author" content="Lakshmi Trails" />
+    <meta name="keywords" content="south india tours, kerala tours, karnataka tours, spiritual travel, wellness retreats, cultural immersion, ayurveda, yoga retreats" />
+    <meta name="theme-color" content="#D4AF37" />
+    
     <!-- Open Graph -->
     <meta property="og:title" content={meta?.title} />
     <meta property="og:description" content={meta?.description} />
     <meta property="og:image" content={meta?.image} />
     <meta property="og:url" content={meta?.url} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lakshmi Trails" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={meta?.title} />
     <meta name="twitter:description" content={meta?.description} />
     <meta name="twitter:image" content={meta?.image} />
+    <meta name="twitter:site" content="@lakshmitrails" />
+    <meta name="twitter:creator" content="@lakshmitrails" />
 
+    <!-- Apple Touch Icon and Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+    <meta name="msapplication-TileColor" content="#D4AF37" />
 
     <!-- Performance boost script -->
     <script src="/js/performance-boost.js" defer></script>
     
-    <!-- Error monitoring for production - temporarily disabled for dev -->
-    <!-- <script type="module">
-      import { setupGlobalErrorHandling } from '../utils/errorMonitoring.js';
+    <!-- Error monitoring for production -->
+    <script type="module">
+      import { setupGlobalErrorHandling, logPerformanceIssue } from '../utils/errorMonitoring.js';
       
       // Set up global error handling when page loads
       document.addEventListener('DOMContentLoaded', () => {
         setupGlobalErrorHandling();
+        
+        // Track page load performance
+        if ('PerformanceObserver' in window) {
+          try {
+            const observer = new PerformanceObserver((list) => {
+              list.getEntries().forEach((entry) => {
+                if (entry.entryType === 'navigation') {
+                  const loadTime = entry.loadEventEnd - entry.fetchStart;
+                  logPerformanceIssue('page_load_time', loadTime, {
+                    page: window.location.pathname,
+                    dns: entry.domainLookupEnd - entry.domainLookupStart,
+                    tcp: entry.connectEnd - entry.connectStart,
+                    ttfb: entry.responseStart - entry.requestStart,
+                    download: entry.responseEnd - entry.responseStart,
+                    dom: entry.domContentLoadedEventEnd - entry.domContentLoadedEventStart
+                  });
+                }
+              });
+            });
+            observer.observe({ type: 'navigation', buffered: true });
+          } catch (e) {
+            // Performance Observer not supported
+          }
+        }
       });
-    </script> -->
+    </script>
   </head>
   <body>
     <slot />
