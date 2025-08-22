@@ -32,8 +32,8 @@ compress_video() {
         echo "   ✅ Backed up original to: $backup_file"
     fi
     
-    # Compress with ffmpeg
-    ffmpeg -i "$input_file" \
+    # Compress with ffmpeg (using local binary)
+    ./ffmpeg -i "$input_file" \
         -c:v libx264 \
         -crf "$crf" \
         -maxrate "$max_bitrate" \

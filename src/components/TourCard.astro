@@ -8,16 +8,27 @@ interface Props {
   reserveUrl: string;
   slug: string;
   tourPageUrl?: string;
+  image?: string;
 }
 
-const { title, description, dates, price, itineraryUrl, reserveUrl, slug, tourPageUrl } = Astro.props as Props;
+const { title, description, dates, price, itineraryUrl, reserveUrl, slug, tourPageUrl, image } = Astro.props as Props;
 ---
 
 <article class="tour-card" role="article">
   <div class="tour-image" role="img" aria-label={`Tour image for ${title}`}>
-    <div class="image-placeholder">
-      <span>Sacred Journey</span>
-    </div>
+    {image ? (
+      <img 
+        src={image} 
+        alt={`Beautiful imagery representing ${title}`}
+        loading="lazy"
+        width="400"
+        height="240"
+      />
+    ) : (
+      <div class="image-placeholder">
+        <span>Sacred Journey</span>
+      </div>
+    )}
     <div class="tour-price-badge">{price}</div>
   </div>
   
@@ -95,6 +106,17 @@ const { title, description, dates, price, itineraryUrl, reserveUrl, slug, tourPa
     background: linear-gradient(135deg, var(--color-stone) 0%, #444 100%);
     position: relative;
     overflow: hidden;
+  }
+
+  .tour-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .tour-card:hover .tour-image img {
+    transform: scale(1.05);
   }
 
   .image-placeholder {

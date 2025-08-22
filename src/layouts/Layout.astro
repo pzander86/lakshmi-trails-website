@@ -53,7 +53,7 @@ const { meta } = Astro.props;
     
     <!-- Error monitoring for production -->
     <script type="module">
-      import { setupGlobalErrorHandling, logPerformanceIssue } from '../utils/errorMonitoring.js';
+      import { setupGlobalErrorHandling, logPerformanceIssue } from '/src/utils/errorMonitoring.js';
       
       // Set up global error handling when page loads
       document.addEventListener('DOMContentLoaded', () => {
