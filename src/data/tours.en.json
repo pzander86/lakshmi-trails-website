@@ -3,7 +3,7 @@
     "slug": "new-year-kerala-journey",
     "title": "The Sacred Water Odyssey",
     "name": "15-Day New Year Kerala Wellness & Cultural Immersion Journey",
-    "dates": "Dec 30, 2025 – Jan 13, 2026",
+    "dates": "Dec 30 – Jan 14, 2025/26",
     "price": "From $2,899 + flights",
     "regularPrice": 2999,
     "earlyBirdPrice": 2899,
@@ -36,7 +36,7 @@
       "Nature Lovers"
     ],
     "startDate": "2025-12-30",
-    "endDate": "2026-01-13",
+    "endDate": "2026-01-14",
     "duration": "P15D",
     "schema": {
       "@context": "https://schema.org",
@@ -53,7 +53,7 @@
       ],
       "duration": "P15D",
       "startDate": "2025-12-30",
-      "endDate": "2026-01-13",
+      "endDate": "2026-01-14",
       "url": "https://lakshmitrails.com/tours/new-year-kerala-journey",
       "offers": {
         "@type": "Offer",
@@ -74,7 +74,7 @@
     "slug": "north-kerala-cultural-immersion",
     "title": "The Living Traditions Trail",
     "name": "15-Day North Kerala Wellness & Cultural Immersion Journey",
-    "dates": "Jan 22 – Feb 5, 2025",
+    "dates": "Jan 22 – Feb 5, 2026",
     "price": "From $2,799 + flights",
     "regularPrice": 2899,
     "earlyBirdPrice": 2799,
@@ -106,8 +106,8 @@
       "Solo Female Travelers",
       "Nature Lovers"
     ],
-    "startDate": "2025-01-22",
-    "endDate": "2025-02-05",
+    "startDate": "2026-01-22",
+    "endDate": "2026-02-05",
     "duration": "P15D",
     "schema": {
       "@context": "https://schema.org",
@@ -123,8 +123,8 @@
         "Nature Lovers"
       ],
       "duration": "P15D",
-      "startDate": "2025-01-22",
-      "endDate": "2025-02-05",
+      "startDate": "2026-01-22",
+      "endDate": "2026-02-05",
       "url": "https://lakshmitrails.com/tours/north-kerala-cultural-immersion",
       "offers": {
         "@type": "Offer",
@@ -145,7 +145,7 @@
     "slug": "karnataka-wellness-immersion",
     "title": "The Spirit of Karnataka",
     "name": "15-Day South India Wellness & Cultural Immersion Journey",
-    "dates": "Feb 16 – Mar 2, 2025",
+    "dates": "Feb 16 – Mar 2, 2026"
     "price": "From $2,799 + flights",
     "regularPrice": 2899,
     "earlyBirdPrice": 2799,
@@ -176,8 +176,8 @@
       "Cultural Enthusiasts",
       "Solo Female Travelers"
     ],
-    "startDate": "2025-02-16",
-    "endDate": "2025-03-02",
+    "startDate": "2026-02-16",
+    "endDate": "2026-03-02",
     "duration": "P15D",
     "schema": {
       "@context": "https://schema.org",
@@ -192,8 +192,8 @@
         "Solo Female Travelers"
       ],
       "duration": "P15D",
-      "startDate": "2025-02-16",
-      "endDate": "2025-03-02",
+      "startDate": "2026-02-16",
+      "endDate": "2026-03-02",
       "url": "https://lakshmitrails.com/tours/karnataka-wellness-immersion",
       "offers": {
         "@type": "Offer",
