@@ -79,8 +79,8 @@ export async function POST({ request }) {
     // Format trip selection for display
     const tripDisplay = {
       'living-traditions': 'The Living Traditions Trail (Jan 22 – Feb 5, 2025)',
-      'mysore-mystique': 'The Mysore Mystique (Feb 16 – Mar 2, 2025)',
-      'sacred-waters': 'Sacred Waters & New Beginnings (Dec 30, 2025 – Jan 13, 2026)',
+      'mysore-mystique': 'The Spirit of Karnataka (Feb 16 – Mar 2, 2025)',
+      'sacred-waters': 'The Sacred Water Odyssey (Dec 30, 2025 – Jan 13, 2026)',
       'custom': 'Custom Journey - Let\'s create something unique'
     }[tripSelection] || tripSelection;
 

@@ -1,7 +1,7 @@
 [
   {
     "slug": "new-year-kerala-journey",
-    "title": "Sacred Waters & New Beginnings",
+    "title": "The Sacred Water Odyssey",
     "name": "15-Day New Year Kerala Wellness & Cultural Immersion Journey",
     "dates": "Dec 30, 2025 – Jan 13, 2026",
     "price": "From $2,899 + flights",
@@ -25,7 +25,7 @@
       "Ayurveda beach healing",
       "Spice plantation wellness tour"
     ],
-    "pdf": "/pdfs/sacred-waters.pdf",
+    "pdf": "/assets/pdfs/sacred-water-odyssey.pdf",
     "image": "/assets/tours/kerala-backwaters-houseboat.jpg",
     "touristTypes": [
       "Wellness Travelers",
@@ -96,7 +96,7 @@
       "Wayanad wellness retreat",
       "North Kerala spiritual journey"
     ],
-    "pdf": "/pdfs/living-traditions.pdf",
+    "pdf": "/assets/pdfs/living-traditions-trail.pdf",
     "image": "/assets/tours/kerala-theyyam-ritual.jpg",
     "touristTypes": [
       "Wellness Travelers",
@@ -143,7 +143,7 @@
   },
   {
     "slug": "karnataka-wellness-immersion",
-    "title": "The Mysore Mystique",
+    "title": "The Spirit of Karnataka",
     "name": "15-Day South India Wellness & Cultural Immersion Journey",
     "dates": "Feb 16 – Mar 2, 2025",
     "price": "From $2,799 + flights",
@@ -167,7 +167,7 @@
       "South India cultural immersion",
       "Ayurveda Udupi healing"
     ],
-    "pdf": "/pdfs/mysore-mystique.pdf",
+    "pdf": "/assets/pdfs/spirit-of-karnataka.pdf",
     "image": "/assets/tours/karnataka-mysore-palace.jpg",
     "touristTypes": [
       "Wellness Travelers",

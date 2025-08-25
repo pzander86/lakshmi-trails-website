@@ -36,21 +36,21 @@
 
   <!-- PDF Downloads (Tour Itineraries) -->
   <url>
-    <loc>https://lakshmitrails.com/pdfs/sacred-waters.pdf</loc>
+    <loc>https://lakshmitrails.com/assets/pdfs/sacred-water-odyssey.pdf</loc>
     <lastmod>2025-08-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://lakshmitrails.com/pdfs/living-traditions.pdf</loc>
+    <loc>https://lakshmitrails.com/assets/pdfs/living-traditions-trail.pdf</loc>
     <lastmod>2025-08-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://lakshmitrails.com/pdfs/mysore-mystique.pdf</loc>
+    <loc>https://lakshmitrails.com/assets/pdfs/spirit-of-karnataka.pdf</loc>
     <lastmod>2025-08-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
