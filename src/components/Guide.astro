@@ -9,10 +9,17 @@
 
   <div class="guide-container">
     <div class="video-container">
-      <video autoplay muted loop playsinline preload="metadata" aria-label="Introduction video of Piotr, your guide to South India's sacred traditions and transformative wellness journeys">
-        <source src="/assets/videos/piotr-intro.mp4" type="video/mp4" />
+      <video controls loop preload="none" aria-label="Introduction video of Piotr, your guide to South India's sacred traditions and transformative wellness journeys" onloadeddata="this.nextElementSibling.style.opacity='0'" id="guideVideo" loading="lazy">
+        <source src="/assets/videos/lakshmi-trails-guide-mobile-new.mp4" type="video/mp4" />
       </video>
-      <div class="video-placeholder">Your 30-40 second<br>introduction video<br>will go here</div>
+      <div class="video-placeholder">
+        <div class="play-message">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <p>Click to play and hear Piotr's introduction</p>
+        </div>
+      </div>
     </div>
 
     <div class="guide-content">
@@ -150,9 +157,6 @@
     align-items: center;
     justify-content: center;
     color: var(--color-white);
-    font-size: 1.2rem;
-    text-align: center;
-    padding: 2rem;
     opacity: 1;
     transition: opacity 0.5s ease-out;
     font-family: var(--font-body);
@@ -161,6 +165,23 @@
   .video-container video[loaded] + .video-placeholder {
     opacity: 0;
     pointer-events: none;
+  }
+
+  .play-message {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .play-message svg {
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  .play-message p {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin: 0;
+    opacity: 0.9;
   }
 
   .guide-content {
@@ -350,4 +371,4 @@
   }
 </style>
 
-<!-- No script tag needed - performance-boost.js handles everything! -->
+<!-- Video with controls for audio playback -->

@@ -3,9 +3,7 @@ import { Image } from 'astro:assets';
 import heroPlaceholder from '../assets/images/hero-placeholder.webp';
 ---
 
-<!-- Preload critical resources in head -->
-<link rel="preload" as="font" type="font/ttf" href="/fonts/Lato,Playfair_Display/Playfair_Display/static/PlayfairDisplay-Regular.ttf" crossorigin>
-<link rel="preload" as="font" type="font/ttf" href="/fonts/Lato,Playfair_Display/Lato/Lato-Regular.ttf" crossorigin>
+<!-- Critical font preloading removed - fonts loaded async from Google -->
 
 <section id="hero" class="scroll-section">
   <a href="#main-content" class="skip-link">Skip to content</a>
@@ -13,20 +11,18 @@ import heroPlaceholder from '../assets/images/hero-placeholder.webp';
   <!-- Enhanced video with better fallback strategy -->
   <!-- IMPORTANT: Keep data-src for lazy loading -->
   <video 
-    data-src="/assets/videos/lakshmi-trails-hero.webm"
     autoplay 
     muted 
     loop 
     playsinline 
-    preload="metadata" 
+    preload="none" 
     poster={heroPlaceholder.src} 
     aria-label="Background video of a South Indian temple" 
     class="hero-video"
+    loading="lazy"
   >
-    <source data-src="/assets/videos/lakshmi-trails-hero-720p.webm" type="video/webm" media="(max-width: 768px)">
-    <source data-src="/assets/videos/lakshmi-trails-hero.webm" type="video/webm">
-    <source data-src="/assets/videos/lakshmi-trails-hero-720p.mp4" type="video/mp4" media="(max-width: 768px)">
-    <source data-src="/assets/videos/lakshmi-trails-hero.mp4" type="video/mp4">
+    <source src="/assets/videos/lakshmi-trails-hero-720p.mp4" type="video/mp4" media="(max-width: 768px)">
+    <source src="/assets/videos/lakshmi-trails-hero.mp4" type="video/mp4">
   </video>
   
   <!-- Enhanced fallback for reduced motion users and video errors -->

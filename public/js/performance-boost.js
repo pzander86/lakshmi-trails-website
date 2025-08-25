@@ -329,7 +329,9 @@
 
         if (target) {
           const headerOffset = this.getHeaderOffset();
-          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+          // Batch DOM reads to avoid forced reflow
+          const rect = target.getBoundingClientRect();
+          const targetPosition = rect.top + window.pageYOffset - headerOffset;
 
           window.scrollTo({
             top: targetPosition,
