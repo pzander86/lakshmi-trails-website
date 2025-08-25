@@ -48,9 +48,19 @@ export default defineConfig({
       cssMinify: 'lightningcss',
       rollupOptions: {
         output: {
-          manualChunks: {
-            vendor: ['astro'],
+          manualChunks: (id) => {
+            // Split vendor libraries
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+            // Split forms into separate chunk
+            if (id.includes('BookingForm')) {
+              return 'forms';
+            }
           },
+          // Optimize chunk loading
+          chunkFileNames: '[name]-[hash].js',
+          assetFileNames: '[name]-[hash].[ext]'
         },
       },
     },
