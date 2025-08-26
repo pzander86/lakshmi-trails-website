@@ -11,6 +11,7 @@ import heroPlaceholder from '../assets/images/hero-placeholder.webp';
   <!-- Enhanced video with better fallback strategy -->
   <!-- IMPORTANT: Keep data-src for lazy loading -->
   <video 
+    autoplay 
     muted 
     loop 
     playsinline 
@@ -18,10 +19,10 @@ import heroPlaceholder from '../assets/images/hero-placeholder.webp';
     poster={heroPlaceholder.src} 
     aria-label="Background video of a South Indian temple" 
     class="hero-video"
-    data-lazy-video="true"
+    loading="lazy"
   >
-    <source data-src="/assets/videos/lakshmi-trails-hero-720p-optimized.mp4" type="video/mp4" media="(max-width: 768px)">
-    <source data-src="/assets/videos/lakshmi-trails-hero-optimized.mp4" type="video/mp4">
+    <source src="/assets/videos/lakshmi-trails-hero-720p.mp4" type="video/mp4" media="(max-width: 768px)">
+    <source src="/assets/videos/lakshmi-trails-hero.mp4" type="video/mp4">
   </video>
   
   <!-- Enhanced fallback for reduced motion users and video errors -->

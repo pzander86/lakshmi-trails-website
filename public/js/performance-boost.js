@@ -12,21 +12,14 @@
       this.animatedElements = new Set();
       this.videosInitialized = new Set();
       
-      // Configuration - optimized thresholds
+      // Configuration
       this.config = {
-        animationThreshold: 0.1,
-        animationRootMargin: '50px',
-        videoThreshold: 0.15,
-        videoRootMargin: '100px',
+        animationThreshold: 0.15,
+        animationRootMargin: '20px',
+        videoThreshold: 0.25,
+        videoRootMargin: '50px',
         headerOffset: 80,
-        imageRootMargin: '100px'
-      };
-      
-      // Performance tracking
-      this.performanceMetrics = {
-        lcp: null,
-        fid: null,
-        cls: null
+        imageRootMargin: '50px'
       };
       
       this.init();
@@ -70,28 +63,18 @@
     // SECTION ANIMATIONS (NEW - CONSOLIDATED)
     // =====================================
     initializeSectionAnimations() {
-      // Single observer for ALL animated sections - optimized for better performance
+      // Single observer for ALL animated sections
       const animationObserver = new IntersectionObserver(
         (entries) => {
-          // Batch DOM writes to avoid layout thrashing
-          const elementsToAnimate = [];
-          
           entries.forEach(entry => {
             if (entry.isIntersecting && !this.animatedElements.has(entry.target)) {
-              elementsToAnimate.push(entry.target);
-              this.animatedElements.add(entry.target);
+              requestAnimationFrame(() => {
+                entry.target.classList.add('intersecting');
+                this.animatedElements.add(entry.target);
+              });
               animationObserver.unobserve(entry.target);
             }
           });
-          
-          // Batch all class additions in a single frame
-          if (elementsToAnimate.length > 0) {
-            requestAnimationFrame(() => {
-              elementsToAnimate.forEach(element => {
-                element.classList.add('intersecting');
-              });
-            });
-          }
         },
         {
           threshold: this.config.animationThreshold,
@@ -332,12 +315,9 @@
     }
 
     // =====================================
-    // SMOOTH SCROLLING ENHANCEMENT - OPTIMIZED
+    // SMOOTH SCROLLING ENHANCEMENT
     // =====================================
     enhanceScrolling() {
-      // Cache header offset to avoid repeated DOM reads
-      this.cachedHeaderOffset = null;
-      
       // Delegate all anchor link clicks
       document.addEventListener('click', (e) => {
         const anchor = e.target.closest('a[href^="#"]');
@@ -348,31 +328,27 @@
         const target = document.getElementById(targetId);
 
         if (target) {
-          // Use requestAnimationFrame to batch DOM operations
-          requestAnimationFrame(() => {
-            const headerOffset = this.getHeaderOffset();
-            // Single DOM read - batch all measurements
-            const rect = target.getBoundingClientRect();
-            const currentScrollY = window.pageYOffset;
-            const targetPosition = rect.top + currentScrollY - headerOffset;
+          const headerOffset = this.getHeaderOffset();
+          // Batch DOM reads to avoid forced reflow
+          const rect = target.getBoundingClientRect();
+          const targetPosition = rect.top + window.pageYOffset - headerOffset;
 
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            });
-
-            // Update URL without jumping
-            history.pushState(null, '', `#${targetId}`);
-
-            // Focus management for accessibility
-            setTimeout(() => {
-              target.focus({ preventScroll: true });
-            }, 500);
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
           });
+
+          // Update URL without jumping
+          history.pushState(null, '', `#${targetId}`);
+
+          // Focus management for accessibility
+          setTimeout(() => {
+            target.focus({ preventScroll: true });
+          }, 500);
         }
       });
 
-      // Special handling for CTA button - optimized
+      // Special handling for CTA button
       const ctaButton = document.querySelector('.cta-button');
       if (ctaButton && ctaButton.getAttribute('href')?.startsWith('#')) {
         ctaButton.addEventListener('click', (e) => {
@@ -380,17 +356,13 @@
           const targetId = ctaButton.getAttribute('href');
           const target = document.querySelector(targetId);
           if (target) {
-            // Batch DOM operations in requestAnimationFrame
-            requestAnimationFrame(() => {
-              const headerOffset = this.getHeaderOffset();
-              const currentScrollY = window.pageYOffset;
-              const elementPosition = target.getBoundingClientRect().top;
-              const offsetPosition = elementPosition + currentScrollY - headerOffset;
+            const headerOffset = this.config.headerOffset;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-              });
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
             });
           }
         });
@@ -398,12 +370,8 @@
     }
 
     getHeaderOffset() {
-      // Cache header offset to prevent repeated DOM reads
-      if (this.cachedHeaderOffset === null) {
-        const header = document.querySelector('header, nav');
-        this.cachedHeaderOffset = header ? header.offsetHeight : this.config.headerOffset;
-      }
-      return this.cachedHeaderOffset;
+      const header = document.querySelector('header, nav');
+      return header ? header.offsetHeight : this.config.headerOffset;
     }
 
     // =====================================
@@ -543,25 +511,9 @@
 
     trackScrollDepth() {
       let maxScroll = 0;
-      let cachedDocumentHeight = null;
-      let cachedWindowHeight = null;
-      
-      // Cache dimensions to avoid repeated DOM reads
-      const updateCachedDimensions = this.debounce(() => {
-        cachedDocumentHeight = document.body.scrollHeight;
-        cachedWindowHeight = window.innerHeight;
-      }, 500);
-      
-      // Initial cache
-      updateCachedDimensions();
-      window.addEventListener('resize', updateCachedDimensions, { passive: true });
       
       const scrollHandler = this.throttle(() => {
-        // Use cached values or fallback to current values if cache is stale
-        const documentHeight = cachedDocumentHeight || document.body.scrollHeight;
-        const windowHeight = cachedWindowHeight || window.innerHeight;
-        
-        const scrollPercent = Math.round((window.scrollY / (documentHeight - windowHeight)) * 100);
+        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
         if (scrollPercent > maxScroll) {
           maxScroll = scrollPercent;
           if ([25, 50, 75, 90].includes(scrollPercent)) {
@@ -604,32 +556,23 @@
         }, 3000);
       }
 
-      // Preload on user interaction - optimized to avoid forced reflows
+      // Preload on user interaction
       let interactionStarted = false;
       
       const startPreloading = () => {
         if (interactionStarted) return;
         interactionStarted = true;
         
-        // Batch DOM reads using requestAnimationFrame
-        requestAnimationFrame(() => {
-          const images = document.querySelectorAll('img[data-src]');
-          const scrollY = window.scrollY;
-          const viewportHeight = window.innerHeight;
-          const preloadThreshold = scrollY + viewportHeight * 2;
+        const images = document.querySelectorAll('img[data-src]');
+        const scrollY = window.scrollY;
+        const viewportHeight = window.innerHeight;
+        const preloadThreshold = scrollY + viewportHeight * 2;
 
-          // Batch all getBoundingClientRect calls
-          const imagePositions = Array.from(images).map(img => ({
-            element: img,
-            top: img.getBoundingClientRect().top + scrollY
-          }));
-
-          // Process images without additional DOM reads
-          imagePositions.forEach(({ element, top }) => {
-            if (top < preloadThreshold) {
-              this.loadImage(element);
-            }
-          });
+        images.forEach(img => {
+          const imgTop = img.getBoundingClientRect().top + scrollY;
+          if (imgTop < preloadThreshold) {
+            this.loadImage(img);
+          }
         });
 
         document.removeEventListener('mousedown', startPreloading);
