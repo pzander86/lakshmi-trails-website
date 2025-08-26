@@ -1,19 +1,7 @@
 ---
-import { Image } from 'astro:assets';
-import philosophyBg from '../assets/images/philosophy-bg.webp';
 ---
 
 <section id="about" role="region" aria-labelledby="about-heading">
-  <Image
-    src={philosophyBg}
-    alt=""
-    width={1600}
-    height={900}
-    loading="lazy"
-    format="webp"
-    class="background-image"
-    role="presentation"
-  />
   <div class="philosophy-overlay"></div>
   <div class="philosophy-content">
     <h2 id="about-heading">More Than a Trip — A Sacred Passage</h2>
@@ -45,16 +33,6 @@ import philosophyBg from '../assets/images/philosophy-bg.webp';
     scroll-margin-top: 80px;
   }
 
-  .background-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.04;
-    z-index: 0;
-    filter: blur(0.5px);
-  }
 
   .philosophy-overlay {
     position: absolute;
