@@ -27,6 +27,35 @@ const { meta } = Astro.props;
     <link rel="preload" href="/js/performance-boost.js" as="script">
     <link rel="modulepreload" href="/src/utils/errorMonitoring.js">
     
+    <!-- Async CSS loading to prevent render blocking -->
+    <script>
+      // Load CSS asynchronously after critical path
+      function loadCSS(href) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        link.media = 'print';
+        link.onload = function() { this.media = 'all'; };
+        document.head.appendChild(link);
+      }
+      
+      // Load non-critical CSS after DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          setTimeout(function() {
+            // These will be replaced by Astro's actual CSS files
+            const stylesheets = document.querySelectorAll('link[rel="stylesheet"][data-astro-reload]');
+            stylesheets.forEach(function(sheet) {
+              if (sheet.href && !sheet.href.includes('fonts.googleapis.com')) {
+                sheet.media = 'print';
+                sheet.onload = function() { this.media = 'all'; };
+              }
+            });
+          }, 100);
+        });
+      }
+    </script>
+    
     <!-- Google Fonts with optimized loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
