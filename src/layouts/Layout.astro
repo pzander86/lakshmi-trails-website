@@ -8,6 +8,10 @@ const { meta } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- DNS prefetching and preconnections for external domains -->
+    <link rel="preconnect" href="https://api.resend.com" crossorigin>
+    <link rel="dns-prefetch" href="//wa.me">
+    
     <!-- Critical resource preloading -->
     <link rel="preload" href="/fonts/Lato,Playfair_Display/Lato/Lato-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="/fonts/Lato,Playfair_Display/Playfair_Display/static/PlayfairDisplay-Regular.ttf" as="font" type="font/ttf" crossorigin>
@@ -209,6 +213,8 @@ const { meta } = Astro.props;
     justify-content: center;
     gap: 0.5rem;
     padding: 1rem 2.5rem;
+    min-height: 44px; /* Apple's minimum touch target */
+    min-width: 44px;
     background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
     color: #000;
     text-decoration: none;
@@ -225,6 +231,7 @@ const { meta } = Astro.props;
     position: relative;
     overflow: hidden;
     will-change: transform;
+    touch-action: manipulation; /* Prevent double-tap zoom */
   }
 
   .cta-button::before {
@@ -382,18 +389,21 @@ const { meta } = Astro.props;
   /* Responsive Design */
   @media (max-width: 768px) {
     .cta-button {
-      padding: 0.9rem 2rem;
+      padding: 12px 24px; /* Increased padding for better touch targets */
       font-size: 0.9rem;
+      min-height: 48px; /* Android's recommended touch target size */
     }
 
     .cta-button--small {
-      padding: 0.7rem 1.25rem;
+      padding: 10px 20px;
       font-size: 0.8rem;
+      min-height: 44px;
     }
 
     .cta-button--large {
-      padding: 1rem 2.25rem;
+      padding: 16px 28px;
       font-size: 1rem;
+      min-height: 52px;
     }
   }
 
