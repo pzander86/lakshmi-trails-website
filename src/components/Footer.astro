@@ -34,9 +34,9 @@ import NewsletterSignup from './NewsletterSignup.astro';
 
       <div class="footer-legal">
         <nav class="legal-links" aria-label="Legal information">
-          <a href="#" class="legal-link">Privacy Policy</a>
+          <a href="/privacy-policy" class="legal-link">Privacy Policy</a>
           <span class="separator" aria-hidden="true">•</span>
-          <a href="#" class="legal-link">Terms of Service</a>
+          <a href="/terms-of-service" class="legal-link">Terms of Service</a>
         </nav>
         
         <div class="copyright">
@@ -105,10 +105,13 @@ import NewsletterSignup from './NewsletterSignup.astro';
     color: var(--color-stone);
     text-decoration: none;
     padding: 0.75rem 1rem;
+    min-height: 44px; /* Apple's minimum touch target */
+    min-width: 44px;
     border-radius: 8px;
     transition: all 0.3s ease;
     font-size: 0.95rem;
     font-weight: 500;
+    touch-action: manipulation; /* Prevent double-tap zoom */
   }
 
   .social-link:hover,
@@ -151,7 +154,10 @@ import NewsletterSignup from './NewsletterSignup.astro';
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 400;
-    transition: color 0.3s ease;
+    padding: 8px 12px; /* Add touch-friendly padding */
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    touch-action: manipulation; /* Prevent double-tap zoom */
   }
 
   .legal-link:hover,
@@ -217,12 +223,18 @@ import NewsletterSignup from './NewsletterSignup.astro';
 
     .social-link {
       justify-content: center;
-      padding: 1rem;
+      padding: 12px 16px; /* Better mobile touch targets */
+      min-height: 48px; /* Android's recommended touch target size */
     }
 
     .legal-links {
       flex-direction: column;
       gap: 0.5rem;
+    }
+
+    .legal-link {
+      padding: 12px 16px; /* Larger touch targets on mobile */
+      min-height: 44px;
     }
 
     .separator {
