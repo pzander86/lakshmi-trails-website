@@ -2,18 +2,126 @@
 // Newsletter signup functionality - no server-side logic needed in frontmatter
 ---
 
-<form class="newsletter-form" style="margin-bottom:1em;">
-  <label>
-    <span style="font-weight:bold;">Subscribe for updates:</span>
-    <input type="email" name="email" placeholder="Your email" required style="margin-left:1em; padding:0.5em; border-radius:0.5em; border:1px solid var(--color-mist);" />
-  </label>
-  <button type="submit" class="cta-button cta-button--outline cta-button--small newsletter-button" style="margin-left:1em;">
-    <span>Sign Up</span>
-  </button>
-  <div class="newsletter-status" role="status" aria-live="polite" style="margin-top:0.5em; display:none;"></div>
-</form>
+<div class="newsletter-wrapper">
+  <form class="newsletter-form">
+    <div class="newsletter-content">
+      <label class="newsletter-label">
+        <span class="newsletter-title">Subscribe for updates:</span>
+        <div class="newsletter-inputs">
+          <input type="email" name="email" placeholder="Your email" required class="newsletter-input" />
+          <button type="submit" class="cta-button cta-button--outline cta-button--small newsletter-button">
+            <span>SIGN UP</span>
+          </button>
+        </div>
+      </label>
+    </div>
+    <div class="newsletter-status" role="status" aria-live="polite"></div>
+  </form>
+</div>
 
 <style>
+  .newsletter-wrapper {
+    margin-bottom: 1em;
+  }
+
+  .newsletter-form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .newsletter-content {
+    text-align: center;
+  }
+
+  .newsletter-label {
+    display: block;
+  }
+
+  .newsletter-title {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 1em;
+    color: var(--color-stone);
+  }
+
+  .newsletter-inputs {
+    display: flex;
+    gap: 0.75em;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping if needed */
+  }
+
+  .newsletter-input {
+    flex: 1;
+    max-width: 300px;
+    padding: 0.75em 1em;
+    border-radius: 0.5em;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    font-size: 0.95rem;
+    background: white;
+    transition: border-color 0.3s ease;
+    min-width: 200px; /* Ensure reasonable minimum width */
+  }
+
+  .newsletter-input:focus {
+    outline: none;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+  }
+
+  .newsletter-status {
+    margin-top: 0.75em;
+    display: none;
+  }
+
+  /* Tablet and mobile responsive */
+  @media (max-width: 768px) {
+    .newsletter-inputs {
+      flex-direction: column !important;
+      gap: 1em;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    .newsletter-input {
+      width: 100% !important;
+      max-width: none !important;
+      flex: none;
+      box-sizing: border-box;
+    }
+
+    .newsletter-button {
+      width: 100% !important;
+      justify-content: center;
+      align-self: stretch;
+      flex: none;
+    }
+  }
+
+  /* Extra mobile safety */
+  @media (max-width: 600px) {
+    .newsletter-inputs {
+      flex-direction: column !important;
+      gap: 1em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .newsletter-wrapper {
+      padding: 0 1em;
+    }
+    
+    .newsletter-title {
+      font-size: 0.95em;
+    }
+    
+    .newsletter-input {
+      font-size: 0.9rem;
+      padding: 0.7em 0.9em;
+    }
+  }
+
   /* Force newsletter button text to be black on hover with higher specificity */
   .cta-button.cta-button--outline.cta-button--small.newsletter-button:hover,
   .cta-button.cta-button--outline.cta-button--small.newsletter-button:focus {
