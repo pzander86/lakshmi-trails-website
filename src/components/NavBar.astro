@@ -8,6 +8,13 @@ const menu = [
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" }
 ];
+
+const mobileMenu = [
+  { label: "About", href: "#about" },
+  { label: "Tours", href: "#tours" },
+  { label: "Contact", href: "#contact" }
+];
+
 const languages = [
   { code: "en", label: "🇬🇧" },
   { code: "pl", label: "🇵🇱" }
@@ -17,7 +24,8 @@ const current = "en";
 const leftMenu = menu.slice(0, 3);
 const rightMenu = menu.slice(3, 6);
 ---
-<nav id="main-nav" style="
+<!-- Desktop Navigation -->
+<nav id="main-nav" class="desktop-nav" style="
   position: fixed;
   top: 1.5em; 
   left: 50%; 
@@ -117,6 +125,160 @@ const rightMenu = menu.slice(3, 6);
   </div>
 </nav>
 
+<!-- Mobile Navigation -->
+<nav id="mobile-nav" class="mobile-nav" style="
+  position: fixed;
+  top: 1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2em;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 0.5em 1.5em;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  width: max-content;
+  min-width: 200px;
+  height: 60px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+">
+  <!-- Mobile Logo -->
+  <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+    <a href="#top" aria-label="Lakshmi Trails - Go to top of page" style="
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      text-decoration: none;
+      cursor: pointer;
+    ">
+      <img 
+        src="/assets/images/logo.svg" 
+        alt="Lakshmi Trails Logo" 
+        style="display: block; filter: brightness(0) invert(1); transition: filter 0.3s ease; height: 50px; width: auto;" 
+      />
+    </a>
+  </div>
+
+  <!-- Hamburger Menu Button -->
+  <button 
+    id="mobile-menu-btn" 
+    class="hamburger-btn"
+    aria-label="Toggle mobile menu"
+    style="
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 1.5em;
+      cursor: pointer;
+      padding: 0.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      margin-left: 1em;
+    "
+  >
+    <span class="hamburger-icon">☰</span>
+  </button>
+</nav>
+
+<!-- Mobile Slide-out Menu -->
+<div id="mobile-menu-overlay" class="mobile-menu-overlay" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+">
+  <div class="mobile-menu-content" style="
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 280px;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  ">
+    <!-- Close Button -->
+    <button 
+      id="mobile-menu-close" 
+      style="
+        align-self: flex-end;
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 1.8em;
+        cursor: pointer;
+        padding: 0.5em;
+        margin-bottom: 2em;
+        transition: all 0.3s ease;
+      "
+      aria-label="Close mobile menu"
+    >
+      ✕
+    </button>
+
+    <!-- Mobile Menu Links -->
+    <div style="display: flex; flex-direction: column; gap: 1.5em;">
+      {mobileMenu.map(item => (
+        <a 
+          href={item.href} 
+          class="mobile-nav-link"
+          style="
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.2em;
+            font-weight: 400;
+            text-decoration: none;
+            padding: 1em 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+          "
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Languages in Mobile Menu -->
+    <div style="margin-top: 2em; padding-top: 1.5em; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+      <div style="display: flex; gap: 1em; justify-content: center;">
+        {languages.map(lang => {
+          const isActive = lang.code === current;
+          const className = isActive ? 'mobile-lang-link mobile-lang-active' : 'mobile-lang-link';
+          return (
+            <a href="#" class={className} style="
+              font-size: 1.5em;
+              opacity: ${isActive ? '1' : '0.6'};
+              transition: all 0.3s ease;
+              text-decoration: none;
+            ">
+              {lang.label}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</div>
+
 <style>
   /* Navigation link hover effects */
   .nav-link::before {
@@ -195,64 +357,94 @@ const rightMenu = menu.slice(3, 6);
     filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3)) !important;
   }
 
+  /* Mobile/Desktop Navigation Display */
+  .desktop-nav {
+    display: flex;
+  }
+  
+  .mobile-nav {
+    display: none;
+  }
+
+  /* Mobile Navigation Styles */
+  .hamburger-btn:hover,
+  .hamburger-btn:focus {
+    color: var(--color-gold, #D4AF37);
+    transform: scale(1.1);
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link:focus {
+    color: var(--color-gold, #D4AF37) !important;
+    padding-left: 0.5em;
+    transform: translateX(0.5em);
+  }
+
+  .mobile-lang-link:hover {
+    opacity: 1 !important;
+    transform: scale(1.1);
+  }
+
+  /* Mobile Menu Open State */
+  .mobile-menu-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu-overlay.open .mobile-menu-content {
+    transform: translateX(0);
+  }
+
   /* Mobile responsiveness */
   @media (max-width: 768px) {
-    #main-nav {
-      min-width: 280px !important;
-      padding: 0.2em 1em !important;
-      gap: 0.5em !important;
+    .desktop-nav {
+      display: none !important;
     }
     
-    #main-nav > div:first-child,
-    #main-nav > div:last-child {
-      gap: 1em !important;
-    }
-    
-    .nav-link {
-      font-size: 0.8em !important;
-      padding: 0.4em 0.6em !important;
-    }
-    
-    #main-nav img {
-      height: 50px !important;
-    }
-    
-    .lang-link {
-      font-size: 1.1em !important;
+    .mobile-nav {
+      display: flex !important;
     }
   }
 
   @media (max-width: 480px) {
-    #main-nav {
-      min-width: 260px !important;
-      gap: 0.3em !important;
+    #mobile-nav {
+      min-width: 180px !important;
+      padding: 0.4em 1em !important;
     }
     
-    #main-nav > div:first-child,
-    #main-nav > div:last-child {
-      gap: 0.7em !important;
-    }
-    
-    .nav-link {
-      font-size: 0.75em !important;
-      padding: 0.3em 0.5em !important;
+    #mobile-nav img {
+      height: 45px !important;
     }
   }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // Desktop navbar scroll effect
     const nav = document.getElementById('main-nav');
-    if (!nav) return;
-
+    const mobileNav = document.getElementById('mobile-nav');
+    
     let ticking = false;
 
     function updateNavbar() {
-      if (window.scrollY > 50) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
+      const scrolled = window.scrollY > 50;
+      
+      if (nav) {
+        if (scrolled) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
       }
+      
+      if (mobileNav) {
+        if (scrolled) {
+          mobileNav.classList.add('scrolled');
+        } else {
+          mobileNav.classList.remove('scrolled');
+        }
+      }
+      
       ticking = false;
     }
 
@@ -260,6 +452,64 @@ const rightMenu = menu.slice(3, 6);
       if (!ticking) {
         requestAnimationFrame(updateNavbar);
         ticking = true;
+      }
+    });
+
+    // Mobile menu functionality
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    function openMobileMenu() {
+      if (mobileMenuOverlay) {
+        mobileMenuOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      }
+    }
+
+    function closeMobileMenu() {
+      if (mobileMenuOverlay) {
+        mobileMenuOverlay.classList.remove('open');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+    }
+
+    // Open mobile menu
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', openMobileMenu);
+    }
+
+    // Close mobile menu
+    if (mobileMenuClose) {
+      mobileMenuClose.addEventListener('click', closeMobileMenu);
+    }
+
+    // Close menu when clicking overlay
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.addEventListener('click', (e) => {
+        if (e.target === mobileMenuOverlay) {
+          closeMobileMenu();
+        }
+      });
+    }
+
+    // Close menu when clicking navigation links
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenuOverlay && mobileMenuOverlay.classList.contains('open')) {
+        closeMobileMenu();
+      }
+    });
+
+    // Handle window resize to ensure proper display
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && mobileMenuOverlay && mobileMenuOverlay.classList.contains('open')) {
+        closeMobileMenu();
       }
     });
   });

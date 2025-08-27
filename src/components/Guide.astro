@@ -5,6 +5,9 @@
   <div class="guide-header">
     <h2 id="guide-heading">Meet Your Guide: A Message from Piotr</h2>
     <div class="decorative-accent" aria-hidden="true"></div>
+    <p class="guide-intro">
+      I'm Piotr, and Lakshmi Trails is the culmination of my life's journey. Most people spend their whole lives searching for something they can't name. After three years across Asia, I found it in India—and now I want to share what most travelers never discover.
+    </p>
   </div>
 
   <div class="guide-container">
@@ -22,30 +25,21 @@
       </div>
     </div>
 
-    <div class="guide-content">
-      <p class="guide-intro">
-        I'm Piotr, and Lakshmi Trails is the culmination of my life's journey. I've walked the path from <span class="highlight-text">skeptical traveler to devoted student</span>. After 20 years in America, India changed everything—not through tourist circuits, but through 1.5 years of deep immersion with masters, families, and traditions rarely accessible to outsiders.
-      </p>
-
-      <div class="credentials">
-        <article class="credential-item">
-          <h4>Cultural Bridge</h4>
-          <p>Polish-born, US-educated, India-transformed. I understand both worlds intimately and create safe passage between them.</p>
-        </article>
-        <article class="credential-item">
-          <h4>Certified Practitioner</h4>
-          <p>500-RYT yoga, Ayurveda, and Thai massage certifications. Trained within authentic lineages for genuine guidance.</p>
-        </article>
-        <article class="credential-item">
-          <h4>Exclusive Access</h4>
-          <p>Deep relationships with local families and sacred communities provide access to experiences closed to ordinary travelers.</p>
-        </article>
-      </div>
-
-      <p class="guide-quote">
-        "I created Lakshmi Trails because I know what it's like to crave authentic transformation while needing safety and clarity. With me, you're not a client—you're a fellow traveler on a sacred path."
-      </p>
+    <div class="credentials">
+      <article class="credential-item">
+        <h4>Cultural Bridge</h4>
+        <p>Polish-born, US-educated, India-transformed. Bridging cultures with deep understanding.</p>
+      </article>
+      <article class="credential-item">
+        <h4>Lineage-Trained</h4>
+        <p>500-RYT yoga, Ayurveda, and Thai massage certifications from authentic traditions.</p>
+      </article>
+      <article class="credential-item">
+        <h4>Intimate Groups</h4>
+        <p>Personally lead groups of 12-16 travelers for genuine connections and individual attention.</p>
+      </article>
     </div>
+
   </div>
 </section>
 
@@ -58,9 +52,12 @@
 
   .guide-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
     opacity: 0;
     transform: translateY(30px);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .guide-header.intersecting {
@@ -108,12 +105,12 @@
   }
 
   .guide-container {
-    max-width: 1300px;
+    max-width: 1000px;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 4rem;
-    align-items: stretch;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 1.5rem;
+    align-items: center;
     margin: 0 auto;
     opacity: 0;
     transform: translateY(30px);
@@ -133,6 +130,8 @@
     aspect-ratio: 3/4;
     background: var(--color-stone);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    max-width: 350px;
+    width: 100%;
   }
 
   .video-container:hover {
@@ -147,6 +146,15 @@
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+  
+  .video-container video::-webkit-media-controls-panel {
+    display: flex !important;
+    opacity: 1 !important;
+  }
+  
+  .video-container video::-webkit-media-controls {
+    display: flex !important;
   }
 
   .video-placeholder {
@@ -184,21 +192,18 @@
     opacity: 0.9;
   }
 
-  .guide-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 100%;
-  }
-
-  .guide-intro {
-    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
-    line-height: 1.8;
+  .guide-header .guide-intro {
+    font-size: clamp(1.15rem, 2.5vw, 1.3rem);
+    line-height: 1.7;
     color: var(--color-stone);
-    margin-bottom: 2.5rem;
+    margin-top: 2.5rem;
     font-weight: 400;
     font-family: var(--font-body);
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
   }
+
 
   .highlight-text {
     color: var(--color-dark-gold);
@@ -207,15 +212,26 @@
   }
 
   .credentials {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
-    margin-bottom: 2.5rem;
-    flex-grow: 1;
+    position: relative;
+  }
+  
+  .credentials::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 10%;
+    bottom: 10%;
+    width: 3px;
+    background: linear-gradient(to bottom, transparent, var(--color-gold), var(--color-dark-gold), var(--color-gold), transparent);
+    opacity: 0.6;
+    border-radius: 2px;
   }
 
   .credential-item {
-    padding: 2rem 1.6rem;
+    padding: 1.8rem 1.6rem;
     background: rgba(249, 249, 249, 0.95);
     border-radius: 18px;
     border: 1px solid rgba(212, 175, 55, 0.12);
@@ -223,8 +239,11 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    height: 100%;
+    justify-content: flex-start;
+    text-align: center;
+    box-shadow: 
+      0 12px 40px rgba(51, 51, 51, 0.1),
+      0 4px 15px rgba(0, 0, 0, 0.06);
   }
 
   .credential-item::before {
@@ -251,8 +270,13 @@
     font-family: var(--font-headline);
     color: var(--color-dark-gold);
     font-size: clamp(1.05rem, 2vw, 1.2rem);
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
     font-weight: 500;
+    text-align: center;
+    min-height: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .credential-item p {
@@ -342,12 +366,11 @@
       margin: 0 auto;
     }
 
-    .guide-content {
+    .content-area {
       align-items: center;
     }
 
     .credentials {
-      grid-template-columns: 1fr;
       gap: 2rem;
       max-width: 500px;
       margin: 2rem auto;
