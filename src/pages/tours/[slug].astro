@@ -127,7 +127,7 @@ const meta = {
             <h3>Sacred Experiences Await</h3>
             <ul class="highlights-list">
               {tour.highlights.map((highlight) => (
-                <li>{highlight}</li>
+                <li set:html={highlight}></li>
               ))}
             </ul>
           </div>
