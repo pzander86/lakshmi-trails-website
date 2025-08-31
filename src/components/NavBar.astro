@@ -1,6 +1,18 @@
 ---
+interface Props {
+  language?: string;
+}
 
-const menu = [
+const { language = 'en' } = Astro.props;
+
+const menu = language === 'pl' ? [
+  { label: "Przewodnik", href: "#guide" },
+  { label: "O nas", href: "#about" },
+  { label: "Filozofia", href: "#philosophy" },
+  { label: "Podróże", href: "#tours" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Kontakt", href: "#contact" }
+] : [
   { label: "Guide", href: "#guide" },
   { label: "About", href: "#about" },
   { label: "Philosophy", href: "#philosophy" },
@@ -9,7 +21,12 @@ const menu = [
   { label: "Contact", href: "#contact" }
 ];
 
-const mobileMenu = [
+const mobileMenu = language === 'pl' ? [
+  { label: "O nas", href: "#about" },
+  { label: "Podróże", href: "#tours" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Kontakt", href: "#contact" }
+] : [
   { label: "About", href: "#about" },
   { label: "Tours", href: "#tours" },
   { label: "FAQ", href: "#faq" },
@@ -17,10 +34,10 @@ const mobileMenu = [
 ];
 
 const languages = [
-  { code: "en", label: "🇬🇧" },
-  { code: "pl", label: "🇵🇱" }
+  { code: "en", label: "🇬🇧", url: "/" },
+  { code: "pl", label: "🇵🇱", url: "/pl" }
 ];
-const current = "en";
+const current = language;
 
 const leftMenu = menu.slice(0, 3);
 const rightMenu = menu.slice(3, 6);
@@ -117,7 +134,7 @@ const rightMenu = menu.slice(3, 6);
         const isActive = lang.code === current;
         const className = isActive ? 'lang-link lang-active' : 'lang-link';
         return (
-          <a href="#" class={className}>
+          <a href={lang.url} class={className}>
             {lang.label}
           </a>
         );
@@ -212,7 +229,7 @@ const rightMenu = menu.slice(3, 6);
           const isActive = lang.code === current;
           const className = isActive ? 'mobile-lang-link mobile-lang-active' : 'mobile-lang-link';
           return (
-            <a href="#" class={className} style={`opacity: ${isActive ? '1' : '0.6'};`}>
+            <a href={lang.url} class={className} style={`opacity: ${isActive ? '1' : '0.6'};`}>
               {lang.label}
             </a>
           );

@@ -1,0 +1,1200 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar.astro';
+import Hero from '../../components/Hero.pl.astro';
+import Footer from '../../components/Footer.astro';
+import toursDataPl from '../../data/tours.pl.json';
+import faqsDataPl from '../../data/faqs.pl.json';
+
+const meta = {
+  title: 'Lakshmi Trails | Podróże wellness do południowych Indii',
+  description: 'Kameralne podróże wellness łączące jogę, Ajurwedę i żywe tradycje. Starannie wyselekcjonowany dostęp do uzdrawiającego dziedzictwa południowych Indii z nowoczesnym bezpieczeństwem i zaufaną opieką.',
+  image: '/assets/og-image-PLACEHOLDER.jpg',
+  url: 'https://lakshmitrails.com/pl'
+};
+---
+
+<Layout meta={meta}>
+  <div id="top"></div>
+  <NavBar language="pl" />
+  <Hero />
+  
+  <main id="main-content">
+    <!-- Guide Section -->
+    <section id="guide" role="region" aria-labelledby="guide-heading">
+      <div class="guide-header">
+        <h2 id="guide-heading">Poznaj swojego przewodnika: Kilka słów od Piotra</h2>
+        <div class="decorative-accent" aria-hidden="true"></div>
+        <p class="guide-intro">
+          Witajcie, jestem Piotr, a Lakshmi Trails to owoc mojej wieloletniej przygody z Indiami. Większość ludzi całe życie szuka czegoś, czego nie potrafi nazwać. Po trzech latach wędrówki po Azji odnalazłem to w Indiach i teraz chcę się tym z Tobą podzielić, pokazując miejsca i historie, których większość podróżników nigdy nie doświadcza.
+        </p>
+      </div>
+
+      <div class="guide-container">
+        <div class="video-container">
+          <video controls loop preload="metadata" aria-label="Film wprowadzający z Piotrem, Twoim przewodnikiem po świętych tradycjach i transformacyjnych podróżach wellness południowych Indii" onloadeddata="this.nextElementSibling.style.opacity='0'" id="guideVideo" playsinline webkit-playsinline muted>
+            <source src="/assets/videos/lakshmi-trails-guide-mobile-new.mp4" type="video/mp4" />
+          </video>
+          <div class="video-placeholder">
+            <div class="play-message">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <p>Kliknij, aby odtworzyć i posłuchać wprowadzenia Piotra</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="credentials">
+          <article class="credential-item">
+            <h4>Most międzykulturowy</h4>
+            <p>urodzony w Polsce, wykształcony w USA, ukształtowany przez Indie. Pomagam odnaleźć się w tej niezwykłej kulturze.</p>
+          </article>
+          <article class="credential-item">
+            <h4>Certyfikowany nauczyciel</h4>
+            <p>600+ RYT. Joga, Ajurweda i masaż tajski – wiedza zdobyta u źródła, od nauczycieli z wieloletnią praktyką.</p>
+          </article>
+          <article class="credential-item">
+            <h4>Kameralne grupy</h4>
+            <p>Osobiście, prowadzę wyjazdy dla 12–16 osób, tworząc swobodną atmosferę i przestrzeń dla indywidualnego podejścia.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" role="region" aria-labelledby="about-heading">
+      <div class="about-container">
+        <div class="about-content">
+          <h2 id="about-heading">Więcej niż wycieczka, to ścieżka przemiany</h2>
+          <div class="decorative-accent" aria-hidden="true"></div>
+          <p class="about-description">
+            W świecie masowej turystyki Lakshmi Trails zaprasza Cię głębiej. Nie tylko zwiedzamy miejsca, ale też uczestniczymy w ich codziennym życiu – od porannych modlitw, przez naukę kuchni regionalnej, po świętowanie z mieszkańcami.
+          </p>
+          <p class="about-description">
+            Każdy element wyprawy planujemy z troską o komfort i bezpieczeństwo, tak by starożytne tradycje mogły naturalnie stać się częścią Twojej codzienności.
+          </p>
+          <p class="about-quote">
+            To luksus zakorzeniony w dziedzictwie – prawdziwym przywilejem jest więź z kulturą, która odmienia twoja duszę.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" role="region" aria-labelledby="philosophy-heading">
+      <div class="philosophy-container">
+        <div class="philosophy-content">
+          <h2 id="philosophy-heading">Co wyróżnia nas na tle zwykłych wycieczek?</h2>
+          <div class="decorative-accent" aria-hidden="true"></div>
+          
+          <div class="principles-grid">
+            <article class="principle-card">
+              <div class="principle-icon">🪔</div>
+              <h3>Autentyczne doświadczenia</h3>
+              <p>Omijamy turystyczne pułapki i zapraszamy Cię tam, gdzie bije prawdziwe serce Indii – do miejsc i ludzi, których próżno szukać w przewodnikach.</p>
+            </article>
+            
+            <article class="principle-card">
+              <div class="principle-icon">🛡️</div>
+              <h3>Bezpieczeństwo i wygoda</h3>
+              <p>Kompleksowa opieka, sprawdzony transport, wyselekcjonowane noclegi i zdrowa kuchnia. Ty skupiasz się na podróży, my dbamy o całą resztę.</p>
+            </article>
+            
+            <article class="principle-card">
+              <div class="principle-icon">⏳</div>
+              <h3>Eksperci z doświadczeniem</h3>
+              <p>Zajęcia prowadzą certyfikowani nauczyciele, lokalni mistrzowie i przewodnicy, którzy od lat pielęgnują te tradycje i dzielą się nimi z pasją.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tours Section -->
+    <section id="tours" role="region" aria-labelledby="tours-heading">
+      <div class="tours-container">
+        <header class="tours-header">
+          <h2 id="tours-heading">Wyjątkowe podróże czekają</h2>
+          <div class="header-accent">
+            <div class="decorative-accent" aria-hidden="true"></div>
+          </div>
+          <p class="tours-intro">
+            Każda wyprawa łączy duchową głębię, bliskość natury i bogactwo kultury z troską o ciało i spokój umysłu. 
+            <strong>Podróżujemy w kameralnych grupach 12–16 osób</strong>, aby każdy uczestnik poczuł się częścią czegoś wyjątkowego.
+          </p>
+          <p class="tours-cta">
+            <span class="highlight">Znajdź drogę, która przemówi do Twojego serca.</span>
+          </p>
+        </header>
+
+        <div class="tours-grid" role="list">
+          {toursDataPl.map((tour, index) => (
+            <div class="tour-wrapper" role="listitem" data-index={index}>
+              <article class="tour-card" role="article">
+                <div class="tour-image" role="img" aria-label={`Obraz podróży ${tour.title}`}>
+                  {tour.image ? (
+                    <img 
+                      src={tour.image} 
+                      alt={`Piękne obrazy reprezentujące ${tour.title}`}
+                      loading="lazy"
+                      width="400"
+                      height="240"
+                    />
+                  ) : (
+                    <div class="image-placeholder">
+                      <span>Święta podróż</span>
+                    </div>
+                  )}
+                  <div class="tour-price-badge">{tour.price}</div>
+                </div>
+                
+                <div class="tour-content">
+                  <h3 class="tour-title">{tour.title}</h3>
+                  <p class="tour-description">{tour.description}</p>
+                  
+                  <div class="tour-details">
+                    <div class="tour-dates">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                      </svg>
+                      <span>{tour.dates}</span>
+                    </div>
+                  </div>
+                  
+                  <div class="tour-actions">
+                    <a href={tour.pdf} class="cta-button cta-button--outline cta-button--small" download aria-label={`Pobierz plan podróży ${tour.title}`}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7,10 12,15 17,10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                      </svg>
+                      <span>PDF</span>
+                    </a>
+                    <a href={`/pl/tours/${tour.slug}/`} class="cta-button cta-button--secondary cta-button--small" aria-label={`Poznaj szczegóły podróży ${tour.title}`}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12,5 19,12 12,19"></polyline>
+                      </svg>
+                      <span>Poznaj</span>
+                    </a>
+                    <a href="/#contact" class="cta-button cta-button--small" aria-label={`Zarezerwuj miejsce na ${tour.title}`}>
+                      <span>Zarezerwuj</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 6v6l4 2"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          ))}
+        </div>
+
+        <div class="tours-footer">
+          <div class="contact-note">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <div>
+              <p><strong>Masz pytania dotyczące swojej podróży?</strong></p>
+              <p>Każdy podróżnik ma swoje wyjątkowe potrzeby i zainteresowania. <a href="#contact">Porozmawiajmy</a>, jak możemy dopasować tę transformującą podróż właśnie do Ciebie.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" role="region" aria-labelledby="faq-heading">
+      <div class="faq-container">
+        <div class="faq-header">
+          <h2 id="faq-heading">Twoje pytania – nasze szczere odpowiedzi</h2>
+          <div class="decorative-accent" aria-hidden="true"></div>
+          <p class="faq-intro">
+            Rozumiemy, że wybór podróży do Indii to ważna decyzja. Dlatego adresujemy pytania, które słyszymy najczęściej.
+          </p>
+        </div>
+
+        <div class="faq-grid">
+          {faqsDataPl.map((faq, index) => (
+            <details class="faq-item" data-index={index}>
+              <summary class="faq-question">
+                <span>{faq.question}</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="6,9 12,15 18,9"></polyline>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>{faq.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" role="region" aria-labelledby="contact-heading">
+      <div class="contact-container">
+        <div class="contact-header">
+          <h2 id="contact-heading">Gotowi, by rozpocząć swoją podróż?</h2>
+          <div class="decorative-accent" aria-hidden="true"></div>
+          <p class="contact-intro">
+            Nasze wyjazdy na lata 2025/2026 to wyjątkowe, głębokie doświadczenia kulturowe w kameralnych grupach liczących 12–16 podróżników, z pełną opieką na każdym etapie.
+          </p>
+          <p class="contact-cta">
+            <span class="highlight">Sprawdź, czy ta ścieżka wzywa właśnie Ciebie.</span>
+          </p>
+        </div>
+
+        <div class="contact-content">
+          <form class="booking-form" action="/api/contact" method="POST" data-test="contact_form">
+            <h3>Zarezerwuj swoje miejsce</h3>
+            
+            <div class="form-group">
+              <label for="intent">Chcę:</label>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="intent" value="learn_more" />
+                  <span class="checkmark"></span>
+                  Dowiedzieć się więcej
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="intent" value="reserve" />
+                  <span class="checkmark"></span>
+                  Zarezerwować miejsce
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="tour">Wybierz podróż:</label>
+              <select name="tour" id="tour" required>
+                <option value="">Wybierz podróż...</option>
+                {toursDataPl.map(tour => (
+                  <option value={tour.slug}>{tour.title} - {tour.dates}</option>
+                ))}
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="name">Imię i nazwisko: *</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Adres e-mail: *</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Telefon (opcjonalnie):</label>
+              <input type="tel" id="phone" name="phone" />
+            </div>
+
+            <div class="form-group">
+              <label for="availability">Dostępność na krótką rozmowę:</label>
+              <input type="text" id="availability" name="availability" placeholder="np. wieczorem po 18:00, weekendy" />
+            </div>
+
+            <div class="form-group">
+              <label for="message">Pytania / Uwagi:</label>
+              <textarea id="message" name="message" rows="4" placeholder="Opowiedz nam o swoich oczekiwaniach, doświadczeniu z jogą, preferencjach dietetycznych, itp."></textarea>
+            </div>
+
+            <button type="submit" class="cta-button" data-test="submit_contact">
+              <span>Wyślij zapytanie</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer language="pl" />
+
+  <!-- Travel Agency Schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "Lakshmi Trails",
+      "description": "Kameralne podróże wellness łączące jogę, Ajurwedę i dziedzictwo południowych Indii. Bezpieczne, starannie wyselekcjonowane i transformacyjne podróże kulturowe.",
+      "url": "https://lakshmitrails.com",
+      "telephone": "+1-347-414-6099",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Port Richey",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "India"
+      },
+      "serviceType": "Cultural Wellness Tours",
+      "priceRange": "$2799-$2799"
+    }
+  </script>
+</Layout>
+
+<style>
+  /* Import all styles from the original components */
+  /* Guide Section Styles */
+  #guide {
+    background: var(--color-mist);
+    padding: 7rem 2rem;
+    scroll-margin-top: 80px;
+  }
+
+  .guide-header {
+    text-align: center;
+    margin-bottom: 5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .guide-header.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards;
+  }
+
+  .guide-header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+    font-weight: 500;
+    text-shadow: 0 2px 12px rgba(212, 175, 55, 0.15);
+    letter-spacing: -0.01em;
+  }
+
+  .decorative-accent {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    margin: 2rem auto 0 auto;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .decorative-accent::before,
+  .decorative-accent::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    top: -3.5px;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .decorative-accent::before {
+    left: -15px;
+  }
+
+  .decorative-accent::after {
+    right: -15px;
+  }
+
+  .guide-container {
+    max-width: 1000px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 1.5rem;
+    align-items: center;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .guide-container.intersecting {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+  }
+
+  .video-container {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 
+      0 20px 60px rgba(51, 51, 51, 0.15),
+      0 8px 25px rgba(0, 0, 0, 0.08);
+    aspect-ratio: 3/4;
+    background: var(--color-stone);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    max-width: 350px;
+    width: 100%;
+  }
+
+  .video-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 30px 80px rgba(51, 51, 51, 0.2),
+      0 12px 35px rgba(0, 0, 0, 0.12);
+  }
+
+  .video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .video-container video::-webkit-media-controls-panel {
+    display: flex !important;
+    opacity: 1 !important;
+  }
+  
+  .video-container video::-webkit-media-controls {
+    display: flex !important;
+  }
+
+  .video-placeholder {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-stone) 0%, #444 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    font-family: var(--font-body);
+  }
+
+  .video-container video[loaded] + .video-placeholder {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .play-message {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .play-message svg {
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  .play-message p {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .guide-intro {
+    font-size: clamp(1.15rem, 2.5vw, 1.3rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    margin-top: 2.5rem;
+    font-weight: 400;
+    font-family: var(--font-body);
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+  }
+  
+  .credentials::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 10%;
+    bottom: 10%;
+    width: 3px;
+    background: linear-gradient(to bottom, transparent, var(--color-gold), var(--color-dark-gold), var(--color-gold), transparent);
+    opacity: 0.6;
+    border-radius: 2px;
+  }
+
+  .credential-item {
+    padding: 1.8rem 1.6rem;
+    background: rgba(249, 249, 249, 0.95);
+    border-radius: 18px;
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    box-shadow: 
+      0 12px 40px rgba(51, 51, 51, 0.1),
+      0 4px 15px rgba(0, 0, 0, 0.06);
+  }
+
+  .credential-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    border-radius: 18px 18px 0 0;
+  }
+
+  .credential-item:hover,
+  .credential-item:focus-within {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 15px 40px rgba(51, 51, 51, 0.12),
+      0 6px 15px rgba(0, 0, 0, 0.08);
+    border-color: rgba(212, 175, 55, 0.25);
+  }
+
+  .credential-item h4 {
+    font-family: var(--font-headline);
+    color: var(--color-dark-gold);
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    text-align: center;
+    min-height: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .credential-item p {
+    color: var(--color-stone);
+    font-size: clamp(0.9rem, 1.8vw, 1rem);
+    line-height: 1.6;
+    font-weight: 400;
+    font-family: var(--font-body);
+  }
+
+  /* About Section */
+  #about {
+    background: var(--color-white);
+    padding: 7rem 2rem;
+    scroll-margin-top: 80px;
+  }
+
+  .about-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .about-content h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+    font-weight: 500;
+  }
+
+  .about-description {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-body);
+  }
+
+  .about-quote {
+    font-size: clamp(1.2rem, 2.8vw, 1.35rem);
+    font-weight: 500;
+    color: var(--color-dark-gold);
+    font-family: var(--font-headline);
+    margin-top: 2rem;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  /* Philosophy Section */
+  #philosophy {
+    background: var(--color-mist);
+    padding: 7rem 2rem;
+    scroll-margin-top: 80px;
+  }
+
+  .philosophy-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .philosophy-content h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .principle-card {
+    background: rgba(249, 249, 249, 0.95);
+    padding: 2rem;
+    border-radius: 18px;
+    text-align: center;
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  }
+
+  .principle-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .principle-card h3 {
+    font-family: var(--font-headline);
+    color: var(--color-dark-gold);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .principle-card p {
+    color: var(--color-stone);
+    line-height: 1.6;
+    font-family: var(--font-body);
+  }
+
+  /* Tours Section */
+  #tours {
+    background: var(--color-mist);
+    padding: 7rem 2rem;
+    position: relative;
+    scroll-margin-top: 80px;
+  }
+
+  .tours-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .tours-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem auto;
+  }
+
+  .tours-header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  .tours-intro {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    font-weight: 400;
+    font-family: var(--font-body);
+    margin-bottom: 1rem;
+  }
+
+  .tours-intro strong {
+    color: var(--color-dark-gold);
+    font-weight: 600;
+  }
+
+  .tours-cta {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    font-weight: 400;
+    font-family: var(--font-body);
+    margin: 0;
+  }
+
+  .tours-cta .highlight {
+    color: var(--color-dark-gold);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .tours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+    margin-bottom: 3rem;
+  }
+
+  .tour-card {
+    background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(51, 51, 51, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+    transform: translateY(30px);
+    position: relative;
+  }
+
+  .tour-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(51, 51, 51, 0.15);
+    border-color: var(--color-gold);
+  }
+
+  .tour-card.intersecting {
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .tour-image {
+    height: 240px;
+    background: linear-gradient(135deg, var(--color-stone) 0%, #444 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tour-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .tour-card:hover .tour-image img {
+    transform: scale(1.05);
+  }
+
+  .image-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    font-size: 1.1rem;
+    font-family: var(--font-headline);
+    font-weight: 400;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .tour-price-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    color: #000;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    font-family: var(--font-body);
+  }
+
+  .tour-content {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tour-title {
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    color: var(--color-dark-gold);
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .tour-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-stone);
+    font-weight: 400;
+    flex-grow: 1;
+    margin: 0;
+  }
+
+  .tour-details {
+    margin: 0.5rem 0;
+  }
+
+  .tour-dates {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-stone);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .tour-dates svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .tour-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+  .tour-actions .cta-button:hover,
+  .tour-actions .cta-button:focus {
+    color: #000 !important;
+  }
+  
+  .tour-actions .cta-button:hover *,
+  .tour-actions .cta-button:focus * {
+    color: #000 !important;
+  }
+
+  .tours-footer {
+    max-width: 60%;
+    margin: 0 auto;
+  }
+
+  .contact-note {
+    background: rgba(249, 249, 249, 0.95);
+    padding: 2rem 1.8rem;
+    border-radius: 18px;
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    box-shadow: 
+      0 8px 25px rgba(51, 51, 51, 0.08),
+      0 3px 8px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .contact-note:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 12px 35px rgba(51, 51, 51, 0.12),
+      0 5px 15px rgba(0, 0, 0, 0.08);
+    border-color: rgba(212, 175, 55, 0.25);
+  }
+
+  .contact-note svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+
+  .contact-note p {
+    margin-bottom: 0.5rem;
+    font-size: clamp(0.95rem, 1.8vw, 1rem);
+    line-height: 1.6;
+    color: var(--color-stone);
+    font-family: var(--font-body);
+  }
+
+  .contact-note p:last-child {
+    margin-bottom: 0;
+  }
+
+  .contact-note strong {
+    color: var(--color-dark-gold);
+  }
+
+  .contact-note a {
+    color: var(--color-coral);
+    font-weight: 500;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .contact-note a:hover,
+  .contact-note a:focus {
+    color: var(--color-gold);
+    outline: none;
+  }
+
+  /* FAQ Section */
+  #faq {
+    background: var(--color-white);
+    padding: 7rem 2rem;
+    scroll-margin-top: 80px;
+  }
+
+  .faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .faq-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .faq-header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-dark-gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  .faq-intro {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-stone);
+    margin-top: 2.5rem;
+    font-family: var(--font-body);
+  }
+
+  .faq-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: rgba(249, 249, 249, 0.95);
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(212, 175, 55, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .faq-question {
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    color: var(--color-dark-gold);
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+  }
+
+  .faq-question svg {
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .faq-item[open] .faq-question svg {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding: 0 2rem 1.5rem 2rem;
+  }
+
+  .faq-answer p {
+    color: var(--color-stone);
+    line-height: 1.7;
+    margin: 0;
+    font-family: var(--font-body);
+  }
+
+  /* Contact Section */
+  #contact {
+    background: linear-gradient(135deg, var(--color-stone) 0%, #2d2d2d 100%);
+    color: var(--color-white);
+    padding: 7rem 2rem;
+    scroll-margin-top: 80px;
+  }
+
+  .contact-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .contact-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .contact-header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  .contact-intro {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    margin-top: 2.5rem;
+    font-family: var(--font-body);
+    opacity: 0.9;
+  }
+
+  .contact-cta {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    margin-top: 1rem;
+    font-family: var(--font-body);
+  }
+
+  .contact-cta .highlight {
+    color: var(--color-gold);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .booking-form {
+    background: rgba(249, 249, 249, 0.95);
+    padding: 3rem;
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--color-stone);
+  }
+
+  .booking-form h3 {
+    font-family: var(--font-headline);
+    color: var(--color-dark-gold);
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--color-stone);
+    font-family: var(--font-body);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+  }
+
+  .checkbox-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 400;
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+  }
+
+  .contact-content .cta-button {
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 968px) {
+    .guide-container {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      text-align: center;
+    }
+
+    .principles-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .tours-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .booking-form {
+      padding: 2rem;
+      margin: 0 1rem;
+    }
+
+    .checkbox-group {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .booking-form {
+      padding: 1.5rem;
+    }
+    
+    .tour-actions {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+</style>

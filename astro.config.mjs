@@ -7,6 +7,13 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://lakshmitrails.com',
   output: 'server',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'pl'],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  },
   adapter: vercel({
     webAnalytics: {
       enabled: true,

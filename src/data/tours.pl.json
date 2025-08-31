@@ -1,0 +1,213 @@
+[
+  {
+    "slug": "new-year-kerala-journey",
+    "title": "The Sacred Water Odyssey",
+    "name": "15-dniowa podróż na Nowy Rok do południowej Kerali",
+    "dates": "Dec 30 – Jan 14, 2025/26",
+    "price": "Od $2,799 + loty",
+    "regularPrice": 2799,
+    "earlyBirdPrice": 2799,
+    "currency": "USD",
+    "earlyBirdValidUntil": "2025-09-30",
+    "description": "Przywitaj Nowy Rok w magicznej Kerali – krainie bujnej zieleni i kojących wód. Ta podróż to rytuał oczyszczenia i odnowy, oparty na świętych ceremoniach, ajurwedyjskiej pielęgnacji i praktykach równowagi wewnętrznej.",
+    "shortDescription": "Transformacyjna 15-dniowa noworoczna podróż po Kerali ze świętymi wodospadami, rejsami po rozlewiskach, spacerami po plantacjach przypraw i kompleksowym leczeniem ajurwedyjskim.",
+    "highlights": [
+      "<strong>Ceremonia ognia na Sylwestra</strong> – Powitaj Nowy Rok rytuałem przy największych wodospadach Kerali.",
+      "<strong>Prywatny rejs łodzią</strong> – Płyń przez rozlewiska i wioski otoczone palmami w Kumarakom.",
+      "<strong>Poranny safari w Periyar</strong> – Obserwuj słonie i rzadkie ptaki we mglistych wzgórzach Kerali.",
+      "<strong>Ajurwedyjski ośrodek nad oceanem</strong> – Trzy dni leczniczych terapii i spokoju nad brzegiem oceanu.",
+      "<strong>Doświadczenie wioski plemiennej</strong> – Dziel posiłki i tradycje z plemionami górskimi Kerali.",
+      "<strong>Szlaki przypraw Fort Kochi</strong> – Odkrywaj targi przypraw i historyczne kolonialne ulice."
+    ],
+    "keywords": [
+      "Nowy Rok Kerala retreat",
+      "Kerala backwater yoga cruise",
+      "Ayurveda beach healing",
+      "Spice plantation wellness tour"
+    ],
+    "pdf": "/assets/pdfs/sacred-water-odyssey.pdf",
+    "image": "/assets/tours/kerala-backwaters-houseboat.jpg",
+    "touristTypes": [
+      "Wellness Travelers",
+      "Yoga Practitioners",
+      "Spiritual Seekers",
+      "Cultural Enthusiasts",
+      "Solo Female Travelers",
+      "Nature Lovers"
+    ],
+    "startDate": "2025-12-30",
+    "endDate": "2026-01-14",
+    "duration": "P15D",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "15-dniowa podróż na Nowy Rok do południowej Kerali",
+      "description": "Transformacyjna 15-dniowa noworoczna podróż po Kerali ze świętymi wodospadami, rejsami po rozlewiskach, spacerami po plantacjach przypraw i kompleksowym leczeniem ajurwedyjskim.",
+      "touristType": [
+        "Wellness Travelers",
+        "Yoga Practitioners",
+        "Spiritual Seekers",
+        "Cultural Enthusiasts",
+        "Solo Female Travelers",
+        "Nature Lovers"
+      ],
+      "duration": "P15D",
+      "startDate": "2025-12-30",
+      "endDate": "2026-01-14",
+      "url": "https://lakshmitrails.com/pl/tours/new-year-kerala-journey",
+      "offers": {
+        "@type": "Offer",
+        "price": "2799",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2025-08-01",
+        "priceValidUntil": "2025-09-30"
+      },
+      "provider": {
+        "@type": "TourOperator",
+        "name": "Lakshmi Trails",
+        "url": "https://lakshmitrails.com"
+      }
+    }
+  },
+  {
+    "slug": "north-kerala-cultural-immersion",
+    "title": "The Living Traditions Trail",
+    "name": "15-dniowa podróż kulturowa do północnej Kerali",
+    "dates": "Jan 22 – Feb 5, 2026",
+    "price": "Od $2,799 + loty",
+    "regularPrice": 2799,
+    "earlyBirdPrice": 2799,
+    "currency": "USD",
+    "earlyBirdValidUntil": "2024-11-30",
+    "description": "Zanurz się w sercu północnej Kerali, gdzie rytm wiosek i świątyń przeniesie Cię do świata pełnego mądrości i gościnności. Ta wyprawa to celebracja kultury, smaków i duchowego dziedzictwa tego niezwykłego regionu.",
+    "shortDescription": "15-dniowa mistyczna podróż po północnej Kerali z autentycznymi rytuałami Theyyam, zanurzeniem w kulturę plemienną, jogą na plaży i tradycyjnymi zabiegami ajurwedyjskimi.",
+    "highlights": [
+      "<strong>Ceremonie Theyyam w świątyniach</strong> – Bądź świadkiem starożytnych rytuałów niezmiennych od wieków.",
+      "<strong>Zanurzenie w społeczności plemienne</strong> – Spotkaj starszyzną Kurichya i Kurumba w wioskach górskich.",
+      "<strong>Medytacja na tratwie bambusowej</strong> – Płyń w ciszy przez dziewicze lasy Wayanad.",
+      "<strong>Świątynia Vadakkunnathan UNESCO</strong> – Prywatne zwiedzanie z kapłanami i uczonymi świątyni.",
+      "<strong>Warsztaty malarstwa Kerala</strong> – Ucz się tradycyjnych technik z naturalnymi pigmentami.",
+      "<strong>Nadmorski ośrodek ajurwedyjski</strong> – Spersonalizowane programy lecznicze nad Morzem Arabskim."
+    ],
+    "keywords": [
+      "Theyyam ritual experience",
+      "Kerala tribal culture tour",
+      "Wayanad wellness retreat",
+      "North Kerala spiritual journey"
+    ],
+    "pdf": "/assets/pdfs/living-traditions-trail.pdf",
+    "image": "/assets/tours/kerala-theyyam-ritual.jpg",
+    "touristTypes": [
+      "Wellness Travelers",
+      "Yoga Practitioners",
+      "Spiritual Seekers",
+      "Cultural Enthusiasts",
+      "Solo Female Travelers",
+      "Nature Lovers"
+    ],
+    "startDate": "2026-01-22",
+    "endDate": "2026-02-05",
+    "duration": "P15D",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "15-dniowa podróż kulturowa do północnej Kerali",
+      "description": "15-dniowa mistyczna podróż po północnej Kerali z autentycznymi rytuałami Theyyam, zanurzeniem w kulturę plemienną, jogą na plaży i tradycyjnymi zabiegami ajurwedyjskimi.",
+      "touristType": [
+        "Wellness Travelers",
+        "Yoga Practitioners",
+        "Spiritual Seekers",
+        "Cultural Enthusiasts",
+        "Solo Female Travelers",
+        "Nature Lovers"
+      ],
+      "duration": "P15D",
+      "startDate": "2026-01-22",
+      "endDate": "2026-02-05",
+      "url": "https://lakshmitrails.com/pl/tours/north-kerala-cultural-immersion",
+      "offers": {
+        "@type": "Offer",
+        "price": "2799",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2024-09-01",
+        "priceValidUntil": "2024-11-30"
+      },
+      "provider": {
+        "@type": "TourOperator",
+        "name": "Lakshmi Trails",
+        "url": "https://lakshmitrails.com"
+      }
+    }
+  },
+  {
+    "slug": "karnataka-wellness-immersion",
+    "title": "The Spirit of Karnataka",
+    "name": "15-dniowa podróż wellness do królewskiej Karnataki",
+    "dates": "Feb 16 – Mar 2, 2026",
+    "price": "Od $2,799 + loty",
+    "regularPrice": 2799,
+    "earlyBirdPrice": 2799,
+    "currency": "USD",
+    "earlyBirdValidUntil": "2024-12-31",
+    "description": "Odkryj królewską duszę Karnataki – krainy pałaców, sztuki i spokoju. Czekają Cię poranki z jogą w Mysore, safari w Kabini, aromatyczne wzgórza Coorg i chwile zadumy w starożytnych świątyniach tradycji Jain.",
+    "shortDescription": "15-dniowa transformacyjna podróż po południowych Indiach przez Karnatakę z codzienną jogą, terapiami ajurwedyjskimi, miejscami dziedzictwa i zanurzeniem kulturowym.",
+    "highlights": [
+      "<strong>Sesje jogi w Mysore</strong> – Codzienna praktyka z duchowym przewodnictwem i medytacją.",
+      "<strong>Prywatne zwiedzanie Pałacu Mysore</strong> – Eksploruj królewskie komnaty z ekspertami dziedzictwa.",
+      "<strong>Ajurwedyjskie leczenie w Udupi</strong> – Autentyczny nadmorski ośrodek z tradycyjnymi terapiami.",
+      "<strong>Safari w Nagarhole</strong> – Obserwuj słonie i lamparty w lasach Kabini.",
+      "<strong>Dziedzictwo Jain w Karkala</strong> – Odkrywaj starożytne świątynie i pokojowe tradycje.",
+      "<strong>Doświadczenia z lokalnymi rodzinami</strong> – Dziel posiłki i historie z rodzinami z Karnataki."
+    ],
+    "keywords": [
+      "Mysore Palace yoga retreat",
+      "Karnataka wellness tour",
+      "South India cultural immersion",
+      "Ayurveda Udupi healing"
+    ],
+    "pdf": "/assets/pdfs/spirit-of-karnataka.pdf",
+    "image": "/assets/tours/karnataka-mysore-palace.jpg",
+    "touristTypes": [
+      "Wellness Travelers",
+      "Yoga Practitioners",
+      "Spiritual Seekers",
+      "Cultural Enthusiasts",
+      "Solo Female Travelers"
+    ],
+    "startDate": "2026-02-16",
+    "endDate": "2026-03-02",
+    "duration": "P15D",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "15-dniowa podróż wellness do królewskiej Karnataki",
+      "description": "15-dniowa transformacyjna podróż po południowych Indiach przez Karnatakę z codzienną jogą, terapiami ajurwedyjskimi, miejscami dziedzictwa i zanurzeniem kulturowym.",
+      "touristType": [
+        "Wellness Travelers",
+        "Yoga Practitioners",
+        "Spiritual Seekers",
+        "Cultural Enthusiasts",
+        "Solo Female Travelers"
+      ],
+      "duration": "P15D",
+      "startDate": "2026-02-16",
+      "endDate": "2026-03-02",
+      "url": "https://lakshmitrails.com/pl/tours/karnataka-wellness-immersion",
+      "offers": {
+        "@type": "Offer",
+        "price": "2799",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2024-10-01",
+        "priceValidUntil": "2024-12-31"
+      },
+      "provider": {
+        "@type": "TourOperator",
+        "name": "Lakshmi Trails",
+        "url": "https://lakshmitrails.com"
+      }
+    }
+  }
+]

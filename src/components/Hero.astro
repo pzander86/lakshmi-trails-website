@@ -1,6 +1,28 @@
 ---
 import { Image } from 'astro:assets';
 import heroPlaceholder from '../assets/images/hero-placeholder.webp';
+
+interface Props {
+  language?: string;
+  content?: {
+    title: string;
+    subtitle: string;
+    cta: string;
+  };
+}
+
+const { language = 'en', content } = Astro.props;
+
+// Default English content
+const defaultContent = {
+  title: 'Intimate cultural journeys into',
+  subtitle: 'South India\'s sacred heart',
+  tagline: 'Guided with care, crafted for transformation. For travelers seeking authentic connection with India\'s deeper essence.',
+  cta: 'Discover Upcoming Journeys'
+};
+
+// Use provided content or default
+const heroContent = content || defaultContent;
 ---
 
 <!-- Critical font preloading removed - fonts loaded async from Google -->
@@ -36,12 +58,26 @@ import heroPlaceholder from '../assets/images/hero-placeholder.webp';
 
   <div class="hero-content fade-in-up">
     <h1>
-      Intimate <span class="highlight">cultural journeys</span> into
-      <br><span class="subtitle">South India's sacred heart</span>
+      {language === 'pl' ? (
+        <>
+          <span class="highlight">Kameralne podróże</span> do serca
+          <br><span class="subtitle">Południowych Indii</span>
+        </>
+      ) : (
+        <>
+          Intimate <span class="highlight">cultural journeys</span> into
+          <br><span class="subtitle">South India's sacred heart</span>
+        </>
+      )}
     </h1>
-    <p class="tagline">Guided with care, crafted for transformation. For travelers seeking authentic connection with India's deeper essence.</p>
+    <p class="tagline">
+      {language === 'pl' ? 
+        'Stworzone z pasją i dbałością o każdy szczegół. Dla tych, którzy chcą odkryć prawdziwą duszę Indii.' : 
+        'Guided with care, crafted for transformation. For travelers seeking authentic connection with India\'s deeper essence.'
+      }
+    </p>
     <a href="#tours" class="cta-button" data-test="hero_cta">
-      <span>Discover Upcoming Journeys</span>
+      <span>{language === 'pl' ? 'Odkryj nadchodzące podróże' : 'Discover Upcoming Journeys'}</span>
     </a>
   </div>
 

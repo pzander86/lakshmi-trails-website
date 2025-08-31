@@ -1,0 +1,255 @@
+---
+import { Image } from 'astro:assets';
+import heroPlaceholder from '../assets/images/hero-placeholder.webp';
+---
+
+<!-- Critical font preloading removed - fonts loaded async from Google -->
+
+<section id="hero" class="scroll-section">
+  <a href="#main-content" class="skip-link">Przejdź do treści</a>
+  
+  <!-- Enhanced video with better fallback strategy -->
+  <!-- IMPORTANT: Keep data-src for lazy loading -->
+  <video 
+    autoplay 
+    muted 
+    loop 
+    playsinline 
+    preload="none" 
+    poster={heroPlaceholder.src} 
+    aria-label="Wideo tła przedstawiające świątynię w południowych Indiach" 
+    class="hero-video"
+    loading="lazy"
+  >
+    <source src="/assets/videos/lakshmi-trails-hero-720p.mp4" type="video/mp4" media="(max-width: 768px)">
+    <source src="/assets/videos/lakshmi-trails-hero.mp4" type="video/mp4">
+  </video>
+  
+  <!-- Enhanced fallback for reduced motion users and video errors -->
+  <div class="hero-image-fallback" role="img" aria-label="Świątynia w południowych Indiach">
+    <picture>
+      <source media="(max-width: 768px)" srcset="/assets/images/hero-mobile-800.webp">
+      <source media="(min-width: 769px)" srcset="/assets/images/hero-desktop-1920.webp">
+      <img src="/assets/images/hero-placeholder.webp" alt="Święta świątynia w południowych Indiach" loading="eager" fetchpriority="high">
+    </picture>
+  </div>
+
+  <div class="hero-content fade-in-up">
+    <h1>
+      <span class="highlight">Kameralne podróże</span> do serca
+      <br><span class="subtitle">Południowych Indii</span>
+    </h1>
+    <p class="tagline">Stworzone z pasją i dbałością o każdy szczegół. Dla tych, którzy chcą odkryć prawdziwą duszę Indii.</p>
+    <a href="#tours" class="cta-button" data-test="hero_cta">
+      <span>Odkryj nadchodzące podróże</span>
+    </a>
+  </div>
+
+  <div class="scroll-indicator" aria-hidden="true" role="presentation"></div>
+</section>
+
+<style>
+  /* Copy all styles from the original Hero.astro */
+  #hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    max-height: 1080px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    scroll-snap-align: start;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--color-gold);
+    color: #000;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 100;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .skip-link:focus {
+    top: 6px;
+  }
+
+  .hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hero-video.error {
+    opacity: 0;
+  }
+
+  .hero-video.error + .hero-image-fallback {
+    opacity: 1;
+  }
+
+  .hero-image-fallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hero-image-fallback img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .hero-content h1 {
+    font-family: var(--font-headline);
+    color: var(--color-white);
+    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.02em;
+  }
+
+  .highlight {
+    color: var(--color-gold);
+    position: relative;
+  }
+
+  .subtitle {
+    color: rgba(249, 249, 249, 0.95);
+    font-weight: 400;
+  }
+
+  .tagline {
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    line-height: 1.6;
+    color: rgba(249, 249, 249, 0.9);
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+    font-family: var(--font-body);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeInUp 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
+  }
+
+  .scroll-indicator::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    border: 2px solid var(--color-gold);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+    50% { opacity: 0.7; transform: translateX(-50%) scale(1.1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video {
+      display: none;
+    }
+    
+    .hero-image-fallback {
+      opacity: 1;
+    }
+    
+    .fade-in-up {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    
+    .scroll-indicator::after {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #hero {
+      min-height: 600px;
+      max-height: 800px;
+    }
+
+    .hero-content {
+      padding: 2rem 1.5rem;
+      margin: 0 1rem;
+    }
+
+    .tagline {
+      margin-bottom: 2rem;
+    }
+
+    .scroll-indicator {
+      bottom: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-content {
+      padding: 1.5rem 1.2rem;
+      margin: 0 0.75rem;
+    }
+  }
+</style>
